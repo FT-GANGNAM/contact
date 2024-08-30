@@ -11,5 +11,7 @@ public class Application {
 
         c.groupByPhoneNumber();
 
+        c.selectLastContact();
+
     }//main
 }//class
