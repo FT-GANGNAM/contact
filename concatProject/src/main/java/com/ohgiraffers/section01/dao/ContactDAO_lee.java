@@ -10,11 +10,11 @@ import java.util.*;
 
 import static com.ohgiraffers.common.JDBCTemplate.*;
 
-public class ContactDAO {
+public class ContactDAO_lee {
 
     private Properties prop = new Properties();
 
-    public ContactDAO(String url) {
+    public ContactDAO_lee(String url) {
         try {
             prop.loadFromXML(new FileInputStream(url));
         } catch (IOException e) {
