@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+
     <entry key = "findPhoneNumber">
 
         SELECT
@@ -12,6 +13,7 @@
         G.groupname
         FROM tbl_contact C
         JOIN tbl_group G ON C.groupnumber = G.groupnumber;
+
 
     </entry>
 
@@ -32,30 +34,6 @@
         FROM tbl_contact
         order by contact_code DESC
         Limit 1
-    </entry>
-
-    <entry key="searchByName">
-        SELECT * FROM tbl_contact
-        WHERE contact_name LIKE '%?%'
-        ORDER BY contact_name;
-    </entry>
-
-    <entry key="searchByPhoneNumber">
-        SELECT * FROM tbl_contact
-        WHERE phonenumber LIKE '%?%'
-        ORDER BY phonenumber;
-    </entry>
-
-    <entry key="searchByAddress">
-        SELECT * FROM tbl_contact
-        WHERE adress LIKE '%?%'
-        ORDER BY adress;
-    </entry>
-
-    <entry key="searchByEmail">
-        SELECT * FROM tbl_contact
-        WHERE email LIKE '%?%'
-        ORDER BY email;
     </entry>
 
 
