@@ -70,15 +70,9 @@ public class findPhoneNumber {
         }
 
 
-
         return categoryList;
 
     }
-
-
-
-
-
 
 
 }

@@ -50,7 +50,7 @@ public class ContactDAO_YSJ {
         return result;
     }
 
-    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String a, String b, String c, String d, String s, int f){
+    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String a){
 
         PreparedStatement pstmt = null;
 
@@ -62,8 +62,9 @@ public class ContactDAO_YSJ {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/contact-query.xml"));
             pstmt = con.prepareStatement(prop.getProperty("updatecontact"));
 
-            pstmt.setString(1, contactDTO.getContact_name());
-            pstmt.setString(2, contactDTO.getPhonenumber());
+
+            pstmt.setString(1,contactDTO.getContact_name());
+            pstmt.setString(8, a);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
