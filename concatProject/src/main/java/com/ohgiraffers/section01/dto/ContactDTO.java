@@ -9,6 +9,7 @@ public class ContactDTO {
     private String address;
     private String birthday;
     private String groupnumber;
+    private String groupName;
 
     public ContactDTO() {
     }
@@ -21,6 +22,24 @@ public class ContactDTO {
         this.address = address;
         this.birthday = birthday;
         this.groupnumber = groupnumber;
+    }
+
+    public String getGroupName()
+    {
+        return groupName;
+    }
+
+    public void setGroupName(String groupName)
+    {
+        this.groupName = groupName;
+    }
+
+    public ContactDTO(String contact_name, String phonenumber, String birthday, String groupName)
+    {
+        this.contact_name = contact_name;
+        this.phonenumber = phonenumber;
+        this.birthday = birthday;
+        this.groupName = groupName;
     }
 
     public int getContact_code() {
