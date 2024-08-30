@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
-
+    <entry key="deletecontact">
+        DELETE FROM tbl_contact
+        WHERE phonenumber = ?
+    </entry>
 
     <entry key="insertcontact">
         INSERT INTO tbl_contact(

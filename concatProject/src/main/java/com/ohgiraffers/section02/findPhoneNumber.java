@@ -82,9 +82,6 @@ public class findPhoneNumber {
         System.out.println("그룹명을 입력해주세요");
         String groupName1 = scr.nextLine();
 
-<<<<<<< HEAD
-
-
 
         try {
             String query = prop.getProperty("findGroup");
@@ -113,8 +110,6 @@ public class findPhoneNumber {
         return groupName;
     }
 
-=======
->>>>>>> 27e69dab800b0f37e7f10ca8f5e6fef43b826eac
 }
 
 
