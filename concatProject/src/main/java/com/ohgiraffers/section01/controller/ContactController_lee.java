@@ -1,15 +1,15 @@
 package com.ohgiraffers.section01.controller;
 
-import com.ohgiraffers.section01.dao.ContactDAO;
+import com.ohgiraffers.section01.dao.ContactDAO_lee;
 
 import java.util.List;
 import java.util.Map;
 
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
-public class ContactController {
+public class ContactController_lee {
 
-    private ContactDAO contactDAO = new ContactDAO("src/main/resources/mapper/contact-query.xml");
+    private ContactDAO_lee contactDAO = new ContactDAO_lee("src/main/resources/mapper/contact-query.xml");
 
     public void totalCount(){
         int result = contactDAO.totalCount(getConnection());
