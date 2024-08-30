@@ -98,6 +98,7 @@ public class ContactDTO {
         this.groupnumber = groupnumber;
     }
 
+
     @Override
     public String toString() {
         return "ContactDTO{" +
@@ -108,6 +109,7 @@ public class ContactDTO {
                 ", address='" + address + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", groupnumber='" + groupnumber + '\'' +
+                ", groupName='" + groupName + '\'' +
                 '}';
     }
 }
