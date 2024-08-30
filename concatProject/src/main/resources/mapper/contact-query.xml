@@ -14,7 +14,7 @@
         address,
         birthday,
         groupnumber,
-        usercode
+        user_code
         )VALUES(
         ?,
         ?,
@@ -28,7 +28,7 @@
 
     <entry key="updateMenu">
         UPDATE tbl_contact
-        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, usercode = ?
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, user_code = ?
         WHERE phonenumber = ?
     </entry>
 
