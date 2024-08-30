@@ -82,7 +82,7 @@ public class findPhoneNumber {
         System.out.println("그룹명을 입력해주세요");
         String groupName1 = scr.nextLine();
 
-<<<<<<< HEAD
+
 
 
 
@@ -90,17 +90,25 @@ public class findPhoneNumber {
             String query = prop.getProperty("findGroup");
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, "groupName1");
+            pstmt.setString(1, groupName1);
             rset = pstmt.executeQuery();
             groupName = new ArrayList<>();
 
             while (rset.next()) {
 
 
+                groupName.add(rset.getString("contact_name"));
+                groupName.add(rset.getString("phonenumber"));
+                groupName.add(rset.getString("birthday"));
+                groupName.add(rset.getString("groupname"));
 
-            System.out.println(groupName);
+
+
+
+
 
             }
+            System.out.println(groupName);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -113,8 +121,7 @@ public class findPhoneNumber {
         return groupName;
     }
 
-=======
->>>>>>> 27e69dab800b0f37e7f10ca8f5e6fef43b826eac
+
 }
 
 

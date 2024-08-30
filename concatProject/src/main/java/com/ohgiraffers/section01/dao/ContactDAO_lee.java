@@ -10,11 +10,11 @@ import java.util.*;
 
 import static com.ohgiraffers.common.JDBCTemplate.*;
 
-public class ContactDAO {
+public class ContactDAO_lee {
 
     private Properties prop = new Properties();
 
-    public ContactDAO(String url) {
+    public ContactDAO_lee(String url) {
         try {
             prop.loadFromXML(new FileInputStream(url));
         } catch (IOException e) {
@@ -70,6 +70,7 @@ public class ContactDAO {
 
     }
 
+
 //    public List selectLastContact(Connection con){
 //        List result = new ArrayList();
 //        PreparedStatement pstmt = null;
@@ -77,6 +78,29 @@ public class ContactDAO {
 //        String query = prop.getProperty("selectLastContact");
 //                con.prepareStatement();
 //    }
+
+    public List selectLastContact(Connection con){
+        List result = new ArrayList();
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        String query = prop.getProperty("selectLastContact");
+        try {
+            pstmt = con.prepareStatement(query);
+              rset = pstmt.executeQuery();
+              if(rset.next()){
+                  result.add(rset.getString(2)+" "+  rset.getString(3)+" "+  rset.getString(4)
+                  +" "+  rset.getString(5)+" "+  rset.getString(6)+" "+  rset.getString(7));
+              }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+        return result;
+    }
+
 }
 
 
