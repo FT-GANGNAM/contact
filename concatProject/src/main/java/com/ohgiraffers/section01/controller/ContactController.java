@@ -25,7 +25,11 @@ public class ContactController {
     }
 
     public void selectLastContact(){
-        List result = contactDAO.
+        List result = contactDAO.selectLastContact(getConnection());
+        for(Object list : result){
+            System.out.println(list);
+
+        }
     }
 
 }
