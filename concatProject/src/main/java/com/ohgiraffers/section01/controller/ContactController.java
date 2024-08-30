@@ -2,7 +2,6 @@ package com.ohgiraffers.section01.controller;
 
 import com.ohgiraffers.section01.dao.ContactDAO;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -26,11 +25,7 @@ public class ContactController {
     }
 
     public void selectLastContact(){
-        List result = contactDAO.selectLastContact(getConnection());
-        for(Object list : result){
-            System.out.println(list);
-
-        }
+        List result = contactDAO.
     }
 
 }

@@ -22,8 +22,6 @@ public class ContactDAO {
         }
     }
 
-
-
     public int totalCount(Connection con){
         PreparedStatement pstmt = null;
         ResultSet rset = null;
@@ -77,22 +75,9 @@ public class ContactDAO {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         String query = prop.getProperty("selectLastContact");
-        try {
-            pstmt = con.prepareStatement(query);
-            rset = pstmt.executeQuery();
-
-            if(rset.next()){
-                result.add(rset.getInt(1)+ " "+rset.getString(2)+" "+rset.getString(3)+" "+rset.getString(4)
-                +" "+rset.getString(5)+" "+rset.getString(6)+" "+rset.getString(7)
-                );
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }finally {
-            close(con);
-            close(pstmt);
-            close(rset);
-        }
-        return result;
+                con.prepareStatement();
     }
 }
+
+
+
