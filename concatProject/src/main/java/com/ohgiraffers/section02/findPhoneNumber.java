@@ -1,8 +1,16 @@
 package com.ohgiraffers.section02;
 
 
-import java.util.List;
-import java.util.Map;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.*;
+import static com.ohgiraffers.common.JDBCTemplate.*;
+
+import static com.ohgiraffers.common.JDBCTemplate.close;
 
 public class findPhoneNumber {
 
@@ -12,7 +20,60 @@ public class findPhoneNumber {
             - 연락처는 그룹별로 조회할 수 있는 기능을 제공한다.
      */
 
+    private Properties prop = new Properties();
 
+    public findPhoneNumber(String url) {
+
+        try {
+            prop.loadFromXML(new FileInputStream(url));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+
+    }
+
+    public List<String> findPhoneNumbers1(Connection con){
+
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+
+        List categoryList = null;
+
+
+
+        try {
+            String query = prop.getProperty("findPhoneNumber");
+
+            pstmt = con.prepareStatement(query);
+
+            rset = pstmt.executeQuery();
+
+            categoryList = new ArrayList<>();
+
+
+           while(rset.next()){
+
+               categoryList.add(rset.getString("contact_name"));
+               categoryList.add(rset.getString("phonenumber"));
+               categoryList.add(rset.getString("birthday"));
+               categoryList.add(rset.getString("groupname"));
+
+           }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            close(rset);
+            close(pstmt);
+            close(con);
+        }
+
+
+
+        return categoryList;
+
+    }
 
 
 
