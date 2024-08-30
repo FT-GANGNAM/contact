@@ -30,15 +30,10 @@ public void insertcontact(){  //contact_name,phonenumber, email, address, birthd
     contactDTO.birthday(scr.nextLine());
     System.out.println("연락처에 추가할 그룹번호를 입력 해주세요 : ");
     contactDTO.groupnumber(scr.nextInt());
+    System.out.println("연락처에 추가할 유저코드를 입력 해주세요 : ");
+    contactDTO.usercode(scr.nextInt());
 
     int result = contactDAO.insertcontact(getConnection(), contactDTO);
-
-    if(result > 0){
-        System.out.println("연락처 등록 완료");
-    }else{
-        System.out.println("연락처 등록 실패");
-    }
-
 
 }
 
@@ -69,10 +64,25 @@ public void updatecontact() {
     System.out.println("연락처의 그룹번호를 어떻게 바꾸시겠습니까? ");
     contactDTO.groupnumber(scr.nextInt());
 
+    System.out.println("연락처의 유저코드를 어떻게 바꾸시겠습니까? ");
+    contactDTO.usercode(scr.nextInt());
+
     scr.nextLine();
 
     int result = contactDAO.updatecontact(getConnection(), contactDTO, a);
 
     }
+
+    public void deletecontact(){
+    Scanner scr = new Scanner(System.in);
+    ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        System.out.println("제거할 연락처번호를 입력 해주세요 : ");
+        contactDTO.phonenumber(scr.nextLine());
+
+        int result = contactDAO.deletecontact(getConnection(), contactDTO);
+
+    }
+
 
 }
