@@ -1,8 +1,6 @@
 package com.ohgiraffers.section02;
 
 
-import com.ohgiraffers.section01.dto.ContactDTO;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
@@ -74,10 +72,10 @@ public class findPhoneNumber {
 
     }
 
-    public List<ContactDTO> groupFindPhoneNumber1(Connection con) {
+    public List<String> groupFindPhoneNumber1(Connection con) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<ContactDTO> groupName = null;
+        List groupName = null;
         Scanner scr = new Scanner(System.in);
 
 
@@ -98,12 +96,14 @@ public class findPhoneNumber {
 
             while (rset.next()) {
 
-                ContactDTO contactDTO = new ContactDTO(rset.getString("contact_name"),rset.getString("phoneneumber"),rset.getString("birthday"),rset.getString("groupname"));
+                groupName.add(rset.getString("contact_name"));
+                groupName.add(rset.getString("phonenumber"));
+                groupName.add(rset.getString("birthday"));
+                groupName.add(rset.getString("groupname"));
 
-                groupName.add(contactDTO);
 
             }
-            System.out.println();
+            System.out.println(groupName);
 
         } catch (SQLException e) {
             throw new RuntimeException(e);

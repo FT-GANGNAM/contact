@@ -14,16 +14,19 @@ public class ContactDTO_YSJ {
 
     private int groupnumber;
 
+    private int usercode;
+
     public ContactDTO_YSJ() {
     }
 
-    public ContactDTO_YSJ(String contact_name, String phonenumber, String email, String address, String birthday, int groupnumber) {
+    public ContactDTO_YSJ(String contact_name, String phonenumber, String email, String address, String birthday, int groupnumber, int usercode) {
         this.contact_name = contact_name;
         this.phonenumber = phonenumber;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
         this.groupnumber = groupnumber;
+        this.usercode = usercode;
     }
 
     public ContactDTO_YSJ contact_name(String name){
@@ -62,6 +65,14 @@ public class ContactDTO_YSJ {
         return this;
     }
 
+    public ContactDTO_YSJ usercode(int usercode){
+        this.usercode = usercode;
+        return this;
+    }
+
+    public int getUsercode() {
+        return usercode;
+    }
 
     public String getContact_name() {
         return contact_name;
@@ -89,13 +100,14 @@ public class ContactDTO_YSJ {
 
     @Override
     public String toString() {
-        return "ContactDTO{" +
+        return "ContactDTO_YSJ{" +
                 "contact_name='" + contact_name + '\'' +
                 ", phonenumber='" + phonenumber + '\'' +
                 ", email='" + email + '\'' +
                 ", address='" + address + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", groupnumber=" + groupnumber +
+                ", usercode=" + usercode +
                 '}';
     }
 }
