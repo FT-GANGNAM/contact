@@ -70,13 +70,13 @@ public class ContactDAO {
 
     }
 
-    public List selectLastContact(Connection con){
-        List result = new ArrayList();
-        PreparedStatement pstmt = null;
-        ResultSet rset = null;
-        String query = prop.getProperty("selectLastContact");
-                con.prepareStatement();
-    }
+//    public List selectLastContact(Connection con){
+//        List result = new ArrayList();
+//        PreparedStatement pstmt = null;
+//        ResultSet rset = null;
+//        String query = prop.getProperty("selectLastContact");
+//                con.prepareStatement();
+//    }
 }
 
 

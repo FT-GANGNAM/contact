@@ -12,7 +12,7 @@ public class Application {
         contactController.groupByPhoneNumber();
 
     //    c.groupByPhoneNumber();
-        contactController.selectLastContact();
+     //   contactController.selectLastContact();
 
       //  c.selectLastContact();
 

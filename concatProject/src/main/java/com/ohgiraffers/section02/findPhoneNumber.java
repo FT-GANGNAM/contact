@@ -8,7 +8,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
-import static com.ohgiraffers.common.JDBCTemplate.*;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
 
@@ -33,13 +32,12 @@ public class findPhoneNumber {
 
     }
 
-    public List<String> findPhoneNumbers1(Connection con){
+    public List<String> findPhoneNumbers1(Connection con) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
 
         List categoryList = null;
-
 
 
         try {
@@ -52,33 +50,78 @@ public class findPhoneNumber {
             categoryList = new ArrayList<>();
 
 
-           while(rset.next()){
+            while (rset.next()) {
 
-               categoryList.add(rset.getString("contact_name"));
-               categoryList.add(rset.getString("phonenumber"));
-               categoryList.add(rset.getString("birthday"));
-               categoryList.add(rset.getString("groupname"));
+                categoryList.add(rset.getString("contact_name"));
+                categoryList.add(rset.getString("phonenumber"));
+                categoryList.add(rset.getString("birthday"));
+                categoryList.add(rset.getString("groupname"));
 
-           }
+            }
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }finally{
+        } finally {
             close(rset);
             close(pstmt);
             close(con);
         }
 
 
-
         return categoryList;
 
     }
 
+    public List<String> groupFindPhoneNumber1(Connection con) {
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        List groupName = null;
+        Scanner scr = new Scanner(System.in);
+
+
+        System.out.println("그룹명을 입력해주세요");
+        String groupName1 = scr.nextLine();
 
 
 
 
+        try {
+            String query = prop.getProperty("findGroup");
+            pstmt = con.prepareStatement(query);
 
+            pstmt.setString(1, "groupName1");
+            rset = pstmt.executeQuery();
+            groupName = new ArrayList<>();
+
+            while (rset.next()) {
+
+
+
+            System.out.println(groupName);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con);
+            close(pstmt);
+            close(rset);
+        }
+
+        return groupName;
+    }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
