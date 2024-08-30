@@ -2,6 +2,7 @@ package com.ohgiraffers.section02;
 
 
 import com.ohgiraffers.section01.dto.ContactDTO;
+import com.ohgiraffers.section01.dto.GroupContactDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,6 +13,7 @@ import java.sql.SQLException;
 import java.util.*;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
+
 
 public class findPhoneNumber {
 
@@ -34,13 +36,11 @@ public class findPhoneNumber {
 
     }
 
-    public List<String> findPhoneNumbers1(Connection con) {
+    public List<GroupContactDTO> findPhoneNumbers1(Connection con) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-
-        List categoryList = null;
-
+        List<GroupContactDTO> categoryList = null;
 
         try {
             String query = prop.getProperty("findPhoneNumber");
@@ -53,11 +53,10 @@ public class findPhoneNumber {
 
 
             while (rset.next()) {
-
-                categoryList.add(rset.getString("contact_name"));
-                categoryList.add(rset.getString("phonenumber"));
-                categoryList.add(rset.getString("birthday"));
-                categoryList.add(rset.getString("groupname"));
+                GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
+                rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
+                categoryList.add(groupContactDTO);
+                System.out.println();
 
             }
 
@@ -74,10 +73,10 @@ public class findPhoneNumber {
 
     }
 
-    public List<ContactDTO> groupFindPhoneNumber1(Connection con) {
+    public List<GroupContactDTO> groupFindPhoneNumber1(Connection con) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<ContactDTO> groupName = null;
+        List<GroupContactDTO> groupName = null;
         Scanner scr = new Scanner(System.in);
 
 
@@ -98,12 +97,14 @@ public class findPhoneNumber {
 
             while (rset.next()) {
 
-                ContactDTO contactDTO = new ContactDTO(rset.getString("contact_name"),rset.getString("phoneneumber"),rset.getString("birthday"),rset.getString("groupname"));
+                GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
+                        rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
 
-                groupName.add(contactDTO);
+                groupName.add(groupContactDTO);
+                System.out.println();
 
             }
-            System.out.println();
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
