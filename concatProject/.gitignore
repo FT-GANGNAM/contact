@@ -28,6 +28,7 @@ connection-info.properties
 bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
+connection-info.properties
 
 ### NetBeans ###
 /nbproject/private/

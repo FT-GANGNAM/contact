@@ -2,6 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+<<<<<<< HEAD
     <entry key = "findPhoneNumber">
 
         SELECT
@@ -16,5 +17,25 @@
 
     </entry>
 
+=======
+    <entry key="countAllContact">
+        SELECT count(*)
+        FROM tbl_contact
+    </entry>
+
+    <entry key="groupCount">
+        SELECT groupname,count(*)
+        From tbl_contact a JOIN tbl_group b
+        on a.groupnumber = b.groupnumber
+        group by groupname;
+    </entry>
+
+    <entry key="selectLastContact">
+        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber
+        FROM tbl_contact
+        order by contact_code DESC
+        Limit 1;
+    </entry>
+>>>>>>> 2c2b5c3d701a00b6b14cc1875f7fc679500297e4
 
 </properties>
