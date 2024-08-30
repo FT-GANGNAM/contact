@@ -50,18 +50,21 @@
     <entry key="countAllContact">
         SELECT count(*)
         FROM tbl_contact
+        where user_code = ?
     </entry>
 
     <entry key="groupCount">
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
+        where user_code = ?
         group by groupname
     </entry>
 
     <entry key="selectLastContact">
         SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber
         FROM tbl_contact
+        where user_code = ?
         order by contact_code DESC
         Limit 1
     </entry>
