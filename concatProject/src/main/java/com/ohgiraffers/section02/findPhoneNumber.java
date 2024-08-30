@@ -96,15 +96,10 @@ public class findPhoneNumber {
 
             while (rset.next()) {
 
-
                 groupName.add(rset.getString("contact_name"));
                 groupName.add(rset.getString("phonenumber"));
                 groupName.add(rset.getString("birthday"));
                 groupName.add(rset.getString("groupname"));
-
-
-
-
 
 
             }

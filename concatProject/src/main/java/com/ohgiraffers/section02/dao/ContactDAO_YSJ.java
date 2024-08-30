@@ -31,17 +31,21 @@ public class ContactDAO_YSJ {
 
 
         try {
-            pstmt = con.prepareStatement(query); // contact_name,phonenumber, email, address, birthday, groupnumber
+
+            pstmt = con.prepareStatement(query); // contact_na
+            // me,phonenumber, email, address, birthday, groupnumber
             pstmt.setString(1, contactDTO.getContact_name());
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
             pstmt.setString(5, contactDTO.getBirthday());
             pstmt.setInt(6, contactDTO.getGroupnumber());
+            pstmt.setInt(7, contactDTO.getUsercode());
 
             result = pstmt.executeUpdate();
 
         } catch (SQLException e) {
+            e.printStackTrace();
             System.out.println("잘못된 값을 입력하셨습니다.");
         } finally {
             close(con);
@@ -70,6 +74,7 @@ public class ContactDAO_YSJ {
             pstmt.setString(4, contactDTO.getAddress());
             pstmt.setString(5, contactDTO.getBirthday());
             pstmt.setInt(6, contactDTO.getGroupnumber());
+            pstmt.setInt(7, contactDTO.getUsercode());
 
             result = pstmt.executeUpdate();
 
@@ -90,6 +95,38 @@ public class ContactDAO_YSJ {
 
         }
         return result;
+    }
+
+    public int deletecontact(Connection con, ContactDTO_YSJ contactDTO){
+
+        PreparedStatement pstmt = null;
+
+        int result = 0;
+
+        Properties prop = new Properties();
+
+        try {
+            prop.loadFromXML(new FileInputStream("src/main/resources/mapper/contact-query.xml"));
+            pstmt = con.prepareStatement(prop.getProperty("deletecontact"));
+            pstmt.setString(1, contactDTO.getPhonenumber());
+
+            result = pstmt.executeUpdate();
+
+            if (result == 1){
+                System.out.println("연락처 제거에 성공하셨습니다.");
+            }else {
+                System.out.println("연락처 제거에 실패하셨습니다.");
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+    return result;
     }
 
 }
