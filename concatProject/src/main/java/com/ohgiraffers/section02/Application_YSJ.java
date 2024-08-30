@@ -10,7 +10,7 @@ public class Application_YSJ {
         Scanner scr = new Scanner(System.in);
         ContactController_YSJ contactController = new ContactController_YSJ();
 
-        while(true){
+           while(true){
             System.out.println("사용할 기능을 선택해주세요!");
             System.out.println("1. 연락처 추가");
             System.out.println("2. 연락처 수정");
