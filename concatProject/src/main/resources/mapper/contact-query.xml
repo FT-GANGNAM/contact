@@ -3,6 +3,31 @@
 <properties>
 
 
+    <entry key="insertcontact">
+        INSERT INTO tbl_contact(
+        contact_name,
+        phonenumber,
+        email,
+        address,
+        birthday,
+        groupnumber,
+        )VALUES(
+        ?,
+        ?,
+        ?,
+        ?,
+        ?,
+        ?
+        )
+    </entry>
+
+    <entry key="updateMenu">
+        UPDATE tbl_contact
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?
+        WHERE contact_name = ? , phonenumber = ?, email = ?, address = ? , birthday = ?, groupnumber = ?
+    </entry>
+
+
     <entry key = "findPhoneNumber">
 
         SELECT
