@@ -22,7 +22,7 @@ public class ContactDAO_lee {
         }
     }
 
-    public int totalCount(Connection con){
+    public int totalCount(Connection con,int a){
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         int result = 0;
