@@ -2,5 +2,19 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
+    <entry key = "findPhoneNumber">
+
+        SELECT
+        contact_code,
+        contact_name,
+        phonenumber,
+        birthday,
+        G.groupname
+        FROM tbl_contact C
+        JOIN tbl_group G ON C.groupnumber = G.groupnumber;
+
+
+    </entry>
+
 
 </properties>
