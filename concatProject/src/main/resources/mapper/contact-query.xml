@@ -2,20 +2,23 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
 
-    <entry key="contAllContact">
+    <entry key="countAllContact">
         SELECT count(*)
         FROM tbl_contact
     </entry>
 
     <entry key="groupCount">
-        SELECT groupnumber,count(*)
-        FROM tbl_contact
-        group by groupnumber;
+        SELECT groupname,count(*)
+        From tbl_contact a JOIN tbl_group b
+        on a.groupnumber = b.groupnumber
+        group by groupname;
     </entry>
 
-    <entry key="selectLastCode">
-        SELECT MAX(contact_code)
+    <entry key="selectLastContact">
+        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber
         FROM tbl_contact
+        order by contact_code DESC
+        Limit 1;
     </entry>
 
 </properties>
