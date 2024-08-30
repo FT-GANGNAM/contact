@@ -32,8 +32,7 @@ public class ContactDAO_YSJ {
 
         try {
 
-            pstmt = con.prepareStatement(query); // contact_na
-            // me,phonenumber, email, address, birthday, groupnumber
+            pstmt = con.prepareStatement(query); // contact_name,phonenumber, email, address, birthday, groupnumber
             pstmt.setString(1, contactDTO.getContact_name());
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());

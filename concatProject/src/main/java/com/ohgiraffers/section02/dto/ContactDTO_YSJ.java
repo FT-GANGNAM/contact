@@ -14,7 +14,7 @@ public class ContactDTO_YSJ {
 
     private int groupnumber;
 
-    private int usercode;
+    private int user_code;
 
     public ContactDTO_YSJ() {
     }
@@ -26,7 +26,7 @@ public class ContactDTO_YSJ {
         this.address = address;
         this.birthday = birthday;
         this.groupnumber = groupnumber;
-        this.usercode = usercode;
+        this.user_code = usercode;
     }
 
     public ContactDTO_YSJ contact_name(String name){
@@ -57,11 +57,8 @@ public class ContactDTO_YSJ {
 
     public ContactDTO_YSJ groupnumber (int groupnumber){
         this.groupnumber = groupnumber;
-        if(groupnumber > 0){
-            System.out.println("성공하셨습니다!");
-        } else {
-            System.out.println("0보다 큰수를 입력해주세요!");
-        }
+        if(groupnumber <= 0){
+            System.out.println("다시입력해주세요");}
         return this;
     }
 
