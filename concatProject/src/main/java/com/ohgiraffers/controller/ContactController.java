@@ -1,16 +1,20 @@
 package com.ohgiraffers.controller;
 
-import com.ohgiraffers.section01.dao.AccessUserDAO;
+import com.ohgiraffers.function.UserAccountManager;
 
 public class ContactController
 {
-    AccessUserDAO accessUserDAO = new AccessUserDAO("src/main/resources/mapper/contact-query.xml");
+    UserAccountManager userAccountManager = new UserAccountManager();
 
-    public void login()
+    public int login()
     {
-
+        return userAccountManager.login();
     }
 
+    public int signup()
+    {
+        return userAccountManager.signup();
+    }
     public void searchContact()
     {
         System.out.println("연락처 검색!!!!");

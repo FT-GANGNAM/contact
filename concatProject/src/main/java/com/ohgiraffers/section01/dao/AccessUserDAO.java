@@ -1,7 +1,6 @@
 package com.ohgiraffers.section01.dao;
 
-import com.ohgiraffers.function.Login;
-import com.ohgiraffers.function.Signup;
+import com.ohgiraffers.section01.dto.UserDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,12 +10,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import static com.ohgiraffers.common.JDBCTemplate.*;
+
 public class AccessUserDAO
 {
+    //DB랑 연결해주는 역할만
     private Properties prop = new Properties();
-
-    Login login = new Login();
-    Signup signup = new Signup();
 
     public AccessUserDAO(String url)
     {
@@ -30,46 +29,63 @@ public class AccessUserDAO
         }
     }
 
-    public int login(Connection con, String userId, String password)
+    public UserDTO getUserInfo(Connection con, String id, String pwd)
     {
         PreparedStatement ps = null;
         ResultSet rs = null;
-        String query = prop.getProperty("getAllUserInfo");
+        String query = prop.getProperty("getUserInfo");
 
-        int primaryKey = 0;
-        //회원 정보 tbl_user에서 가져올 거임
-        //입력한 키랑 tbl_user.id랑 tbl_user.password 비교
-        //해당 멤버 맞으면 primary key로 설정된 값 가져오기
+        UserDTO user = null;
 
         try
         {
             ps = con.prepareStatement(query);
+            ps.setString(1, id);
+            ps.setString(2, pwd);
             rs = ps.executeQuery();
 
             while(rs.next())
             {
-                System.out.println(rs.getString(1) + " 님 환영합니다 ദ്ദി₍ᵔ- ̫-ᵔ₎"); //유저 이름 불러와서 환영합니다 해놔
-                //primary key 설정
+                user = new UserDTO(rs.getInt("user_code"), rs.getString("user_name"), rs.getString("id"), rs.getString("pwd"), rs.getString("prefer"));
+                System.out.println(user + " - AccessUserDAO.getUserInfo");
             }
         }
         catch (SQLException e)
         {
-            System.out.println("해당 회원 정보를 찾을 수 없습니다. ");
             throw new RuntimeException(e);
         }
+        finally
+        {
+            close(con);
+            close(ps);
+            close(rs);
+        }
 
-        return primaryKey;
+        return user;
     }
 
-    public void signup()
+    public void signup(Connection con, String name, String id, String pwd)
     {
         PreparedStatement ps = null;
-        ResultSet rs = null;
+        int result = 0;
         String query = prop.getProperty("setNewUser");
-
-        int primaryKey = 0;
 
         //얘는 쿼리에 INSERT INTO 해서 고객 정보값 넣어줘야 함
         //UserDTO 필요
+        try
+        {
+            ps = con.prepareStatement(query);
+            ps.setString(1, name);
+            ps.setString(2, id);
+            ps.setString(3, pwd);
+            result = ps.executeUpdate();
+
+            System.out.println(result == 1 ? "가입 완료" : "가입 실패");
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+
     }
 }

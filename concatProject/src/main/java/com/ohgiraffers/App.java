@@ -11,6 +11,7 @@ public class App
         Scanner sc = new Scanner(System.in);
         ContactController contactController = new ContactController();
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
+        String userPrefer = "";
 
         while(true)
         {
@@ -22,13 +23,18 @@ public class App
             int choice = sc.nextInt();
             if(choice == 1)
             {
-                System.out.println("로그인 하께여");
-                //로그인하고 넘어가
+                userCode = contactController.login();
+                if(userCode < 0)
+                {
+                    System.out.println("아이디 또는 비밀번호가 맞지 않습니다( ༎ຶŎ༎ຶ )");
+                    System.out.println("메인 화면으로 돌아갑니다.");
+                    continue;
+                }
             }
             else if(choice == 2)
             {
                 System.out.println("회원가입 하께여");
-                //회원가입 완료하고 추가해
+                userCode = contactController.signup();
             }
             else
             {

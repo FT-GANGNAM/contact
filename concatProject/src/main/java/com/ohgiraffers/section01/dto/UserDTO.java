@@ -20,6 +20,15 @@ public class UserDTO
         this.prefer = prefer;
     }
 
+    public UserDTO(int userCode, String userName, String id, String pwd, String prefer)
+    {
+        this.userCode = userCode;
+        this.userName = userName;
+        this.id = id;
+        this.pwd = pwd;
+        this.prefer = prefer;
+    }
+
     public int getUserCode()
     {
         return userCode;

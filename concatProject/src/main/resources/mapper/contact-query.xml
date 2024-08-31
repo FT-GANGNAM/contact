@@ -108,8 +108,9 @@
         ORDER BY email;
     </entry>
     
-    <entry key="getAllUserInfo">
-        SELECT * FROM tbl_user;
+    <entry key="getUserInfo">
+        SELECT * FROM tbl_user
+        WHERE id = ? AND pwd = ?;
     </entry>
 
     <entry key="setNewUser">
