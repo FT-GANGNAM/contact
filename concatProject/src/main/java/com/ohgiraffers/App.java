@@ -11,7 +11,6 @@ public class App
         Scanner sc = new Scanner(System.in);
         ContactController contactController = new ContactController();
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
-        String userPrefer = "";
 
         while(true)
         {
@@ -28,20 +27,22 @@ public class App
                 {
                     System.out.println("아이디 또는 비밀번호가 맞지 않습니다( ༎ຶŎ༎ຶ )");
                     System.out.println("메인 화면으로 돌아갑니다.");
-                    continue;
                 }
+                else break;
             }
             else if(choice == 2)
             {
-                System.out.println("회원가입 하께여");
                 userCode = contactController.signup();
+                break;
             }
             else
             {
-                System.out.println("잘못된 입력입니다. 다시 입력해주세요.");
-                continue;
+                System.out.println("잘못된 입력입니다. 메인 화면으로 돌아갑니다.");
             }
+        }
 
+        while(true)
+        {
             System.out.println();
             System.out.println("* ੈ✩‧₊ 사용하실 서비스 번호를 입력해주세요 * ੈ✩‧₊");
             System.out.println("1. 연락처 관리");
@@ -52,7 +53,7 @@ public class App
             System.out.println("6. 사용자 설정");
             System.out.println("9. 프로그램 종료");
             System.out.println("｡.ﾟ+:✿｡.ﾟ+:✿｡.ﾟ+:✿｡.ﾟ+:✿｡.ﾟ+:✿｡.ﾟ");
-            choice = sc.nextInt();
+            int choice = sc.nextInt();
 
             switch (choice)
             {
@@ -85,8 +86,8 @@ public class App
                     System.out.println("프로그램을 종료하겠긔");
                     return;
                 default:
-                    System.out.println("잘못된 값을 입력하셨습니다. 메인 화면으로 돌아갑니다.");
-                    continue;
+                    System.out.println("잘못된 값을 입력하셨습니다. 서비스 선택 창으로 돌아갑니다.");
+                    break;
             }
         }
 

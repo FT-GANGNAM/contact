@@ -52,6 +52,8 @@ public class UserAccountManager
         accessUserDAO.signup(getConnection(), name, id, pwd);
         UserDTO user = accessUserDAO.getUserInfo(getConnection(), id, pwd);
 
+        System.out.println("***** 회원 가입 성공! *****");
+        System.out.println(user.getUserName() + " 님, 환영합니다 (*ˊᵕˋ*)ﾉ");
         return user.getUserCode();
     }
 }
