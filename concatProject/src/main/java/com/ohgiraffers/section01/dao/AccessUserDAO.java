@@ -70,8 +70,6 @@ public class AccessUserDAO
         int result = 0;
         String query = prop.getProperty("setNewUser");
 
-        //얘는 쿼리에 INSERT INTO 해서 고객 정보값 넣어줘야 함
-        //UserDTO 필요
         try
         {
             ps = con.prepareStatement(query);

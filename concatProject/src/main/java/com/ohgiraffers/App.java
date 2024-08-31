@@ -71,7 +71,7 @@ public class App
                     break;
                 case 3:
                     System.out.println("연락처 검색하께요");
-                    contactController.searchContact();
+                    contactController.searchContact(userCode);
                     break;
                 case 4:
                     System.out.println("모든 연락처 목록 조회하께여");

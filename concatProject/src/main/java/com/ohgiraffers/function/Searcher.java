@@ -1,13 +1,10 @@
 package com.ohgiraffers.function;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
+import com.ohgiraffers.section01.dao.SearchDAO;
+import com.ohgiraffers.section01.dto.ContactDTO;
+
 import java.util.List;
-import java.util.Map;
-import java.util.Properties;
+import java.util.Scanner;
 
 import static com.ohgiraffers.common.JDBCTemplate.*;
 
@@ -15,61 +12,54 @@ public class Searcher
 {
     //이름, 전화번호, 이메일, 주소 등을 기준으로 연락처를 검색할 수 있어야 한다.
     //검색 결과는 리스트 형태로 표시되며, 검색 조건에 따라 필터링할 수 있다.
+    SearchDAO searchDAO = new SearchDAO("src/main/resources/mapper/contact-query.xml");
+    Scanner sc = new Scanner(System.in);
 
-    private Properties prop = new Properties();
-
-    private List<Map<Integer,String>> searchedContact = new ArrayList<>(); // => 이게ㅐ 필요함? 리스트 형태로 표시할 이유가 없는데 지금
-
-    public void searchName(Connection con)
+    public void search(int userCode)
     {
-        PreparedStatement ps = null;
-        ResultSet rs = null;
-        String query = prop.getProperty("searchByName");
+        System.out.println("***** 검색 설정 *****");
+        System.out.println("1. 이름으로 검색");
+        System.out.println("2. 전화번호로 검색");
+        System.out.println("3. 이메일로 검색");
+        System.out.println("4. 주소로 검색");
 
-        try
+        int choice = sc.nextInt();
+        sc.nextLine();
+
+        switch(choice)
         {
-            ps = con.prepareStatement(query);
-            rs = ps.executeQuery();
-            while(rs.next())
+            case 1:
+                searchByName(userCode);
+                break;
+            case 2:
+                break;
+            case 3:
+                break;
+            case 4:
+                break;
+            default:
+                System.out.println("장난치지 마시길 ... | ´ʖ̼`|");
+                break;
+        }
+    }
+
+    public void searchByName(int userCode)
+    {
+        System.out.print("입력: ");
+        String searchValue = sc.nextLine();
+
+        List<ContactDTO> contacts = searchDAO.searchName(getConnection(), searchValue, userCode);
+        if(contacts.isEmpty())
+        {
+            System.out.println("일치하는 검색 결과가 없습니다.");
+        }
+        else
+        {
+            for(ContactDTO contact : contacts)
             {
-                printContactInfo(rs.getString("CONTACT_NAME"), rs.getString("PHONENUMBER"), rs.getString("EMAIL"), rs.getString("ADRESS"), rs.getString("BIRTHDAY"));
+                System.out.println(contact);
             }
         }
-        catch (SQLException e)
-        {
-            throw new RuntimeException(e);
-        }
-        finally
-        {
-            close(con);
-            close(ps);
-            close(rs);
-        }
-
-        //SELECT * FROM tbl_contact WHERE name LIKE '%?%'
-        //SELECT * FROM tbl_contact WHERE phoneNumber LIKE '%?%' OR 주소, 이메일
-        //처음에 뭘로 검색할건지 정해줘야 하나? 이름에서 검색하면 이거 번호로 검색하면 이거 ...
-
-    }
-
-    public void searchPhoneNumber(Connection con)
-    {
-        //SELECT * FROM tbl_contact WHERE phoneNumber LIKE '%?%'
-        String query = prop.getProperty("searchByPhoneNumber");
-
-    }
-
-
-    public void searchEmail(Connection con)
-    {
-        //SELECT * FROM tbl_contact WHERE email LIKE '%?%'
-        String query = prop.getProperty("searchByEmail");
-    }
-
-    public void searchAddress(Connection con)
-    {
-        String query = prop.getProperty("searchByAddress");
-        //SELECT * FROM tbl_contact WHERE address LIKE '%?%' 이따 오탈자 수정
     }
 
     private void printContactInfo(String name, String phoneNum, String email, String address, String birthday)

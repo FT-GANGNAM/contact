@@ -1,10 +1,12 @@
 package com.ohgiraffers.controller;
 
+import com.ohgiraffers.function.Searcher;
 import com.ohgiraffers.function.UserAccountManager;
 
 public class ContactController
 {
     UserAccountManager userAccountManager = new UserAccountManager();
+    Searcher searcher = new Searcher();
 
     public int login()
     {
@@ -15,9 +17,8 @@ public class ContactController
     {
         return userAccountManager.signup();
     }
-    public void searchContact()
+    public void searchContact(int userCode)
     {
-        System.out.println("연락처 검색!!!!");
-
+        searcher.search(userCode);
     }
 }
