@@ -47,7 +47,8 @@ public class AccessUserDAO
             while(rs.next())
             {
                 user = new UserDTO(rs.getInt("user_code"), rs.getString("user_name"), rs.getString("id"), rs.getString("pwd"), rs.getString("prefer"));
-                System.out.println(user + " - AccessUserDAO.getUserInfo");
+                System.out.println("accessUserDAO.getUserInfo()");
+                System.out.println(user);
             }
         }
         catch (SQLException e)
@@ -70,8 +71,6 @@ public class AccessUserDAO
         int result = 0;
         String query = prop.getProperty("setNewUser");
 
-        //얘는 쿼리에 INSERT INTO 해서 고객 정보값 넣어줘야 함
-        //UserDTO 필요
         try
         {
             ps = con.prepareStatement(query);
@@ -84,7 +83,7 @@ public class AccessUserDAO
         }
         catch (SQLException e)
         {
-            throw new RuntimeException(e);
+            System.out.println("가입에 실패했습니다. 제대로 입력하셨나요?");
         }
 
     }

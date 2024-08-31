@@ -86,25 +86,25 @@
     
     <entry key="searchByName">
         SELECT * FROM tbl_contact
-        WHERE contact_name LIKE '%?%'
+        WHERE contact_name LIKE ? AND user_code = ?
         ORDER BY contact_name;
     </entry>
 
     <entry key="searchByPhoneNumber">
         SELECT * FROM tbl_contact
-        WHERE phonenumber LIKE '%?%'
+        WHERE phonenumber LIKE ? AND user_code = ?
         ORDER BY phonenumber;
     </entry>
 
     <entry key="searchByAddress">
         SELECT * FROM tbl_contact
-        WHERE adress LIKE '%?%'
+        WHERE adress LIKE ? AND user_code = ?
         ORDER BY adress;
     </entry>
 
     <entry key="searchByEmail">
         SELECT * FROM tbl_contact
-        WHERE email LIKE '%?%'
+        WHERE email LIKE ? AND user_code = ?
         ORDER BY email;
     </entry>
     

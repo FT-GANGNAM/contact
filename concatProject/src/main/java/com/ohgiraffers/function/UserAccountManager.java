@@ -27,6 +27,7 @@ public class UserAccountManager
         
         if(user != null)
         {
+            System.out.println();
             System.out.println("***** 로그인 성공! *****");
             System.out.println(user.getUserName() + " 님, 환영합니다 (*ˊᵕˋ*)ﾉ");
         }
