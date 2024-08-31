@@ -9,7 +9,7 @@ public class App
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
-        ContactController controller = new ContactController();
+        ContactController contactController = new ContactController();
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -64,6 +64,7 @@ public class App
                     break;
                 case 3:
                     System.out.println("연락처 검색하께요");
+                    contactController.searchContact();
                     break;
                 case 4:
                     System.out.println("모든 연락처 목록 조회하께여");
