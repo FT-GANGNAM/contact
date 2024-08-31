@@ -17,6 +17,7 @@ public class ContactController
     {
         return userAccountManager.signup();
     }
+
     public void searchContact(int userCode)
     {
         searcher.search(userCode);

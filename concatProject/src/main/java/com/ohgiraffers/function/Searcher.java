@@ -17,38 +17,19 @@ public class Searcher
 
     public void search(int userCode)
     {
-        System.out.println("***** 검색 설정 *****");
+        System.out.println();
+        System.out.println("***** 연락처 검색 *****");
         System.out.println("1. 이름으로 검색");
         System.out.println("2. 전화번호로 검색");
         System.out.println("3. 이메일로 검색");
         System.out.println("4. 주소로 검색");
 
-        int choice = sc.nextInt();
-        sc.nextLine();
+        String choice = sc.nextLine();
 
-        switch(choice)
-        {
-            case 1:
-                searchByName(userCode);
-                break;
-            case 2:
-                break;
-            case 3:
-                break;
-            case 4:
-                break;
-            default:
-                System.out.println("장난치지 마시길 ... | ´ʖ̼`|");
-                break;
-        }
-    }
-
-    public void searchByName(int userCode)
-    {
         System.out.print("입력: ");
         String searchValue = sc.nextLine();
 
-        List<ContactDTO> contacts = searchDAO.searchName(getConnection(), searchValue, userCode);
+        List<ContactDTO> contacts = searchDAO.search(getConnection(), choice, searchValue, userCode);
         if(contacts.isEmpty())
         {
             System.out.println("일치하는 검색 결과가 없습니다.");
@@ -61,6 +42,7 @@ public class Searcher
             }
         }
     }
+
 
     private void printContactInfo(String name, String phoneNum, String email, String address, String birthday)
     {

@@ -30,13 +30,34 @@ public class SearchDAO
         }
     }
 
-    public List<ContactDTO> searchName(Connection con, String searchVal, int userCode)
+    public List<ContactDTO> search(Connection con, String condition, String searchVal, int userCode)
     {
         PreparedStatement ps = null;
         ResultSet rs = null;
+        String query = null;
 
         List<ContactDTO> contacts = new ArrayList<>();
-        String query = prop.getProperty("searchByName");
+
+        if(condition.equals("1") || condition.equals("이름"))
+        {
+            query = prop.getProperty("searchByName");
+        }
+        else if(condition.equals("2") || condition.equals("전화번호"))
+        {
+            query = prop.getProperty("searchByPhoneNumber");
+        }
+        else if(condition.equals("3") || condition.equals("이메일"))
+        {
+            query = prop.getProperty("searchByEmail");
+        }
+        else if(condition.equals("4") || condition.equals("주소"))
+        {
+            query = prop.getProperty("searchByAddress");
+        }
+        else
+        {
+            return contacts;
+        }
 
         try
         {
@@ -65,26 +86,4 @@ public class SearchDAO
 
         return contacts;
     }
-
-
-    public void searchPhoneNumber(Connection con)
-    {
-        //SELECT * FROM tbl_contact WHERE phoneNumber LIKE '%?%'
-        String query = prop.getProperty("searchByPhoneNumber");
-
-    }
-
-
-    public void searchEmail(Connection con)
-    {
-        //SELECT * FROM tbl_contact WHERE email LIKE '%?%'
-        String query = prop.getProperty("searchByEmail");
-    }
-
-    public void searchAddress(Connection con)
-    {
-        String query = prop.getProperty("searchByAddress");
-        //SELECT * FROM tbl_contact WHERE address LIKE '%?%'
-    }
-
 }

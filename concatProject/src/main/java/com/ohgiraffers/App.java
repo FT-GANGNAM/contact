@@ -70,7 +70,6 @@ public class App
                     System.out.println("그룹 내의 연락처 관리");
                     break;
                 case 3:
-                    System.out.println("연락처 검색하께요");
                     contactController.searchContact(userCode);
                     break;
                 case 4:
