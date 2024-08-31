@@ -83,6 +83,40 @@
 
 
     </entry>
+    
+    <entry key="searchByName">
+        SELECT * FROM tbl_contact
+        WHERE contact_name LIKE '%?%'
+        ORDER BY contact_name;
+    </entry>
 
+    <entry key="searchByPhoneNumber">
+        SELECT * FROM tbl_contact
+        WHERE phonenumber LIKE '%?%'
+        ORDER BY phonenumber;
+    </entry>
+
+    <entry key="searchByAddress">
+        SELECT * FROM tbl_contact
+        WHERE adress LIKE '%?%'
+        ORDER BY adress;
+    </entry>
+
+    <entry key="searchByEmail">
+        SELECT * FROM tbl_contact
+        WHERE email LIKE '%?%'
+        ORDER BY email;
+    </entry>
+    
+    <entry key="getUserInfo">
+        SELECT * FROM tbl_user
+        WHERE id = ? AND pwd = ?;
+    </entry>
+
+    <entry key="setNewUser">
+        INSERT INTO tbl_user
+        (user_name, id, pwd)
+        VALUES(?, ?, ?);
+    </entry>
 
 </properties>
