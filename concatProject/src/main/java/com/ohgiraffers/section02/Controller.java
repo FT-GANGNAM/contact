@@ -57,4 +57,34 @@ public class Controller {
             System.out.println(groupContactDTO);
         }
     }
+
+    public void findGroup(){
+
+        Scanner scr = new Scanner(System.in);
+        Controller con = new Controller();
+
+        while(true){
+            System.out.println("1. 나의 그룹 조회");
+            System.out.println("2. 그룹 추가");
+            System.out.println("3. 그룹 제거");
+            int choice = scr.nextInt();
+
+            switch (choice){
+
+                case 1 : break;
+                case 2 : break;
+                case 3 : break;
+
+            }
+
+
+        }
+
+    }
 }
+
+
+//
+//- **연락처 그룹화**
+//        - 연락처를 그룹으로 분류할 수 있어야 한다.
+//        - 사용자는 그룹을 추가하고, 삭제하고, 그룹에 연락처를 추가하거나 삭제할 수 있어야 한다.

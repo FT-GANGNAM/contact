@@ -1,6 +1,7 @@
 package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
+import com.ohgiraffers.section01.controller.ContactController_lee;
 
 import java.util.Scanner;
 
@@ -10,6 +11,7 @@ public class App
     {
         Scanner sc = new Scanner(System.in);
         ContactController contactController = new ContactController();
+        ContactController_lee contactController_lee = new ContactController_lee();
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -76,7 +78,7 @@ public class App
                     System.out.println("모든 연락처 목록 조회하께여");
                     break;
                 case 5:
-                    System.out.println("사용자님의 연락처 통계입니다.");
+                    contactController_lee.groupChoose(userCode);
                     break;
                 case 6:
                     System.out.println("선호하는 정렬 순서를 설정해보세요");
