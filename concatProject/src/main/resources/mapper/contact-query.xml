@@ -138,4 +138,14 @@
         WHERE user_code = ?;
     </entry>
 
+    <entry key="printGroupList">
+        SELECT groupname FROM tbl_group
+        WHERE user_code ?;
+    </entry>
+
+    <entry key="printContactList">
+        SELECT * FROM tbl_contact
+        WHERE user_code = ?;
+    </entry>
+
 </properties>

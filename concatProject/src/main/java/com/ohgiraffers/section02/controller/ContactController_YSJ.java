@@ -3,6 +3,8 @@ package com.ohgiraffers.section02.controller;
 import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -146,9 +148,47 @@ public void updatecontact(int userCode) {
     {
         // 해당 유저코드가 가지고 있는 그룹명 출력
         // 그룹명을 골라달라고 한 다음에
-        // 연락처
-        
+        // 연락처 출력할 때
 
+        List<ContactDTO_YSJ> contacts = new ArrayList<>();
+        contacts.add(new ContactDTO_YSJ());
+
+        Scanner scr = new Scanner(System.in);
+        List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
+
+        while(true)
+        {
+            System.out.println("그룹에 담을 휴대폰 번호를 입력해주세요: ");
+            String phoneNum = scr.nextLine();
+            phoneNumList.add(phoneNum);
+
+            System.out.println("더 추가하시겠습니까?");
+            String answer = scr.nextLine();
+
+            if(answer.equals("yes") || answer.equals("네") || answer.equals("예"))
+                continue;
+            else if(answer.equals("no") || answer.equals("아니요"))
+                break;
+            else
+            {
+                System.out.println("잘못 입력했긔 니가 입력 잘못해서 끝낼 거임");
+                break;
+            }
+        }
+
+        for(int i = 0 ; i < contacts.size() ; i++)
+        {
+            for(int j = 0 ; j < phoneNumList.size() ; j++)
+            {
+                if(contacts.get(i).getPhonenumber().equals(phoneNumList.get(j)))
+                {
+                    // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
+                    // DAO => UPDATE SET groupnumber = ? WHERE phonenumber = ?;
+                }
+            }
+        }
+        
+        //끝
 
     }
 
