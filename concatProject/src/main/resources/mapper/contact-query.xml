@@ -62,7 +62,7 @@
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber,user_code
+        SELECT contact_code,contact_name,phonenumber,email,address,birthday,groupnumber,user_code
         FROM tbl_contact
         where user_code =?
         order by contact_code DESC
@@ -117,6 +117,27 @@
         INSERT INTO tbl_user
         (user_name, id, pwd)
         VALUES(?, ?, ?);
+    </entry>
+
+    <entry key = "insertGroup">
+
+
+        INSERT INTO tbl_group VALUES (NULL, ?);
+
+
+    </entry>
+
+    <entry key = "deleteGroup">
+
+        DELETE FROM tbl_group WHERE Groupname = ?;
+
+
+    </entry>
+
+    <entry key="savePrefer">
+        UPDATE tbl_user
+        SET prefer = ?
+        WHERE user_code = ?;
     </entry>
 
 </properties>

@@ -33,7 +33,7 @@ public class ContactDAO_YSJ {
         try {
 
             pstmt = con.prepareStatement(query); // contact_name,phonenumber, email, address, birthday, groupnumber
-            pstmt.setString(1, contactDTO.getContact_name());
+            pstmt.setString(1, contactDTO.getContactName());
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
@@ -66,7 +66,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(prop.getProperty("updatecontact"));
 
 
-            pstmt.setString(1,contactDTO.getContact_name());
+            pstmt.setString(1,contactDTO.getContactName());
             pstmt.setString(8, a);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
@@ -126,6 +126,67 @@ public class ContactDAO_YSJ {
             close(pstmt);
         }
     return result;
+    }
+
+    public int insertGroup(Connection con, ContactDTO_YSJ contactDTO) {
+
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        String query = prop.getProperty("insertGroup");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1, contactDTO.getGroupname());
+
+            result = pstmt.executeUpdate();
+
+            if(result == 1){
+                System.out.println("그룹 추가가 완료되었습니다.");
+
+            }else{
+
+                System.out.println("그룹 추가를 실패하였습니다.");
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return result;
+
+    }
+    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO){
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        String query = prop.getProperty("deleteGroup");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1, contactDTO.getGroupname());
+
+            result = pstmt.executeUpdate();
+
+            if(result == 1){
+
+                System.out.println("그룹이 제거되었습니다.");
+            }else{
+                System.out.println("그룹 제거에 실패하였습니다.");
+            }
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+
+        }return result;
+
     }
 
 }
