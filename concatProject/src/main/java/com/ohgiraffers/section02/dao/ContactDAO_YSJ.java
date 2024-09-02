@@ -38,8 +38,7 @@ public class ContactDAO_YSJ {
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
             pstmt.setString(5, contactDTO.getBirthday());
-            pstmt.setInt(6, contactDTO.getGroupnumber());
-            pstmt.setInt(7, contactDTO.getUser_code());
+            pstmt.setInt(6, contactDTO.getUser_code());
 
             result = pstmt.executeUpdate();
 
@@ -67,13 +66,12 @@ public class ContactDAO_YSJ {
 
 
             pstmt.setString(1,contactDTO.getContactName());
-            pstmt.setString(8, a);
+            pstmt.setString(7, a);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
             pstmt.setString(5, contactDTO.getBirthday());
-            pstmt.setInt(6, contactDTO.getGroupnumber());
-            pstmt.setInt(7, contactDTO.getUser_code());
+            pstmt.setInt(6, contactDTO.getUser_code());
 
             result = pstmt.executeUpdate();
 
