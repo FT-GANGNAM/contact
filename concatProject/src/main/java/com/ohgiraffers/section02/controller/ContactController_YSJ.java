@@ -48,8 +48,6 @@ public void insertcontact(int userCode){  //contact_name,phonenumber, email, add
         System.out.println("입력하신 형식이 맞지 않습니다!");
         return;
     }
-    System.out.println("연락처에 추가할 그룹번호를 입력 해주세요 : ");
-    contactDTO.groupnumber(scr.nextInt());
 
     contactDTO.userCode(userCode);
 
@@ -96,10 +94,6 @@ public void updatecontact(int userCode) {
     System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ex)00월 00일, 01월 23일 ");
     contactDTO.birthday(scr.nextLine());
 
-    System.out.println("연락처의 그룹번호를 어떻게 바꾸시겠습니까? ");
-    contactDTO.groupnumber(scr.nextInt());
-
-
     contactDTO.userCode(userCode);
 
     scr.nextLine();
@@ -119,7 +113,7 @@ public void updatecontact(int userCode) {
 
     }
 
-    public void insertGroup(){
+    public void insertGroup(int userCode){
 
         Scanner scr = new Scanner(System.in);
         ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
@@ -135,7 +129,7 @@ public void updatecontact(int userCode) {
 
 
 
-    public void deleteGroup(){
+    public void deleteGroup(int userCode){
 
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
@@ -144,6 +138,16 @@ public void updatecontact(int userCode) {
         contactDTO.groupname(scr.nextLine());
 
         int result = contactDAO.deleteGroup(getConnection(), contactDTO);
+
+
+    }
+
+    public void updateGroup(int userCode)
+    {
+        // 해당 유저코드가 가지고 있는 그룹명 출력
+        // 그룹명을 골라달라고 한 다음에
+        // 연락처
+        
 
 
     }
@@ -177,9 +181,25 @@ public void updatecontact(int userCode) {
 
     public void manageGroup(int userCode)
     {
-        System.out.println("1. 추가 2. 수정 3. 삭제");
+        System.out.println("1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
+
+        switch (choice)
+        {
+            case "1":
+            case "추가":
+                insertGroup(userCode);
+                break;
+            case "2":
+            case "삭제":
+                deleteGroup(userCode);
+                break;
+
+            default:
+                System.out.println("잘못된 입력입니다.");
+                break;
+        }
 
     }
 
