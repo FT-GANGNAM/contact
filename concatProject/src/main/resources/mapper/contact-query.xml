@@ -148,4 +148,9 @@
         WHERE user_code = ?;
     </entry>
 
+    <entry key="changeGroupNumber">
+        UPDATE tbl_contact SET groupnumber = ?
+        WHERE user_code = ? AND phonenumber = ?;
+    </entry>
+
 </properties>
