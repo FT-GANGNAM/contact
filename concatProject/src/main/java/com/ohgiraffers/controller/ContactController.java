@@ -1,11 +1,25 @@
 package com.ohgiraffers.controller;
 
+import com.ohgiraffers.function.Searcher;
+import com.ohgiraffers.function.UserAccountManager;
+
 public class ContactController
 {
-    //기능 추가하세요
+    UserAccountManager userAccountManager = new UserAccountManager();
+    Searcher searcher = new Searcher();
 
-    public void searchContact()
+    public int login()
     {
+        return userAccountManager.login();
+    }
 
+    public int signup()
+    {
+        return userAccountManager.signup();
+    }
+
+    public void searchContact(int userCode)
+    {
+        searcher.search(userCode);
     }
 }
