@@ -134,4 +134,10 @@
 
     </entry>
 
+    <entry key="savePrefer">
+        UPDATE tbl_user
+        SET prefer = ?
+        WHERE user_code = ?;
+    </entry>
+
 </properties>
