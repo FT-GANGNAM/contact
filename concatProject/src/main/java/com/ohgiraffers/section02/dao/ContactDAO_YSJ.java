@@ -156,5 +156,37 @@ public class ContactDAO_YSJ {
         return result;
 
     }
+    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO){
+        PreparedStatement pstmt = null;
+        int result = 0;
+
+        String query = prop.getProperty("deleteGroup");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1, contactDTO.getGroupname());
+
+            result = pstmt.executeUpdate();
+
+            if(result == 1){
+
+                System.out.println("그룹이 제거되었습니다.");
+            }else{
+                System.out.println("그룹 제거에 실패하였습니다.");
+            }
+
+
+
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally {
+            close(con);
+            close(pstmt);
+
+        }return result;
+
+    }
 
 }
