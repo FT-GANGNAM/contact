@@ -12,6 +12,7 @@ public class App
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
+
         ContactController contactController = new ContactController();
         ContactController_lee contactController_lee = new ContactController_lee();
         Controller controller = new Controller();
@@ -65,16 +66,10 @@ public class App
             switch (choice)
             {
                 case 1:
-                    System.out.println("할 거 고르셈");
-                    System.out.println("추가");
-                    System.out.println("수정");
-                    System.out.println("삭제");
+                    contactController_YSJ.manageContact(userCode);
                     break;
                 case 2:
-                    System.out.println("할 거 고르셈");
-                    System.out.println("추가");
-                    System.out.println("수정");
-                    System.out.println("그룹 내의 연락처 관리");
+                    contactController_YSJ.manageGroup(userCode);
                     break;
                 case 3:
                     contactController.searchContact(userCode);
