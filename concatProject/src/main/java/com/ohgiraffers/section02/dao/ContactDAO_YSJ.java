@@ -33,7 +33,7 @@ public class ContactDAO_YSJ {
         try {
 
             pstmt = con.prepareStatement(query); // contact_name,phonenumber, email, address, birthday, groupnumber
-            pstmt.setString(1, contactDTO.getContact_name());
+            pstmt.setString(1, contactDTO.getContactName());
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
@@ -66,7 +66,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(prop.getProperty("updatecontact"));
 
 
-            pstmt.setString(1,contactDTO.getContact_name());
+            pstmt.setString(1,contactDTO.getContactName());
             pstmt.setString(8, a);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());

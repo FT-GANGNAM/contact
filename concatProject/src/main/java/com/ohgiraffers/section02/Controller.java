@@ -15,7 +15,7 @@ public class Controller {
 
     private findPhoneNumber findphoneNumber = new findPhoneNumber("src/main/resources/mapper/contact-query.xml");
 
-    public void findNumber(){
+    public void findNumber(int userCode){
         Controller con = new Controller();
 
 

@@ -50,12 +50,14 @@ public class findPhoneNumber {
 
             categoryList = new ArrayList<>();
 
+            System.out.println("전화번호부");
+
 
             while (rset.next()) {
                 GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
                 rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
                 categoryList.add(groupContactDTO);
-                System.out.println();
+
 
             }
 
@@ -105,7 +107,7 @@ public class findPhoneNumber {
                         rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
 
                 groupName.add(groupContactDTO);
-                System.out.println();
+
 
             }
 
