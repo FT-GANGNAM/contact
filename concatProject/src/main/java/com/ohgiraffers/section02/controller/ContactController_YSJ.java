@@ -117,6 +117,32 @@ public void updatecontact() {
 
     }
 
+    public void insertGroup(){
+
+        Scanner scr = new Scanner(System.in);
+        ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+
+        System.out.println("그룹명을 입력해주세요 : ");
+        contactDTO.groupname(scr.nextLine());
+
+        int result = contactDAO.insertcontact(getConnection(), contactDTO);
+
+
+    }
+
+
+
+    public void deleteGroup(){
+
+
+    }
+
+
+
+
+
+
     public static boolean isValidPhoneNumber(String phoneNumber) {
         String phoneRegex = "^\\d{3}-\\d{4}-\\d{4}$";
         Pattern phonePattern = Pattern.compile(phoneRegex);
@@ -139,6 +165,9 @@ public void updatecontact() {
         Matcher matcher = birthdayPattern.matcher(birthday);
         return matcher.matches();
     }
+
+
+
 
 
 }

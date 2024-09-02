@@ -119,4 +119,19 @@
         VALUES(?, ?, ?);
     </entry>
 
+    <entry key = "insertGroup">
+
+
+        INSERT INTO tbl_group VALUES (NULL, ?);
+
+
+    </entry>
+
+    <entry key = "deleteGroup">
+
+        DELETE FROM tbl_group WHERE Groupname = ?;
+
+
+    </entry>
+
 </properties>

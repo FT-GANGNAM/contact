@@ -16,7 +16,14 @@ public class ContactDTO_YSJ {
 
     private int user_code;
 
+    private String groupname;
+
+
     public ContactDTO_YSJ() {
+    }
+
+    public ContactDTO_YSJ(String groupname) {
+        this.groupname = groupname;
     }
 
     public ContactDTO_YSJ(String contact_name, String phonenumber, String email, String address, String birthday, int groupnumber, int user_code) {
@@ -31,6 +38,21 @@ public class ContactDTO_YSJ {
 
     public ContactDTO_YSJ contact_name(String name){
         this.contact_name = name;
+        return this;
+    }
+
+
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
+    }
+
+    public ContactDTO_YSJ groupname (String groupname){
+        this.groupname = groupname;
         return this;
     }
 
@@ -98,13 +120,8 @@ public class ContactDTO_YSJ {
     @Override
     public String toString() {
         return "ContactDTO_YSJ{" +
-                "contact_name='" + contact_name + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", groupnumber=" + groupnumber +
-                ", user_code=" + user_code +
+                "groupname='" + groupname + '\'' +
                 '}';
     }
+
 }
