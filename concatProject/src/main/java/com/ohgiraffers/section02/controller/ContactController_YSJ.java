@@ -22,7 +22,7 @@ public void insertcontact(){  //contact_name,phonenumber, email, address, birthd
 
     System.out.println("연락처에 추가하고 싶은 이름을 입력 해주세요: ");
     contactDTO.contact_name(scr.nextLine());
-    System.out.println("연락처에 추가할 전화번호를 입력 해주세요 ('-'포함) : ");
+    System.out.println("연락처에 추가할 전화번호를 입력 해주세요 ('-'포함) ex)010-1234-5678 : ");
     String phone = scr.nextLine();
     if (isValidPhoneNumber(phone)){
         contactDTO.phonenumber(phone);
@@ -30,7 +30,7 @@ public void insertcontact(){  //contact_name,phonenumber, email, address, birthd
         System.out.println("입력하신 형식이 맞지 않습니다! ");
         return ;
     }
-    System.out.println("연락처에 추가할 이메일을 입력 해주세요 : ");
+    System.out.println("연락처에 추가할 이메일을 입력 해주세요 ex)gangnam@gamil.com : ");
     String email = scr.nextLine();
     if (isValidEmail(email)){
         contactDTO.email(email);
@@ -40,7 +40,7 @@ public void insertcontact(){  //contact_name,phonenumber, email, address, birthd
     }
     System.out.println("연락처에 추가할 주소를 입력 해주세요 : ");
     contactDTO.address(scr.nextLine());
-    System.out.println("연락처에 추가할 생일을 입력 해주세요 : ");
+    System.out.println("연락처에 추가할 생일을 입력 해주세요 ex)00월 00일, 01월 23일 : ");
     String birth = scr.nextLine();
     if(isValidBirthday(birth)){
         contactDTO.birthday(birth);
@@ -64,13 +64,13 @@ public void updatecontact() {
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
 
-    System.out.println("수정하고 싶은 연락처의 번호를 입력해주세요 : ");
+    System.out.println("수정하고 싶은 연락처의 번호를 입력해주세요 ex)010-1234-5678 : ");
     String a = scr.nextLine();
 
     System.out.println("연락처의 이름을 어떻게 바꾸시겠습니까? : ");
     contactDTO.contact_name(scr.nextLine());
 
-    System.out.println("연락처의 번호를 어떻게 바꾸시겠습니까? :  ");
+    System.out.println("연락처의 번호를 어떻게 바꾸시겠습니까? ex)010-1234-5678 :  ");
         String phone = scr.nextLine();
     if (isValidPhoneNumber(phone)){
         contactDTO.phonenumber(phone);
@@ -79,7 +79,7 @@ public void updatecontact() {
         return ;
     }
 
-    System.out.println("연락처의 이메일을 어떻게 바꾸시겠습니까? : ");
+    System.out.println("연락처의 이메일을 어떻게 바꾸시겠습니까? ex)gangnam@gamil.com : ");
     String email = scr.nextLine();
     if (isValidEmail(email)){
         contactDTO.email(email);
@@ -91,7 +91,7 @@ public void updatecontact() {
     System.out.println("연락처의 주소를 어떻게 바꾸시겠습니까? ");
     contactDTO.address(scr.nextLine());
 
-    System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ");
+    System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ex)00월 00일, 01월 23일 ");
     contactDTO.birthday(scr.nextLine());
 
     System.out.println("연락처의 그룹번호를 어떻게 바꾸시겠습니까? ");
@@ -123,10 +123,10 @@ public void updatecontact() {
         ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
 
-        System.out.println("그룹명을 입력해주세요 : ");
+        System.out.println("추가하실 그룹명을 입력해주세요 : ");
         contactDTO.groupname(scr.nextLine());
 
-        int result = contactDAO.insertcontact(getConnection(), contactDTO);
+        int result = contactDAO.insertGroup(getConnection(), contactDTO);
 
 
     }
@@ -134,6 +134,14 @@ public void updatecontact() {
 
 
     public void deleteGroup(){
+
+    Scanner scr = new Scanner(System.in);
+    ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        System.out.println("삭제할 그룹명을 입력해주세요");
+        contactDTO.groupname(scr.nextLine());
+
+        int result = contactDAO.deleteGroup(getConnection(), contactDTO);
 
 
     }
