@@ -1,5 +1,6 @@
 package com.ohgiraffers.section02.controller;
 
+import com.ohgiraffers.section01.dto.GroupDTO;
 import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
 
@@ -118,13 +119,11 @@ public void updatecontact(int userCode) {
     public void insertGroup(int userCode){
 
         Scanner scr = new Scanner(System.in);
-        ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
-
 
         System.out.println("추가하실 그룹명을 입력해주세요 : ");
-        contactDTO.groupname(scr.nextLine());
+        String newGroup = scr.nextLine();
 
-        int result = contactDAO.insertGroup(getConnection(), contactDTO);
+        int result = contactDAO.insertGroup(getConnection(), newGroup, userCode);
 
 
     }
@@ -149,14 +148,27 @@ public void updatecontact(int userCode) {
         Scanner scr = new Scanner(System.in);
 
         // 해당 유저코드가 가지고 있는 그룹명 출력
-        System.out.println(contactDAO.getAllGroups(getConnection(), userCode));
+        List<GroupDTO> groups = contactDAO.getAllGroups(getConnection(), userCode);
+        System.out.println("*** 연락처에 있는 그룹입니다 ***");
+        for (GroupDTO groupDTO : groups)
+        {
+            System.out.println("- " + groupDTO.getGroupName());
+        }
 
         // 연락처 출력할 때
         System.out.println("연락처를 추가하고 싶은 그룹을 입력해주세요: ");
-        String group = scr.nextLine();
+        String selectedGroup = scr.nextLine();
+        int groupNum = 0;
+        for (GroupDTO groupDTO : groups)
+        {
+            if(groupDTO.getGroupName().equals(selectedGroup))
+            {
+                groupNum = groupDTO.getGroupIndex();
+                break;
+            }
+        }
 
         List<ContactDTO_YSJ> contacts = contactDAO.getAllContacts(getConnection(), userCode);
-
         List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
 
         while(true)
@@ -187,6 +199,7 @@ public void updatecontact(int userCode) {
                 if(contacts.get(i).getPhonenumber().equals(phoneNumList.get(j)))
                 {
                     // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
+                    contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(j));
                 }
             }
         }
@@ -237,6 +250,10 @@ public void updatecontact(int userCode) {
             case "2":
             case "삭제":
                 deleteGroup(userCode);
+                break;
+            case "3":
+            case "그룹 내 연락처 수정":
+                updateGroup(userCode);
                 break;
 
             default:
