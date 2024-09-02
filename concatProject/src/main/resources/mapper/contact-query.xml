@@ -120,7 +120,7 @@
     <entry key = "insertGroup">
 
 
-        INSERT INTO tbl_group VALUES (NULL, ?);
+        INSERT INTO tbl_group VALUES (NULL, ?, ?);
 
 
     </entry>
@@ -139,8 +139,8 @@
     </entry>
 
     <entry key="printGroupList">
-        SELECT groupname FROM tbl_group
-        WHERE user_code ?;
+        SELECT * FROM tbl_group
+        WHERE user_code = ?;
     </entry>
 
     <entry key="printContactList">

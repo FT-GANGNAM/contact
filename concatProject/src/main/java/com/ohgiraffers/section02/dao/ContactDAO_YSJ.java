@@ -1,5 +1,6 @@
 package com.ohgiraffers.section02.dao;
 
+import com.ohgiraffers.section01.dto.GroupDTO;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
 
 import java.io.FileInputStream;
@@ -129,7 +130,7 @@ public class ContactDAO_YSJ {
     return result;
     }
 
-    public int insertGroup(Connection con, ContactDTO_YSJ contactDTO) {
+    public int insertGroup(Connection con, String group, int userCode) {
 
         PreparedStatement pstmt = null;
         int result = 0;
@@ -139,7 +140,8 @@ public class ContactDAO_YSJ {
         try {
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setString(1, group);
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -227,9 +229,9 @@ public class ContactDAO_YSJ {
         return userContacts;
     }
 
-    public List<String> getAllGroups(Connection con, int userCode)
+    public List<GroupDTO> getAllGroups(Connection con, int userCode)
     {
-        List<String> groups = new ArrayList<>();
+        List<GroupDTO> groups = new ArrayList<>();
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -243,7 +245,7 @@ public class ContactDAO_YSJ {
             rs = pstmt.executeQuery();
             while(rs.next())
             {
-                groups.add(rs.getString("groupname"));
+                groups.add(new GroupDTO(rs.getInt("groupnumber"), rs.getString("groupname")));
             }
         }
         catch (SQLException e)
@@ -252,6 +254,28 @@ public class ContactDAO_YSJ {
         }
 
         return groups;
+    }
+
+    public void changeGroupNumberOfContact(Connection con, int groupNum, int userCode, String phoneNum)
+    {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("changeGroupNumber");
+
+        try
+        {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, groupNum);
+            pstmt.setInt(2, userCode);
+            pstmt.setString(3, phoneNum);
+            result = pstmt.executeUpdate();
+
+            System.out.println("그룹 설정에 성공했습니다.");
+        }
+        catch (SQLException e)
+        {
+            System.out.println(phoneNum + " 의 그룹 설정에 실패했습니다.");
+        }
     }
 
 }
