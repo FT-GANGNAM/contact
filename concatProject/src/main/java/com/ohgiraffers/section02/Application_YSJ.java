@@ -15,6 +15,8 @@ public class Application_YSJ {
             System.out.println("1. 연락처 추가");
             System.out.println("2. 연락처 수정");
             System.out.println("3. 연락처 제거");
+            System.out.println("4. 그룹 추가");
+            System.out.println("5. 그룹 제거");
             System.out.println("9. 프로그램 종료");
             int choice = scr.nextInt();
 
@@ -23,6 +25,8 @@ public class Application_YSJ {
                 case 1 : contactController.insertcontact(); break;
                 case 2 : contactController.updatecontact(); break;
                 case 3 : contactController.deletecontact(); break;
+                case 4 : contactController.insertGroup(); break;
+                case 5 : break;
                 case 9 : return;
                 default:
                     System.out.println("입력을 잘못하셨습니다. 다시 실행해주세요");
