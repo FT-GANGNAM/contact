@@ -146,14 +146,17 @@ public void updatecontact(int userCode) {
 
     public void updateGroup(int userCode)
     {
-        // 해당 유저코드가 가지고 있는 그룹명 출력
-        // 그룹명을 골라달라고 한 다음에
-        // 연락처 출력할 때
-
-        List<ContactDTO_YSJ> contacts = new ArrayList<>();
-        contacts.add(new ContactDTO_YSJ());
-
         Scanner scr = new Scanner(System.in);
+
+        // 해당 유저코드가 가지고 있는 그룹명 출력
+        System.out.println(contactDAO.getAllGroups(getConnection(), userCode));
+
+        // 연락처 출력할 때
+        System.out.println("연락처를 추가하고 싶은 그룹을 입력해주세요: ");
+        String group = scr.nextLine();
+
+        List<ContactDTO_YSJ> contacts = contactDAO.getAllContacts(getConnection(), userCode);
+
         List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
 
         while(true)
@@ -171,7 +174,8 @@ public void updatecontact(int userCode) {
                 break;
             else
             {
-                System.out.println("잘못 입력했긔 니가 입력 잘못해서 끝낼 거임");
+                // 추후 디테일 수정
+                System.out.println("잘못 입력했긔 니가 입력 잘못해서 끝낼 거임 - ContactController_YSJ.updateGroup");
                 break;
             }
         }
@@ -183,7 +187,6 @@ public void updatecontact(int userCode) {
                 if(contacts.get(i).getPhonenumber().equals(phoneNumList.get(j)))
                 {
                     // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
-                    // DAO => UPDATE SET groupnumber = ? WHERE phonenumber = ?;
                 }
             }
         }

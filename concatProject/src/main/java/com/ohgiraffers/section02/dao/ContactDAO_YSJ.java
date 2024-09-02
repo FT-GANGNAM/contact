@@ -6,7 +6,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static com.ohgiraffers.common.JDBCTemplate.close;
@@ -185,6 +188,70 @@ public class ContactDAO_YSJ {
 
         }return result;
 
+    }
+
+    public List<ContactDTO_YSJ> getAllContacts(Connection con, int userCode)
+    {
+        List<ContactDTO_YSJ> userContacts = new ArrayList<ContactDTO_YSJ>();
+
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String query = prop.getProperty("printContactList");
+
+        try
+        {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userCode);
+
+            rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+                ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+                contactDTO.contact_name(rs.getString("contact_name"));
+                contactDTO.phonenumber(rs.getString("phonenumber"));
+                contactDTO.email(rs.getString("email"));
+                contactDTO.address(rs.getString("address"));
+                contactDTO.birthday(rs.getString("birthday"));
+                contactDTO.userCode(userCode);
+
+                userContacts.add(contactDTO);
+            }
+        }
+        catch (SQLException e)
+        {
+            System.out.println("연락처를 찾을 수 없습니다.");
+        }
+
+
+        return userContacts;
+    }
+
+    public List<String> getAllGroups(Connection con, int userCode)
+    {
+        List<String> groups = new ArrayList<>();
+
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+        String query = prop.getProperty("printGroupList");
+
+        try
+        {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userCode);
+
+            rs = pstmt.executeQuery();
+            while(rs.next())
+            {
+                groups.add(rs.getString("groupname"));
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+        return groups;
     }
 
 }
