@@ -9,7 +9,7 @@ public class Application {
         controller.findNumber();
         ContactController_lee contactController = new ContactController_lee();
               //  c.totalCount();
-        contactController.groupByPhoneNumber();
+      //  contactController.groupByPhoneNumber();
 
     //    c.groupByPhoneNumber();
      //   contactController.selectLastContact();
