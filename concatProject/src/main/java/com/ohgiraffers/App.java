@@ -81,7 +81,7 @@ public class App
                     contactController_lee.groupChoose(userCode);
                     break;
                 case 6:
-                    System.out.println("선호하는 정렬 순서를 설정해보세요");
+                    contactController.saveUserPrefer(userCode);
                     break;
                 case 9:
                     System.out.println("프로그램을 종료하겠긔");
