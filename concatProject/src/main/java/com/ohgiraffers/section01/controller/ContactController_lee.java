@@ -11,25 +11,26 @@ public class ContactController_lee {
 
     private ContactDAO_lee contactDAO = new ContactDAO_lee("src/main/resources/mapper/contact-query.xml");
 
-    public void totalCount(){
-        int result = contactDAO.totalCount(getConnection());
-        System.out.println("연락처의 총 개수는 "+result+"개 입니다 !");
+    public void totalCount() {
+        int a = 1;
+        int result = contactDAO.totalCount(getConnection(), a);
+        System.out.println("연락처의 총 개수는 " + result + "개 입니다 !");
     }
 
-    public void groupByPhoneNumber(){
+    public void groupByPhoneNumber() {
         List<Map<String, Integer>> result = contactDAO.groupByPhoneNumber(getConnection());
-        for(Map<String, Integer> map : result){
+        for (Map<String, Integer> map : result) {
             System.out.println(map);
         }
 
     }
 
-//    public void selectLastContact(){
-//        List result = contactDAO.selectLastContact(getConnection());
-//        for(Object list : result){
-//            System.out.println(list);
-//
-//        }
+    public void selectLastContact() {
+        List result = contactDAO.selectLastContact(getConnection());
+
+        for (Object list : result) {
+            System.out.println(list);
+        }
     }
 
-
+}

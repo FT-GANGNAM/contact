@@ -14,7 +14,7 @@
         address,
         birthday,
         groupnumber,
-        user_code
+        usercode
         )VALUES(
         ?,
         ?,
@@ -26,9 +26,9 @@
         )
     </entry>
 
-    <entry key="updatecontact">
+    <entry key="updateMenu">
         UPDATE tbl_contact
-        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, user_code = ?
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, usercode = ?
         WHERE phonenumber = ?
     </entry>
 
@@ -50,21 +50,21 @@
     <entry key="countAllContact">
         SELECT count(*)
         FROM tbl_contact
-        where user_code = ?
+        where user_code =?
     </entry>
 
     <entry key="groupCount">
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
-        where user_code = ?
+        where user_code =?
         group by groupname
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber
+        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber,user_code
         FROM tbl_contact
-        where user_code = ?
+        where user_code =?
         order by contact_code DESC
         Limit 1
     </entry>
@@ -83,6 +83,40 @@
 
 
     </entry>
+    
+    <entry key="searchByName">
+        SELECT * FROM tbl_contact
+        WHERE contact_name LIKE ? AND user_code = ?
+        ORDER BY contact_name;
+    </entry>
 
+    <entry key="searchByPhoneNumber">
+        SELECT * FROM tbl_contact
+        WHERE phonenumber LIKE ? AND user_code = ?
+        ORDER BY phonenumber;
+    </entry>
+
+    <entry key="searchByAddress">
+        SELECT * FROM tbl_contact
+        WHERE adress LIKE ? AND user_code = ?
+        ORDER BY adress;
+    </entry>
+
+    <entry key="searchByEmail">
+        SELECT * FROM tbl_contact
+        WHERE email LIKE ? AND user_code = ?
+        ORDER BY email;
+    </entry>
+    
+    <entry key="getUserInfo">
+        SELECT * FROM tbl_user
+        WHERE id = ? AND pwd = ?;
+    </entry>
+
+    <entry key="setNewUser">
+        INSERT INTO tbl_user
+        (user_name, id, pwd)
+        VALUES(?, ?, ?);
+    </entry>
 
 </properties>
