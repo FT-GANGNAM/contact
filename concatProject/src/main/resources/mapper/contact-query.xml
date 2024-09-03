@@ -98,8 +98,8 @@
 
     <entry key="searchByAddress">
         SELECT * FROM tbl_contact
-        WHERE adress LIKE ? AND user_code = ?
-        ORDER BY adress;
+        WHERE address LIKE ? AND user_code = ?
+        ORDER BY address;
     </entry>
 
     <entry key="searchByEmail">
