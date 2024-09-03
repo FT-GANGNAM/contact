@@ -276,6 +276,9 @@ public class ContactDAO_YSJ {
         catch (SQLException e)
         {
             System.out.println(phoneNum + " 의 그룹 설정에 실패했습니다.");
+        }finally{
+            close(con);
+            close(pstmt);
         }
     }
 
