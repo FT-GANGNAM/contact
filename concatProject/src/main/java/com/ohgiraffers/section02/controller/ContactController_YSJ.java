@@ -145,6 +145,18 @@ public void updatecontact(int userCode) {
 
     }
 
+    public void updatefordeletegroup(int userCode){
+
+    Scanner scr = new Scanner(System.in);
+
+    ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+        contactDTO.groupname(scr.nextLine());
+        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO);
+
+    }
+
     public void manageContact(int userCode)
     {
         System.out.println("1. 추가 2. 수정 3. 삭제");
@@ -185,6 +197,7 @@ public void updatecontact(int userCode) {
                 break;
             case "2":
             case "삭제":
+                updatefordeletegroup(userCode);
                 deleteGroup(userCode);
                 break;
             case "3":
