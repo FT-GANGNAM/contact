@@ -2,6 +2,7 @@ package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
 import com.ohgiraffers.section01.controller.ContactController_lee;
+import com.ohgiraffers.section01.dto.UserDTO;
 import com.ohgiraffers.section02.Controller;
 import com.ohgiraffers.section02.controller.ContactController_YSJ;
 
@@ -19,6 +20,7 @@ public class App
         ContactController_YSJ contactController_YSJ = new ContactController_YSJ();
 
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
+        UserDTO userDTO = new UserDTO();
 
         while(true)
         {
@@ -99,6 +101,7 @@ public class App
                 }
             } catch (NumberFormatException d) {
                 System.out.println("문자나 특수기호 말고  숫자로 입력하시오");
+
             }
         }
     }

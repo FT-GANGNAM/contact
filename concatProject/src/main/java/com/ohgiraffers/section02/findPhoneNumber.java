@@ -120,9 +120,6 @@ public class findPhoneNumber {
         String groupName1 = scr.nextLine();
 
 
-
-
-
         try {
             String query = prop.getProperty("findGroup");
             pstmt = con.prepareStatement(query);
@@ -130,6 +127,11 @@ public class findPhoneNumber {
             pstmt.setString(1, groupName1);
             rset = pstmt.executeQuery();
             groupName = new ArrayList<>();
+
+            if (!rset.next()) {
+                System.out.println("데이터베이스 접근 중 오류가 발생했습니다." );
+            }
+
 
             while (rset.next()) {
 

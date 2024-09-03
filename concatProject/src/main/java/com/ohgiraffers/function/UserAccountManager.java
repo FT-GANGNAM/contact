@@ -36,7 +36,8 @@ public class UserAccountManager
             return -1;
         }
 
-        return user.getUserCode();
+        return user.
+        ();
     }
 
     public int signup()
