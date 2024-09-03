@@ -42,7 +42,6 @@ public class UserAccountManager
     public UserDTO signup()
     {
         //tbl_user 쭉 훑어서 이름이랑 아이디 일치 안 하는 거 확인
-        //가입시켜
         System.out.println("이름을 입력해주세요: ");
         String name = sc.nextLine();
         System.out.println("아이디를 입력해주세요: ");

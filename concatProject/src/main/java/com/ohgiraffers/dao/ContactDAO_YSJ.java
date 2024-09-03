@@ -160,6 +160,11 @@ public class ContactDAO_YSJ {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally
+        {
+            close(con);
+            close(pstmt);
+        }
         return result;
 
     }
@@ -228,6 +233,12 @@ public class ContactDAO_YSJ {
         {
             System.out.println("* ੈ✩‧₊ 연락처를 찾을 수 없습니다. * ੈ✩‧₊");
         }
+        finally
+        {
+            close(con);
+            close(pstmt);
+            close(rs);
+        }
 
 
         return userContacts;
@@ -255,6 +266,12 @@ public class ContactDAO_YSJ {
         catch (SQLException e)
         {
             throw new RuntimeException(e);
+        }
+        finally
+        {
+            close(con);
+            close(pstmt);
+            close(rs);
         }
 
         return groups;

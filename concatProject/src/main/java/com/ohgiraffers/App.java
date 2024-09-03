@@ -84,11 +84,7 @@ public class App
                         contactController.searchContact(userCode);
                         break;
                     case 4:
-
-                        System.out.println("모든 연락처 목록 조회하께여");
-
                         controller.findNumber(userCode);
-
                         break;
                     case 5:
                         contactController_lee.groupChoose(userCode);
@@ -97,7 +93,7 @@ public class App
                         contactController.saveUserPrefer(userDTO);
                         break;
                     case 9:
-                        System.out.println("프로그램을 종료하겠긔");
+                        System.out.println("프로그램을 종료합니다.");
                         return;
                     default:
                         System.out.println("잘못된 값을 입력하셨습니다. 서비스 선택 창으로 돌아갑니다.");

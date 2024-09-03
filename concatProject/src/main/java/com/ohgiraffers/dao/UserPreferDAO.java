@@ -42,13 +42,16 @@ public class UserPreferDAO
 
             result = ps.executeUpdate();
 
-            System.out.println(result == 1 ? "업데이트 성공" : "실패 ㅗ");
+            System.out.println(result == 1 ? "업데이트 성공" : "업데이트에 실패했습니다.");
         }
         catch (SQLException e)
         {
             throw new RuntimeException(e);
-        }finally {
+        }
+        finally
+        {
             close(con);
+            close(ps);
         }
 
     }
