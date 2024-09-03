@@ -42,6 +42,15 @@ public class ContactDTO {
         this.groupName = groupName;
     }
 
+    public ContactDTO(String contact_name, String phonenumber, String email, String address, String birthday, String groupName) {
+        this.contact_name = contact_name;
+        this.phonenumber = phonenumber;
+        this.email = email;
+        this.address = address;
+        this.birthday = birthday;
+        this.groupName = groupName;
+    }
+
     public int getContact_code() {
         return contact_code;
     }
@@ -101,15 +110,14 @@ public class ContactDTO {
 
     @Override
     public String toString() {
-        return "ContactDTO{" +
-                "contact_code=" + contact_code +
-                ", contact_name='" + contact_name + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", groupnumber='" + groupnumber + '\'' +
-                ", groupName='" + groupName + '\'' +
-                '}';
+        return
+                "연락처 코드 =" + contact_code +
+                ", 이름 ='" + contact_name + '\'' +
+                ", 전화번호 ='" + phonenumber + '\'' +
+                ", 이메일 ='" + email + '\'' +
+                ", 주소 ='" + address + '\'' +
+                ", 생일 ='" + birthday + '\'' +
+                ", 그룹 ='" + groupnumber + '\''
+                ;
     }
 }

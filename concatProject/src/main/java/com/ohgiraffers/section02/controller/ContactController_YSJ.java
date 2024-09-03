@@ -1,8 +1,12 @@
 package com.ohgiraffers.section02.controller;
 
+import com.ohgiraffers.function.GroupUpdateManager;
+import com.ohgiraffers.section01.dto.GroupDTO;
 import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -13,9 +17,10 @@ import static com.ohgiraffers.common.JDBCTemplate.*;
 
 public class ContactController_YSJ {
 
+    GroupUpdateManager groupUpdateManager = new GroupUpdateManager();
     private ContactDAO_YSJ contactDAO = new ContactDAO_YSJ("src/main/resources/mapper/contact-query.xml");
 
-public void insertcontact(){  //contact_name,phonenumber, email, address, birthday, groupnumber
+public void insertcontact(int userCode){  //contact_name,phonenumber, email, address, birthday, groupnumber
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
@@ -48,17 +53,16 @@ public void insertcontact(){  //contact_name,phonenumber, email, address, birthd
         System.out.println("입력하신 형식이 맞지 않습니다!");
         return;
     }
-    System.out.println("연락처에 추가할 그룹번호를 입력 해주세요 : ");
-    contactDTO.groupnumber(scr.nextInt());
-    System.out.println("연락처에 추가할 유저코드를 입력 해주세요 : ");
-    contactDTO.user_code(scr.nextInt());
+
+    contactDTO.userCode(userCode);
+
 
     int result = contactDAO.insertcontact(getConnection(), contactDTO);
 
 
 }
 
-public void updatecontact() {
+public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);    // 바꿀 연락처 (b) 변수만 쓰면된다. 나중에 여유되면 나머지 필요없는 변수 삭제
 
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
@@ -68,6 +72,7 @@ public void updatecontact() {
     String a = scr.nextLine();
 
     System.out.println("연락처의 이름을 어떻게 바꾸시겠습니까? : ");
+
     contactDTO.contact_name(scr.nextLine());
 
     System.out.println("연락처의 번호를 어떻게 바꾸시겠습니까? ex)010-1234-5678 :  ");
@@ -94,11 +99,7 @@ public void updatecontact() {
     System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ex)00월 00일, 01월 23일 ");
     contactDTO.birthday(scr.nextLine());
 
-    System.out.println("연락처의 그룹번호를 어떻게 바꾸시겠습니까? ");
-    contactDTO.groupnumber(scr.nextInt());
-
-    System.out.println("연락처의 유저코드를 어떻게 바꾸시겠습니까? ");
-    contactDTO.user_code(scr.nextInt());
+    contactDTO.userCode(userCode);
 
     scr.nextLine();
 
@@ -117,23 +118,21 @@ public void updatecontact() {
 
     }
 
-    public void insertGroup(){
+    public void insertGroup(int userCode){
 
         Scanner scr = new Scanner(System.in);
-        ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
-
 
         System.out.println("추가하실 그룹명을 입력해주세요 : ");
-        contactDTO.groupname(scr.nextLine());
+        String newGroup = scr.nextLine();
 
-        int result = contactDAO.insertGroup(getConnection(), contactDTO);
+        int result = contactDAO.insertGroup(getConnection(), newGroup, userCode);
 
 
     }
 
 
 
-    public void deleteGroup(){
+    public void deleteGroup(int userCode){
 
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
@@ -146,8 +145,72 @@ public void updatecontact() {
 
     }
 
+    public void updatefordeletegroup(int userCode){
 
+    Scanner scr = new Scanner(System.in);
 
+    ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+        contactDTO.groupname(scr.nextLine());
+        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO);
+
+    }
+
+    public void manageContact(int userCode)
+    {
+        System.out.println("1. 추가 2. 수정 3. 삭제");
+        Scanner scr = new Scanner(System.in);
+        String choice = scr.nextLine();
+        switch (choice)
+        {
+            case "1":
+            case "추가":
+                insertcontact(userCode);
+                break;
+            case "2":
+            case "수정":
+                updatecontact(userCode);
+                break;
+            case "3":
+            case "삭제":
+                deletecontact();
+                break;
+
+            default:
+                System.out.println("잘못된 입력입니다.");
+                break;
+        }
+    }
+
+    public void manageGroup(int userCode)
+    {
+        System.out.println("1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제");
+        Scanner scr = new Scanner(System.in);
+        String choice = scr.nextLine();
+
+        switch (choice)
+        {
+            case "1":
+            case "추가":
+                insertGroup(userCode);
+                break;
+            case "2":
+            case "삭제":
+                updatefordeletegroup(userCode);
+                deleteGroup(userCode);
+                break;
+            case "3":
+            case "그룹 내 연락처 수정":
+                groupUpdateManager.updateGroup(userCode);
+                break;
+
+            default:
+                System.out.println("잘못된 입력입니다.");
+                break;
+        }
+
+    }
 
 
 
@@ -173,9 +236,6 @@ public void updatecontact() {
         Matcher matcher = birthdayPattern.matcher(birthday);
         return matcher.matches();
     }
-
-
-
 
 
 }

@@ -1,6 +1,7 @@
 package com.ohgiraffers.section02;
 
 
+import com.ohgiraffers.section01.dto.ContactDTO;
 import com.ohgiraffers.section01.dto.GroupContactDTO;
 
 import java.io.FileInputStream;
@@ -35,28 +36,25 @@ public class findPhoneNumber {
 
     }
 
-    public List<GroupContactDTO> findPhoneNumbers1(Connection con) {
+    public List<ContactDTO> findPhoneNumbers1(Connection con, int userCode) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<GroupContactDTO> categoryList = null;
-
+        List<ContactDTO> categoryList = new ArrayList<>();
         try {
             String query = prop.getProperty("findPhoneNumber");
-
             pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userCode);
 
             rset = pstmt.executeQuery();
 
-            categoryList = new ArrayList<>();
-
+            System.out.println("전화번호부");
+            System.out.println();
 
             while (rset.next()) {
-                GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
-                rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
-                categoryList.add(groupContactDTO);
-                System.out.println();
-
+                ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
+                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                categoryList.add(contactDTO);
             }
 
         } catch (SQLException e) {
@@ -72,7 +70,41 @@ public class findPhoneNumber {
 
     }
 
+    public List<ContactDTO> findsort(Connection con, int userCode, String sort) {
 
+        PreparedStatement pstmt = null;
+        ResultSet rset = null;
+        List<ContactDTO> categoryList = null;
+        try {
+            String query = prop.getProperty("findsort");
+
+            pstmt = con.prepareStatement(query + sort );
+            pstmt.setInt(1, userCode);
+
+            rset = pstmt.executeQuery();
+
+            categoryList = new ArrayList<>();
+
+            System.out.println("전화번호부");
+
+
+            while (rset.next()) {
+                ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
+                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                categoryList.add(contactDTO);
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(rset);
+            close(pstmt);
+            close(con);
+        }
+
+        return categoryList;
+    }
 
 
 
@@ -105,7 +137,7 @@ public class findPhoneNumber {
                         rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
 
                 groupName.add(groupContactDTO);
-                System.out.println();
+
 
             }
 

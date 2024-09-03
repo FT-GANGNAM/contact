@@ -13,10 +13,8 @@
         email,
         address,
         birthday,
-        groupnumber,
-        usercode
+        user_code
         )VALUES(
-        ?,
         ?,
         ?,
         ?,
@@ -26,9 +24,9 @@
         )
     </entry>
 
-    <entry key="updateMenu">
+    <entry key="updatecontact">
         UPDATE tbl_contact
-        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, usercode = ?
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, user_code = ?
         WHERE phonenumber = ?
     </entry>
 
@@ -39,10 +37,12 @@
         contact_code,
         contact_name,
         phonenumber,
+        email,
+        address,
         birthday,
-        G.groupname
-        FROM tbl_contact C
-        JOIN tbl_group G ON C.groupnumber = G.groupnumber;
+        groupnumber
+        FROM tbl_contact
+        where user_code = ?
 
 
     </entry>
@@ -57,12 +57,12 @@
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
-        where user_code =?
+        where a.user_code =?
         group by groupname
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber,user_code
+        SELECT contact_code,contact_name,phonenumber,email,address,birthday,groupnumber,user_code
         FROM tbl_contact
         where user_code =?
         order by contact_code DESC
@@ -98,8 +98,8 @@
 
     <entry key="searchByAddress">
         SELECT * FROM tbl_contact
-        WHERE adress LIKE ? AND user_code = ?
-        ORDER BY adress;
+        WHERE address LIKE ? AND user_code = ?
+        ORDER BY address;
     </entry>
 
     <entry key="searchByEmail">
@@ -122,7 +122,7 @@
     <entry key = "insertGroup">
 
 
-        INSERT INTO tbl_group VALUES (NULL, ?);
+        INSERT INTO tbl_group VALUES (NULL, ?, ?);
 
 
     </entry>
@@ -133,5 +133,53 @@
 
 
     </entry>
+
+    <entry key="savePrefer">
+        UPDATE tbl_user
+        SET prefer = ?
+        WHERE user_code = ?;
+    </entry>
+
+    <entry key = "findsort">
+
+        SELECT
+        contact_code,
+        contact_name,
+        phonenumber,
+        email,
+        address,
+        birthday,
+        groupnumber
+        FROM tbl_contact
+        where user_code = ?
+        ORDER BY
+
+
+    </entry>
+
+    <entry key="printGroupList">
+        SELECT * FROM tbl_group
+        WHERE user_code = ?;
+    </entry>
+
+    <entry key="printContactList">
+        SELECT * FROM tbl_contact
+        WHERE user_code = ?;
+    </entry>
+
+    <entry key="changeGroupNumber">
+        UPDATE tbl_contact SET groupnumber = ?
+        WHERE user_code = ? AND phonenumber = ?;
+    </entry>
+
+    <entry key="updatefordeletegroup">
+        UPDATE tbl_contact a
+        INNER JOIN tbl_group b
+        ON a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE b.groupname = ?;
+
+    </entry>
+
 
 </properties>

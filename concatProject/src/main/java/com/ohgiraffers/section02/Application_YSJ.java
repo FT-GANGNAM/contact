@@ -22,11 +22,11 @@ public class Application_YSJ {
 
             switch(choice){
 
-                case 1 : contactController.insertcontact(); break;
-                case 2 : contactController.updatecontact(); break;
+                case 1 : contactController.insertcontact(1); break;
+                case 2 : contactController.updatecontact(1); break;
                 case 3 : contactController.deletecontact(); break;
-                case 4 : contactController.insertGroup(); break;
-                case 5 : contactController.deleteGroup(); break;
+                case 4 : contactController.insertGroup(1); break;
+                case 5 : contactController.deleteGroup(1); break;
                 case 9 : return;
                 default:
                     System.out.println("입력을 잘못하셨습니다. 다시 실행해주세요");
