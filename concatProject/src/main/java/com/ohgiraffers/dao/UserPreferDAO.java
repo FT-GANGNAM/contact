@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.dao;
+package com.ohgiraffers.dao;
 
 import java.io.FileInputStream;
 import java.io.IOException;

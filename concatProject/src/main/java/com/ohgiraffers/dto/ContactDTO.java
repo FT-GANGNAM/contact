@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.dto;
+package com.ohgiraffers.dto;
 
 public class ContactDTO {
 

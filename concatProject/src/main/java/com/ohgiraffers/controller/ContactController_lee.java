@@ -1,6 +1,6 @@
-package com.ohgiraffers.section01.controller;
+package com.ohgiraffers.controller;
 
-import com.ohgiraffers.section01.dao.ContactDAO_lee;
+import com.ohgiraffers.dao.ContactDAO_lee;
 
 import java.util.List;
 import java.util.Map;

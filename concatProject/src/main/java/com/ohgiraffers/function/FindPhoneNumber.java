@@ -1,8 +1,8 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.function;
 
 
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;

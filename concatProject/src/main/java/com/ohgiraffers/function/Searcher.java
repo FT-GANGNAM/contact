@@ -1,7 +1,7 @@
 package com.ohgiraffers.function;
 
-import com.ohgiraffers.section01.dao.SearchDAO;
-import com.ohgiraffers.section01.dto.ContactDTO;
+import com.ohgiraffers.dao.SearchDAO;
+import com.ohgiraffers.dto.ContactDTO;
 
 import java.util.List;
 import java.util.Scanner;

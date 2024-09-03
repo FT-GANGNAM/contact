@@ -1,8 +1,8 @@
 package com.ohgiraffers.function;
 
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dto.GroupDTO;
+import com.ohgiraffers.dao.ContactDAO_YSJ;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
 import java.util.ArrayList;
 import java.util.List;

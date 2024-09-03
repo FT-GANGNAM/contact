@@ -2,10 +2,9 @@ package com.ohgiraffers.function;
 
 
 import com.ohgiraffers.Prefer;
-import com.ohgiraffers.section01.dao.UserPreferDAO;
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.UserDTO;
-import com.ohgiraffers.section02.FindPhoneNumber;
+import com.ohgiraffers.dao.UserPreferDAO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.UserDTO;
 
 import java.util.List;
 import java.util.Scanner;

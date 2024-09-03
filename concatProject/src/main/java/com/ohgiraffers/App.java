@@ -1,10 +1,10 @@
 package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
-import com.ohgiraffers.section01.controller.ContactController_lee;
-import com.ohgiraffers.section01.dto.UserDTO;
-import com.ohgiraffers.section02.Controller;
-import com.ohgiraffers.section02.controller.ContactController_YSJ;
+import com.ohgiraffers.controller.ContactController_lee;
+import com.ohgiraffers.dto.UserDTO;
+import com.ohgiraffers.controller.Controller;
+import com.ohgiraffers.controller.ContactController_YSJ;
 
 import java.util.Scanner;
 

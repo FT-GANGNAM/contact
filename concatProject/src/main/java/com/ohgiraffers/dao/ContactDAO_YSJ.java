@@ -1,17 +1,15 @@
-package com.ohgiraffers.section02.dao;
+package com.ohgiraffers.dao;
 
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dto.GroupDTO;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 

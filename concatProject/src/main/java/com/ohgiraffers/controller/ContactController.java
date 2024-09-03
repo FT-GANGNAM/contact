@@ -3,7 +3,7 @@ package com.ohgiraffers.controller;
 import com.ohgiraffers.function.Searcher;
 import com.ohgiraffers.function.UserAccountManager;
 import com.ohgiraffers.function.UserPrefer;
-import com.ohgiraffers.section01.dto.UserDTO;
+import com.ohgiraffers.dto.UserDTO;
 
 public class ContactController
 {

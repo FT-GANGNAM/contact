@@ -1,7 +1,7 @@
 package com.ohgiraffers.function;
 
-import com.ohgiraffers.section01.dao.AccessUserDAO;
-import com.ohgiraffers.section01.dto.UserDTO;
+import com.ohgiraffers.dao.AccessUserDAO;
+import com.ohgiraffers.dto.UserDTO;
 
 import java.util.Scanner;
 

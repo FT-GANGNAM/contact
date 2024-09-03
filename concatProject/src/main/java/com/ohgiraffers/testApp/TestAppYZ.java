@@ -1,4 +1,4 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.testApp;
 
 import com.ohgiraffers.function.GroupUpdateManager;
 
