@@ -56,7 +56,7 @@
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
-        where user_code =?
+        where a.user_code =?
         group by groupname
     </entry>
 
@@ -97,8 +97,8 @@
 
     <entry key="searchByAddress">
         SELECT * FROM tbl_contact
-        WHERE adress LIKE ? AND user_code = ?
-        ORDER BY adress;
+        WHERE address LIKE ? AND user_code = ?
+        ORDER BY address;
     </entry>
 
     <entry key="searchByEmail">
