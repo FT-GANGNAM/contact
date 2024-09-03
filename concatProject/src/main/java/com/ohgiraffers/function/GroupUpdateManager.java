@@ -53,7 +53,7 @@ public class GroupUpdateManager
             }
             else if(choice.equals("삭제"))
             {
-                deleteContactsInGroup();
+                deleteContactsInGroup(groupNum, userCode);
                 break;
             }
             else
@@ -115,7 +115,7 @@ public class GroupUpdateManager
         }
     }
 
-    private void deleteContactsInGroup()
+    private void deleteContactsInGroup(int groupNum, int userCode)
     {
         //그룹 내에서 연락처 삭제
         // 그룹넘버와 유저코드 일치하는 연락처 전체 조회
@@ -127,7 +127,8 @@ public class GroupUpdateManager
         System.out.println("삭제하실 휴대폰 번호를 입력해주세요.");
         String phoneNum = scr.nextLine();
 
+        int result = contactDAO.deleteContactInGroup(getConnection(), groupNum, phoneNum, userCode);
 
-
+        System.out.println(result < 1 ? phoneNum + "의 그룹 갱신에 실패했습니다." : "그룹에서 " + phoneNum + " 을 삭제했습니다.");
     }
 }

@@ -180,5 +180,17 @@
 
     </entry>
 
+    <entry key="getContactsInGroup">
+        SELECT * FROM tbl_contact
+        WHERE user_code = ? AND groupnumber = ?;
+    </entry>
+
+    <entry key="deleteContactInGroup">
+        UPDATE tbl_contact a
+        JOIN tbl_group b
+        ON a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
+    </entry>
 
 </properties>
