@@ -111,8 +111,8 @@ public class ContactDTO {
     @Override
     public String toString() {
         return
-                "연락처 코드 =" + contact_code +
-                ", 이름 ='" + contact_name + '\'' +
+
+                "  이름 ='" + contact_name + '\'' +
                 ", 전화번호 ='" + phonenumber + '\'' +
                 ", 이메일 ='" + email + '\'' +
                 ", 주소 ='" + address + '\'' +

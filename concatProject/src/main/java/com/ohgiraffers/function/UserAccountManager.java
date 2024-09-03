@@ -12,7 +12,7 @@ public class UserAccountManager
     AccessUserDAO accessUserDAO = new AccessUserDAO("src/main/resources/mapper/contact-query.xml");
     Scanner sc = new Scanner(System.in);
 
-    public int login()
+    public UserDTO login()
     {
         //회원 정보 tbl_user에서 가져올 거임
         //입력한 키랑 tbl_user.id랑 tbl_user.password 비교
@@ -33,13 +33,13 @@ public class UserAccountManager
         }
         else
         {
-            return -1;
+            return null;
         }
 
-        return user.getUserCode();
+        return user;
     }
 
-    public int signup()
+    public UserDTO signup()
     {
         //tbl_user 쭉 훑어서 이름이랑 아이디 일치 안 하는 거 확인
         //가입시켜
@@ -55,6 +55,6 @@ public class UserAccountManager
 
         System.out.println("***** 회원 가입 성공! *****");
         System.out.println(user.getUserName() + " 님, 환영합니다 (*ˊᵕˋ*)ﾉ");
-        return user.getUserCode();
+        return user;
     }
 }

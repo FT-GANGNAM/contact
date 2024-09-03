@@ -1,8 +1,13 @@
 package com.ohgiraffers.function;
 
 
+import com.ohgiraffers.Prefer;
 import com.ohgiraffers.section01.dao.UserPreferDAO;
+import com.ohgiraffers.section01.dto.ContactDTO;
+import com.ohgiraffers.section01.dto.UserDTO;
+import com.ohgiraffers.section02.FindPhoneNumber;
 
+import java.util.List;
 import java.util.Scanner;
 
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
@@ -11,8 +16,8 @@ public class UserPrefer
 {
     UserPreferDAO userPreferDAO = new UserPreferDAO("src/main/resources/mapper/contact-query.xml");
     Scanner sc = new Scanner(System.in);
-
-    public void saveUserPrefer(int userCode)
+    FindPhoneNumber findPhoneNumber = new FindPhoneNumber("src/main/resources/mapper/contact-query.xml");
+    public void saveUserPrefer(UserDTO userDTO)
     {
         System.out.println("기준이 될 항목을 입력해주세요.");
         System.out.println("[ 이름 | 전화번호 | 이메일 | 주소 | 생일 ]");
@@ -25,7 +30,24 @@ public class UserPrefer
 
         //tbl_user에서 prefer 가져와서 나눠
 
-        userPreferDAO.saveUserPrefer(getConnection(), preferValue, userCode);
+        //원하는 정렬방식으로 업데이트
+        userPreferDAO.saveUserPrefer(getConnection(),preferValue, userDTO.getUserCode());
+
+
+
+       String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userDTO.getUserCode());
+
+        String sort = Prefer.description(prefer);
+
+        int userCode = userDTO.getUserCode();
+
+
+        List<ContactDTO> test2 = findPhoneNumber.findsort(getConnection(), userCode, sort);
+        for (ContactDTO b : test2) {
+            System.out.println(b);
+        }
+
+
 
     }
 }

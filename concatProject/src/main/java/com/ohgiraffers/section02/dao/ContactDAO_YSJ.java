@@ -48,6 +48,9 @@ public class ContactDAO_YSJ {
 
             result = pstmt.executeUpdate();
 
+            System.out.println();
+            System.out.println("* ੈ✩‧₊ 연락처가 추가되었습니다. * ੈ✩‧₊");
+
         } catch (SQLException e) {
             e.printStackTrace();
             System.out.println("잘못된 값을 입력하셨습니다.");
@@ -82,9 +85,9 @@ public class ContactDAO_YSJ {
             result = pstmt.executeUpdate();
 
             if (result == 1){
-                System.out.println("연락처 변경 성공");
+                System.out.println("* ੈ✩‧₊ 연락처 변경 성공 * ੈ✩‧₊");
             } else {
-                System.out.println("연락처 변경 실패");
+                System.out.println("* ੈ✩‧₊ 연락처 변경 실패 * ੈ✩‧₊");
             }
 
         } catch (IOException e) {
@@ -116,9 +119,9 @@ public class ContactDAO_YSJ {
             result = pstmt.executeUpdate();
 
             if (result == 1){
-                System.out.println("연락처 제거에 성공하셨습니다.");
+                System.out.println("* ੈ✩‧₊ 연락처 제거에 성공하셨습니다. * ੈ✩‧₊");
             }else {
-                System.out.println("연락처 제거에 실패하셨습니다.");
+                System.out.println("* ੈ✩‧₊ 연락처 제거에 실패하셨습니다. * ੈ✩‧₊");
             }
 
         } catch (IOException e) {
@@ -148,11 +151,11 @@ public class ContactDAO_YSJ {
             result = pstmt.executeUpdate();
 
             if(result == 1){
-                System.out.println("그룹 추가가 완료되었습니다.");
+                System.out.println("* ੈ✩‧₊ 그룹 추가가 완료되었습니다.* ੈ✩‧₊");
 
             }else{
 
-                System.out.println("그룹 추가를 실패하였습니다.");
+                System.out.println("* ੈ✩‧₊ 그룹 추가를 실패하였습니다. * ੈ✩‧₊");
             }
 
         } catch (SQLException e) {
@@ -176,9 +179,9 @@ public class ContactDAO_YSJ {
 
             if(result == 1){
 
-                System.out.println("그룹이 제거되었습니다.");
+                System.out.println("* ੈ✩‧₊ 그룹이 제거되었습니다. * ੈ✩‧₊");
             }else{
-                System.out.println("그룹 제거에 실패하였습니다.");
+                System.out.println("* ੈ✩‧₊ 그룹 제거에 실패하였습니다. * ੈ✩‧₊");
             }
 
 
@@ -223,7 +226,7 @@ public class ContactDAO_YSJ {
         }
         catch (SQLException e)
         {
-            System.out.println("연락처를 찾을 수 없습니다.");
+            System.out.println("* ੈ✩‧₊ 연락처를 찾을 수 없습니다. * ੈ✩‧₊");
         }
 
 
@@ -271,11 +274,11 @@ public class ContactDAO_YSJ {
             pstmt.setString(3, phoneNum);
             result = pstmt.executeUpdate();
 
-            System.out.println("그룹 설정에 성공했습니다.");
+            System.out.println("* ੈ✩‧₊ 그룹 설정에 성공했습니다. * ੈ✩‧₊");
         }
         catch (SQLException e)
         {
-            System.out.println(phoneNum + " 의 그룹 설정에 실패했습니다.");
+            System.out.println("* ੈ✩‧₊" + phoneNum + " 의 그룹 설정에 실패했습니다. * ੈ✩‧₊");
         }finally{
             close(con);
             close(pstmt);
@@ -301,9 +304,9 @@ public class ContactDAO_YSJ {
             result = pstmt.executeUpdate();
 
             if (result == 1){
-                System.out.println("그룹 삭제를 위한 초기화 성공");
+                System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 초기화 성공 * ੈ✩‧₊");
             }else {
-                System.out.println("초기화 실패하셨습니다. 다시 시도해주세요.");
+                System.out.println("* ੈ✩‧₊ 초기화 실패하셨습니다. 다시 시도해주세요. * ੈ✩‧₊");
             }
 
         } catch (IOException e) {

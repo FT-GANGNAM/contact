@@ -15,7 +15,7 @@ import java.util.*;
 import static com.ohgiraffers.common.JDBCTemplate.close;
 
 
-public class findPhoneNumber {
+public class FindPhoneNumber {
 
     /*      - **연락처 목록 조회**
             - 저장된 모든 연락처를 목록 형태로 조회할 수 있어야 한다. //리스트
@@ -25,7 +25,7 @@ public class findPhoneNumber {
 
     private Properties prop = new Properties();
 
-    public findPhoneNumber(String url) {
+    public FindPhoneNumber(String url) {
 
         try {
             prop.loadFromXML(new FileInputStream(url));
@@ -48,7 +48,7 @@ public class findPhoneNumber {
 
             rset = pstmt.executeQuery();
 
-            System.out.println("전화번호부");
+            System.out.println("* ੈ✩‧₊ 전화번호부 * ੈ✩‧₊");
             System.out.println();
 
             while (rset.next()) {
@@ -74,19 +74,15 @@ public class findPhoneNumber {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<ContactDTO> categoryList = null;
+        List<ContactDTO> categoryList =  new ArrayList<>();
         try {
             String query = prop.getProperty("findsort");
-
-            pstmt = con.prepareStatement(query + sort );
+            pstmt = con.prepareStatement(query + sort);
             pstmt.setInt(1, userCode);
-
             rset = pstmt.executeQuery();
 
-            categoryList = new ArrayList<>();
 
-            System.out.println("전화번호부");
-
+            System.out.println("* ੈ✩‧₊ 전화번호부 * ੈ✩‧₊");
 
             while (rset.next()) {
                 ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
@@ -94,6 +90,7 @@ public class findPhoneNumber {
                 categoryList.add(contactDTO);
 
             }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -116,7 +113,7 @@ public class findPhoneNumber {
         Scanner scr = new Scanner(System.in);
 
 
-        System.out.println("그룹명을 입력해주세요");
+        System.out.println("* ੈ✩‧₊ 그룹명을 입력해주세요 * ੈ✩‧₊");
         String groupName1 = scr.nextLine();
 
 

@@ -135,12 +135,11 @@
     </entry>
 
     <entry key="savePrefer">
-        UPDATE tbl_user
-        SET prefer = ?
+       SELECT prefer FROM tbl_user
         WHERE user_code = ?;
     </entry>
 
-    <entry key = "findsort">
+    <entry key="findsort">
 
         SELECT
         contact_code,
@@ -178,6 +177,15 @@
         ON a.groupnumber = b.groupnumber
         SET a.groupnumber = null
         WHERE b.groupname = ?;
+
+    </entry>
+
+    <entry key = "orderUpdatePrefer">
+
+        update tbl_user
+        set prefer = ?
+        where user_code = ?;
+
 
     </entry>
 
