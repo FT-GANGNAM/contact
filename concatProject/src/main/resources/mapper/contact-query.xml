@@ -57,7 +57,7 @@
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
-        where user_code =?
+        where a.user_code =?
         group by groupname
     </entry>
 

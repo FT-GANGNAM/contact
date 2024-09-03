@@ -75,12 +75,11 @@ public class App
                     contactController.searchContact(userCode);
                     break;
                 case 4:
-<<<<<<< HEAD
 
                     System.out.println("모든 연락처 목록 조회하께여");
-=======
+
                     controller.findNumber(userCode);
->>>>>>> e3aa82b6d73b0d6d82dd419f9793e3c040593332
+
                     break;
                 case 5:
                     contactController_lee.groupChoose(userCode);
