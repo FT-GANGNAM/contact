@@ -161,8 +161,9 @@
     </entry>
 
     <entry key="printContactList">
-        SELECT * FROM tbl_contact
-        WHERE user_code = ?;
+        SELECT a.contact_name, a.phonenumber, a.groupnumber, b.groupname FROM tbl_contact a
+        JOIN tbl_group b ON a.user_code = b.user_code
+        WHERE a.user_code = ?;
     </entry>
 
     <entry key="changeGroupNumber">
@@ -191,8 +192,9 @@
 
 
     <entry key="getContactsInGroup">
-        SELECT * FROM tbl_contact
-        WHERE user_code = ? AND groupnumber = ?;
+        SELECT a.contact_name, a.phonenumber, b.groupname FROM tbl_contact a
+        JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.user_code = ? AND a.groupnumber = ?;
     </entry>
 
     <entry key="deleteContactInGroup">

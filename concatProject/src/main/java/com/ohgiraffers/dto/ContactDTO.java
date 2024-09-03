@@ -2,26 +2,26 @@ package com.ohgiraffers.dto;
 
 public class ContactDTO {
 
-    private int contact_code;
-    private String contact_name;
-    private String phonenumber;
+    private int contactCode;
+    private String contactName;
+    private String phoneNumber;
     private String email;
     private String address;
     private String birthday;
-    private String groupnumber;
+    private String groupNumber;
     private String groupName;
 
     public ContactDTO() {
     }
 
-    public ContactDTO(int contact_code, String contact_name, String phonenumber, String email, String address, String birthday, String groupnumber) {
-        this.contact_code = contact_code;
-        this.contact_name = contact_name;
-        this.phonenumber = phonenumber;
+    public ContactDTO(int contactCode, String contactName, String phoneNumber, String email, String address, String birthday, String groupNumber) {
+        this.contactCode = contactCode;
+        this.contactName = contactName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
-        this.groupnumber = groupnumber;
+        this.groupNumber = groupNumber;
     }
 
     public String getGroupName()
@@ -34,45 +34,44 @@ public class ContactDTO {
         this.groupName = groupName;
     }
 
-    public ContactDTO(String contact_name, String phonenumber, String birthday, String groupName)
+    public ContactDTO(String contactName, String phoneNumber, String groupName)
     {
-        this.contact_name = contact_name;
-        this.phonenumber = phonenumber;
-        this.birthday = birthday;
+        this.contactName = contactName;
+        this.phoneNumber = phoneNumber;
         this.groupName = groupName;
     }
 
-    public ContactDTO(String contact_name, String phonenumber, String email, String address, String birthday, String groupName) {
-        this.contact_name = contact_name;
-        this.phonenumber = phonenumber;
+    public ContactDTO(String contactName, String phoneNumber, String email, String address, String birthday, String groupName) {
+        this.contactName = contactName;
+        this.phoneNumber = phoneNumber;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
         this.groupName = groupName;
     }
 
-    public int getContact_code() {
-        return contact_code;
+    public int getContactCode() {
+        return contactCode;
     }
 
-    public void setContact_code(int contact_code) {
-        this.contact_code = contact_code;
+    public void setContactCode(int contactCode) {
+        this.contactCode = contactCode;
     }
 
-    public String getContact_name() {
-        return contact_name;
+    public String getContactName() {
+        return contactName;
     }
 
-    public void setContact_name(String contact_name) {
-        this.contact_name = contact_name;
+    public void setContactName(String contactName) {
+        this.contactName = contactName;
     }
 
-    public String getPhonenumber() {
-        return phonenumber;
+    public String getPhoneNumber() {
+        return phoneNumber;
     }
 
-    public void setPhonenumber(String phonenumber) {
-        this.phonenumber = phonenumber;
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
 
     public String getEmail() {
@@ -99,12 +98,12 @@ public class ContactDTO {
         this.birthday = birthday;
     }
 
-    public String getGroupnumber() {
-        return groupnumber;
+    public String getGroupNumber() {
+        return groupNumber;
     }
 
-    public void setGroupnumber(String groupnumber) {
-        this.groupnumber = groupnumber;
+    public void setGroupNumber(String groupNumber) {
+        this.groupNumber = groupNumber;
     }
 
 
@@ -112,12 +111,12 @@ public class ContactDTO {
     public String toString() {
         return
 
-                "  이름 ='" + contact_name + '\'' +
-                ", 전화번호 ='" + phonenumber + '\'' +
+                "  이름 ='" + contactName + '\'' +
+                ", 전화번호 ='" + phoneNumber + '\'' +
                 ", 이메일 ='" + email + '\'' +
                 ", 주소 ='" + address + '\'' +
                 ", 생일 ='" + birthday + '\'' +
-                ", 그룹 ='" + groupnumber + '\''
+                ", 그룹 ='" + groupNumber + '\''
                 ;
     }
 }

@@ -156,7 +156,7 @@ public void updatecontact(int userCode) {
         System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
 
         contactDTO.groupname(scr.nextLine());
-        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO, userCode);
+        int result = contactDAO.updateForDeleteGroup(getConnection(), contactDTO, userCode);
 
     }
 
