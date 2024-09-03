@@ -143,7 +143,7 @@ public class findPhoneNumber {
 
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println(groupName1 + "의 입력값이 잘못 되었습니다.");
         } finally {
             close(con);
             close(pstmt);
