@@ -110,14 +110,14 @@ public void updatecontact(int userCode) {
 
     }
 
-    public void deletecontact(){
+    public void deletecontact(int userCode){
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
         System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
         contactDTO.phonenumber(scr.nextLine());
 
-        int result = contactDAO.deletecontact(getConnection(), contactDTO);
+        int result = contactDAO.deletecontact(getConnection(), contactDTO, userCode);
 
     }
 
@@ -143,7 +143,7 @@ public void updatecontact(int userCode) {
         System.out.println("* ੈ✩‧₊ 삭제할 그룹명을 입력해주세요 * ੈ✩‧₊");
         contactDTO.groupname(scr.nextLine());
 
-        int result = contactDAO.deleteGroup(getConnection(), contactDTO);
+        int result = contactDAO.deleteGroup(getConnection(), contactDTO, userCode);
 
 
     }
@@ -155,8 +155,11 @@ public void updatecontact(int userCode) {
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
         System.out.println("* ੈ✩‧₊ 제거하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
+
+        System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+
         contactDTO.groupname(scr.nextLine());
-        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO);
+        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO, userCode);
 
     }
 
@@ -177,7 +180,7 @@ public void updatecontact(int userCode) {
                 break;
             case "3":
             case "삭제":
-                deletecontact();
+                deletecontact(userCode);
                 break;
 
             default:

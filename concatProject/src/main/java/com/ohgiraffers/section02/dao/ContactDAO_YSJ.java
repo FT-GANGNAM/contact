@@ -103,7 +103,7 @@ public class ContactDAO_YSJ {
         return result;
     }
 
-    public int deletecontact(Connection con, ContactDTO_YSJ contactDTO){
+    public int deletecontact(Connection con, ContactDTO_YSJ contactDTO, int userCode){
 
         PreparedStatement pstmt = null;
 
@@ -115,6 +115,7 @@ public class ContactDAO_YSJ {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/contact-query.xml"));
             pstmt = con.prepareStatement(prop.getProperty("deletecontact"));
             pstmt.setString(1, contactDTO.getPhonenumber());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -164,7 +165,7 @@ public class ContactDAO_YSJ {
         return result;
 
     }
-    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO){
+    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO, int userCode){
         PreparedStatement pstmt = null;
         int result = 0;
 
@@ -174,6 +175,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -286,12 +288,12 @@ public class ContactDAO_YSJ {
     }
 
 
-    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO){
+    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO,int userCode){
+
+        // 그룹 삭제를 하기 위해 연락처의 그룹 정보를 null로 설정
 
         PreparedStatement pstmt = null;
-
         int result = 0;
-
         Properties prop = new Properties();
 
 
@@ -300,6 +302,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(prop.getProperty("updatefordeletegroup"));
 
             pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -320,6 +323,37 @@ public class ContactDAO_YSJ {
 
     return result;
 
+    }
+
+    public int deleteContactInGroup(Connection con, int groupNum, String phoneNum, int userCode)
+    {
+        // 그룹 내에서 연락처 삭제 => 해당 그룹에 속해있던 연락처들의 그룹 정보를 null로 바꿔줌
+        
+        PreparedStatement pstmt = null;
+        int result = 0;
+        
+        String query = prop.getProperty("deleteContactInGroup");
+
+        try
+        {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, groupNum);
+            pstmt.setString(2, phoneNum);
+            pstmt.setInt(3, userCode);
+            result = pstmt.executeUpdate();
+            
+        }
+        catch (SQLException e)
+        {
+            return -1;
+        }
+        finally
+        {
+            close(con);
+            close(pstmt);
+        }
+
+        return result;
     }
 
 }

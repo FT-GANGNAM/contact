@@ -3,7 +3,7 @@
 <properties>
     <entry key="deletecontact">
         DELETE FROM tbl_contact
-        WHERE phonenumber = ?
+        WHERE phonenumber = ?, user_code = ?
     </entry>
 
     <entry key="insertcontact">
@@ -43,7 +43,6 @@
         groupnumber
         FROM tbl_contact
         where user_code = ?
-
 
     </entry>
 
@@ -129,7 +128,7 @@
 
     <entry key = "deleteGroup">
 
-        DELETE FROM tbl_group WHERE Groupname = ?;
+        DELETE FROM tbl_group WHERE Groupname = ? AND user_code = ?;
 
 
     </entry>
@@ -176,9 +175,10 @@
         INNER JOIN tbl_group b
         ON a.groupnumber = b.groupnumber
         SET a.groupnumber = null
-        WHERE b.groupname = ?;
+        WHERE b.groupname = ? AND a.user_code = ? ;
 
     </entry>
+
 
     <entry key = "orderUpdatePrefer">
 
@@ -187,6 +187,20 @@
         where user_code = ?;
 
 
+    </entry>
+
+
+    <entry key="getContactsInGroup">
+        SELECT * FROM tbl_contact
+        WHERE user_code = ? AND groupnumber = ?;
+    </entry>
+
+    <entry key="deleteContactInGroup">
+        UPDATE tbl_contact a
+        JOIN tbl_group b
+        ON a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
     </entry>
 
 
