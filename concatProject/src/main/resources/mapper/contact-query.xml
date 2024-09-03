@@ -153,4 +153,13 @@
         WHERE user_code = ? AND phonenumber = ?;
     </entry>
 
+    <entry key="updatefordeletegroup">
+        UPDATE tbl_contact a
+        INNER JOIN tbl_group b
+        ON a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE b.groupname = ?;
+
+    </entry>
+
 </properties>

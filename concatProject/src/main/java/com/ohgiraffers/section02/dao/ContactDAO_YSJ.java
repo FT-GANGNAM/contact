@@ -4,12 +4,14 @@ import com.ohgiraffers.section01.dto.GroupDTO;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
@@ -181,7 +183,6 @@ public class ContactDAO_YSJ {
 
 
 
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }finally {
@@ -276,6 +277,43 @@ public class ContactDAO_YSJ {
         {
             System.out.println(phoneNum + " 의 그룹 설정에 실패했습니다.");
         }
+    }
+
+
+    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO){
+
+        PreparedStatement pstmt = null;
+
+        int result = 0;
+
+        Properties prop = new Properties();
+
+
+        try {
+            prop.loadFromXML(new FileInputStream("src/main/resources/mapper/contact-query.xml"));
+            pstmt = con.prepareStatement(prop.getProperty("updatefordeletegroup"));
+
+            pstmt.setString(1, contactDTO.getGroupname());
+
+            result = pstmt.executeUpdate();
+
+            if (result == 1){
+                System.out.println("그룹 삭제를 위한 초기화 성공");
+            }else {
+                System.out.println("초기화 실패하셨습니다. 다시 시도해주세요.");
+            }
+
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            close(con);
+            close(pstmt);
+        }
+
+    return result;
+
     }
 
 }
