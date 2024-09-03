@@ -47,19 +47,23 @@ public class GroupUpdateManager
         {
             System.out.println("그룹에 담을 휴대폰 번호를 입력해주세요: ");
             String phoneNum = scr.nextLine();
-            phoneNumList.add(phoneNum);
 
             System.out.println("더 추가하시겠습니까?");
             String answer = scr.nextLine();
 
             if(answer.equals("yes") || answer.equals("네") || answer.equals("예"))
+            {
+                phoneNumList.add(phoneNum);
                 continue;
-            else if(answer.equals("no") || answer.equals("아니요"))
+            }
+            else if(answer.equals("no") || answer.equals("아니요") || answer.equals("아니"))
+            {
+                phoneNumList.add(phoneNum);
                 break;
+            }
             else
             {
-                // 추후 디테일 수정
-                System.out.println("잘못 입력했긔 니가 입력 잘못해서 끝낼 거임 - ContactController_YSJ.updateGroup");
+                System.out.println("잘못된 입력입니다. [ " + phoneNum + " 그룹 추가 취소 ] ");
                 break;
             }
         }
@@ -75,8 +79,5 @@ public class GroupUpdateManager
                 }
             }
         }
-
-        //끝
-
     }
 }

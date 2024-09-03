@@ -1,5 +1,6 @@
 package com.ohgiraffers.section02.controller;
 
+import com.ohgiraffers.function.GroupUpdateManager;
 import com.ohgiraffers.section01.dto.GroupDTO;
 import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
 import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
@@ -16,6 +17,7 @@ import static com.ohgiraffers.common.JDBCTemplate.*;
 
 public class ContactController_YSJ {
 
+    GroupUpdateManager groupUpdateManager = new GroupUpdateManager();
     private ContactDAO_YSJ contactDAO = new ContactDAO_YSJ("src/main/resources/mapper/contact-query.xml");
 
 public void insertcontact(int userCode){  //contact_name,phonenumber, email, address, birthday, groupnumber
@@ -187,7 +189,7 @@ public void updatecontact(int userCode) {
                 break;
             case "3":
             case "그룹 내 연락처 수정":
-                //updateGroup(userCode);
+                groupUpdateManager.updateGroup(userCode);
                 break;
 
             default:
