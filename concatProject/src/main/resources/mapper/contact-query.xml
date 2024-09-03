@@ -14,7 +14,7 @@
         address,
         birthday,
         groupnumber,
-        usercode
+        user_code
         )VALUES(
         ?,
         ?,
@@ -26,9 +26,9 @@
         )
     </entry>
 
-    <entry key="updateMenu">
+    <entry key="updatecontact">
         UPDATE tbl_contact
-        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, usercode = ?
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, user_code = ?
         WHERE phonenumber = ?
     </entry>
 
@@ -62,7 +62,7 @@
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber,user_code
+        SELECT contact_code,contact_name,phonenumber,email,address,birthday,groupnumber,user_code
         FROM tbl_contact
         where user_code =?
         order by contact_code DESC
