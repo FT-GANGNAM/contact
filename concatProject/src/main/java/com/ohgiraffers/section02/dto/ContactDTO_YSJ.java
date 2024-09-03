@@ -26,13 +26,12 @@ public class ContactDTO_YSJ {
         this.groupname = groupname;
     }
 
-    public ContactDTO_YSJ(String contactName, String phonenumber, String email, String address, String birthday, int groupnumber, int user_code) {
+    public ContactDTO_YSJ(String contactName, String phonenumber, String email, String address, String birthday, int user_code) {
         this.contactName = contactName;
         this.phonenumber = phonenumber;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
-        this.groupnumber = groupnumber;
         this.userCode = user_code;
     }
 
