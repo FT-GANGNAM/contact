@@ -75,6 +75,7 @@ public class App
                     contactController.searchContact(userCode);
                     break;
                 case 4:
+
                     System.out.println("모든 연락처 목록 조회하께여");
                     break;
                 case 5:
