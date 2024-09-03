@@ -8,6 +8,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 
+import static com.ohgiraffers.common.JDBCTemplate.close;
+
 public class UserPreferDAO
 {
     private Properties prop = new Properties();
@@ -30,7 +32,7 @@ public class UserPreferDAO
         int result = 0;
         String query = null;
 
-        query = prop.getProperty("savePrefer");
+        query = prop.getProperty("orderUpdatePrefer");
 
         try
         {
@@ -45,7 +47,45 @@ public class UserPreferDAO
         catch (SQLException e)
         {
             throw new RuntimeException(e);
+        }finally {
+            close(con);
         }
 
     }
+
+    public String saveUserPrefer1(Connection con, int userCode)
+    {
+        PreparedStatement ps = null;
+        ResultSet result = null;
+        String query = null;
+        String prefer = null;
+
+        query = prop.getProperty("savePrefer");
+
+        try
+        {
+            ps = con.prepareStatement(query);
+            ps.setInt(1, userCode);
+
+            result = ps.executeQuery();
+
+            while (result.next()){
+                prefer = result.getString("prefer");
+            }
+
+
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }finally{
+            close(con);
+            close(ps);
+        }
+
+        return prefer;
+
+    }
+
+
 }

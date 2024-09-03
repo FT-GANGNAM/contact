@@ -4,15 +4,13 @@ import com.ohgiraffers.Prefer;
 import com.ohgiraffers.section01.dto.ContactDTO;
 import com.ohgiraffers.section01.dto.GroupContactDTO;
 
-import java.sql.Connection;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
 public class Controller {
 
-    private findPhoneNumber findphoneNumber = new findPhoneNumber("src/main/resources/mapper/contact-query.xml");
+    private FindPhoneNumber findphoneNumber = new FindPhoneNumber("src/main/resources/mapper/contact-query.xml");
 
     public void findNumber(int userCode){
         Controller con = new Controller();
@@ -40,6 +38,8 @@ public class Controller {
                         break;
                     case 0:
                         return;
+                        default :
+                        System.out.println("잘못된 숫자를 입력하셨습니다."); break;
                 }
             } catch(NumberFormatException f){
                 System.out.println();

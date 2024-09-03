@@ -2,6 +2,7 @@ package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
 import com.ohgiraffers.section01.controller.ContactController_lee;
+import com.ohgiraffers.section01.dto.UserDTO;
 import com.ohgiraffers.section02.Controller;
 import com.ohgiraffers.section02.controller.ContactController_YSJ;
 
@@ -18,6 +19,8 @@ public class App
         Controller controller = new Controller();
         ContactController_YSJ contactController_YSJ = new ContactController_YSJ();
 
+
+        UserDTO userDTO = new UserDTO();
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -31,7 +34,9 @@ public class App
                 int choice = Integer.parseInt(sc.nextLine());
             if(choice == 1)
             {
-                userCode = contactController.login();
+                userDTO = contactController.login();
+                userCode = userDTO.getUserCode();
+
                 if(userCode < 0)
                 {
                     System.out.println("아이디 또는 비밀번호가 맞지 않습니다( ༎ຶŎ༎ຶ )");
@@ -41,7 +46,8 @@ public class App
             }
             else if(choice == 2)
             {
-                userCode = contactController.signup();
+                userDTO = contactController.signup();
+                userCode = userDTO.getUserCode();
                 break;
             }
             else
@@ -88,7 +94,7 @@ public class App
                         contactController_lee.groupChoose(userCode);
                         break;
                     case 6:
-                        contactController.saveUserPrefer(userCode);
+                        contactController.saveUserPrefer(userDTO);
                         break;
                     case 9:
                         System.out.println("프로그램을 종료하겠긔");

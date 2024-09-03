@@ -97,11 +97,14 @@ public void updatecontact(int userCode) {
     contactDTO.address(scr.nextLine());
 
     System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ex)00월 00일, 01월 23일 ");
-    contactDTO.birthday(scr.nextLine());
-
+    String birth = scr.nextLine();
+    if(isValidBirthday(birth)){
+        contactDTO.birthday(birth);
+    }else {
+        System.out.println("* ੈ✩‧₊ 입력하신 형식이 맞지 않습니다! * ੈ✩‧₊");
+        return;
+    }
     contactDTO.userCode(userCode);
-
-    scr.nextLine();
 
     int result = contactDAO.updatecontact(getConnection(), contactDTO, a);
 
@@ -111,7 +114,7 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("제거할 연락처번호를 입력 해주세요 : ");
+        System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
         contactDTO.phonenumber(scr.nextLine());
 
         int result = contactDAO.deletecontact(getConnection(), contactDTO, userCode);
@@ -122,7 +125,7 @@ public void updatecontact(int userCode) {
 
         Scanner scr = new Scanner(System.in);
 
-        System.out.println("추가하실 그룹명을 입력해주세요 : ");
+        System.out.println("* ੈ✩‧₊ 추가하실 그룹명을 입력해주세요 : * ੈ✩‧₊");
         String newGroup = scr.nextLine();
 
         int result = contactDAO.insertGroup(getConnection(), newGroup, userCode);
@@ -137,7 +140,7 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("삭제할 그룹명을 입력해주세요");
+        System.out.println("* ੈ✩‧₊ 삭제할 그룹명을 입력해주세요 * ੈ✩‧₊");
         contactDTO.groupname(scr.nextLine());
 
         int result = contactDAO.deleteGroup(getConnection(), contactDTO, userCode);
@@ -150,7 +153,11 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
 
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        System.out.println("* ੈ✩‧₊ 제거하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
+
         System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+
         contactDTO.groupname(scr.nextLine());
         int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO, userCode);
 
@@ -158,7 +165,7 @@ public void updatecontact(int userCode) {
 
     public void manageContact(int userCode)
     {
-        System.out.println("1. 추가 2. 수정 3. 삭제");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 수정 3. 삭제 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
         switch (choice)
@@ -177,14 +184,14 @@ public void updatecontact(int userCode) {
                 break;
 
             default:
-                System.out.println("잘못된 입력입니다.");
+                System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;
         }
     }
 
     public void manageGroup(int userCode)
     {
-        System.out.println("1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
 
@@ -205,7 +212,7 @@ public void updatecontact(int userCode) {
                 break;
 
             default:
-                System.out.println("잘못된 입력입니다.");
+                System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;
         }
 
