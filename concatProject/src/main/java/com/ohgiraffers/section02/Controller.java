@@ -26,15 +26,25 @@ public class Controller {
             System.out.println("2. 그룹으로 조회");
             System.out.println("0. 초기화면으로 돌아가기");
             System.out.println("목록을 선택해주세요 : ");
-            int find = scr.nextInt();
+            try {
+                int find = Integer.parseInt(scr.nextLine());
 
 
-            switch (find) {
+                switch (find) {
 
-                case 1 : con.test2(userCode); break;
-                case 2 : con.test();
-                    break;
-                    case 0 : return;
+                    case 1:
+                        con.test2(userCode);
+                        break;
+                    case 2:
+                        con.test();
+                        break;
+                    case 0:
+                        return;
+                }
+            } catch(NumberFormatException f){
+                System.out.println();
+                System.out.println("문자나 특수기호 말고 숫자로 입력하시오");
+                System.out.println();
             }
 
         }
@@ -63,17 +73,21 @@ public class Controller {
             while (true) {
                 System.out.println("어느 기준으로 정렬 하시겠습니까?");
                 System.out.println("1.이메일 내림차순 2. 이메일 오름차순 3. 이름 내림차순 4.오름차순 5. 생일별 내림차순 6. 생일별 오름차순 0.뒤로가기");
-                int count = scr.nextInt();
-                if (count == 0) {
-                    break;
-                }
-               String a= Prefer.description(count);
-              List<ContactDTO> test2 = findphoneNumber.findsort(getConnection(),userCode,a);
+                try {
+                    int count = Integer.parseInt(scr.nextLine());
+                    if (count == 0) {
+                        break;
+                    }
+                    String a = Prefer.description(count);
+                    List<ContactDTO> test2 = findphoneNumber.findsort(getConnection(), userCode, a);
 
-                for (ContactDTO b : test2) {
-                    System.out.println(b);
+                    for (ContactDTO b : test2) {
+                        System.out.println(b);
 
 
+                    }
+                } catch (NumberFormatException f) {
+                    System.out.println("문자나 특수기호 말고 숫자를 입력해주세요. ");
                 }
                 
             }
