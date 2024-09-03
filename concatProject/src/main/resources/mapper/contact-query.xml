@@ -171,8 +171,9 @@
     </entry>
 
     <entry key="printContactList">
-        SELECT a.contact_name, a.phonenumber, a.groupnumber, b.groupname FROM tbl_contact a
-        JOIN tbl_group b ON a.user_code = b.user_code
+        SELECT a.contact_name, a.phonenumber, a.groupnumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
         WHERE a.user_code = ?;
     </entry>
 
@@ -197,19 +198,19 @@
         set prefer = ?
         where user_code = ?;
 
-
     </entry>
 
 
     <entry key="getContactsInGroup">
-        SELECT a.contact_name, a.phonenumber, b.groupname FROM tbl_contact a
-        JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        SELECT a.contact_name, a.phonenumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
         WHERE a.user_code = ? AND a.groupnumber = ?;
     </entry>
 
     <entry key="deleteContactInGroup">
         UPDATE tbl_contact a
-        JOIN tbl_group b
+        LEFT JOIN tbl_group b
         ON a.groupnumber = b.groupnumber
         SET a.groupnumber = null
         WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;

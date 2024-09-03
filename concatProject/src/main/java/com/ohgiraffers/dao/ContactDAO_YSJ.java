@@ -228,7 +228,7 @@ public class ContactDAO_YSJ {
                 }
                 else
                 {
-                    contactDTO.setGroupName("그룹 없음");
+                    contactDTO.setGroupName("그룹없음");
                 }
 
                 userContacts.add(contactDTO);
