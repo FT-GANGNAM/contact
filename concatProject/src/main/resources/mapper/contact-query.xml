@@ -3,7 +3,7 @@
 <properties>
     <entry key="deletecontact">
         DELETE FROM tbl_contact
-        WHERE phonenumber = ?
+        WHERE phonenumber = ?, user_code = ?
     </entry>
 
     <entry key="insertcontact">
@@ -41,7 +41,6 @@
         G.groupname
         FROM tbl_contact C
         JOIN tbl_group G ON C.groupnumber = G.groupnumber;
-
 
     </entry>
 
@@ -127,7 +126,7 @@
 
     <entry key = "deleteGroup">
 
-        DELETE FROM tbl_group WHERE Groupname = ?;
+        DELETE FROM tbl_group WHERE Groupname = ? AND user_code = ?;
 
 
     </entry>
@@ -158,7 +157,7 @@
         INNER JOIN tbl_group b
         ON a.groupnumber = b.groupnumber
         SET a.groupnumber = null
-        WHERE b.groupname = ?;
+        WHERE b.groupname = ? AND a.user_code = ? ;
 
     </entry>
 

@@ -100,7 +100,7 @@ public class ContactDAO_YSJ {
         return result;
     }
 
-    public int deletecontact(Connection con, ContactDTO_YSJ contactDTO){
+    public int deletecontact(Connection con, ContactDTO_YSJ contactDTO, int userCode){
 
         PreparedStatement pstmt = null;
 
@@ -112,6 +112,7 @@ public class ContactDAO_YSJ {
             prop.loadFromXML(new FileInputStream("src/main/resources/mapper/contact-query.xml"));
             pstmt = con.prepareStatement(prop.getProperty("deletecontact"));
             pstmt.setString(1, contactDTO.getPhonenumber());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -161,7 +162,7 @@ public class ContactDAO_YSJ {
         return result;
 
     }
-    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO){
+    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO, int userCode){
         PreparedStatement pstmt = null;
         int result = 0;
 
@@ -171,6 +172,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(query);
 
             pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
@@ -280,7 +282,7 @@ public class ContactDAO_YSJ {
     }
 
 
-    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO){
+    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO,int userCode){
 
         PreparedStatement pstmt = null;
 
@@ -294,6 +296,7 @@ public class ContactDAO_YSJ {
             pstmt = con.prepareStatement(prop.getProperty("updatefordeletegroup"));
 
             pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
 
