@@ -2,7 +2,7 @@ package com.ohgiraffers.section02.dto;
 
 public class ContactDTO_YSJ {
 
-    private String contact_name;
+    private String contactName;
 
     private String phonenumber;
 
@@ -14,23 +14,44 @@ public class ContactDTO_YSJ {
 
     private int groupnumber;
 
-    private int user_code;
+    private int userCode;
+
+    private String groupname;
+
 
     public ContactDTO_YSJ() {
     }
 
-    public ContactDTO_YSJ(String contact_name, String phonenumber, String email, String address, String birthday, int groupnumber, int user_code) {
-        this.contact_name = contact_name;
+    public ContactDTO_YSJ(String groupname) {
+        this.groupname = groupname;
+    }
+
+    public ContactDTO_YSJ(String contactName, String phonenumber, String email, String address, String birthday, int user_code) {
+        this.contactName = contactName;
         this.phonenumber = phonenumber;
         this.email = email;
         this.address = address;
         this.birthday = birthday;
-        this.groupnumber = groupnumber;
-        this.user_code = user_code;
+        this.userCode = user_code;
     }
 
     public ContactDTO_YSJ contact_name(String name){
-        this.contact_name = name;
+        this.contactName = name;
+        return this;
+    }
+
+
+
+    public String getGroupname() {
+        return groupname;
+    }
+
+    public void setGroupname(String groupname) {
+        this.groupname = groupname;
+    }
+
+    public ContactDTO_YSJ groupname (String groupname){
+        this.groupname = groupname;
         return this;
     }
 
@@ -62,17 +83,17 @@ public class ContactDTO_YSJ {
         return this;
     }
 
-    public ContactDTO_YSJ user_code(int user_code){
-        this.user_code = user_code;
+    public ContactDTO_YSJ userCode(int userCode){
+        this.userCode = userCode;
         return this;
     }
 
     public int getUser_code() {
-        return user_code;
+        return userCode;
     }
 
-    public String getContact_name() {
-        return contact_name;
+    public String getContactName() {
+        return contactName;
     }
 
     public String getPhonenumber() {
@@ -98,13 +119,8 @@ public class ContactDTO_YSJ {
     @Override
     public String toString() {
         return "ContactDTO_YSJ{" +
-                "contact_name='" + contact_name + '\'' +
-                ", phonenumber='" + phonenumber + '\'' +
-                ", email='" + email + '\'' +
-                ", address='" + address + '\'' +
-                ", birthday='" + birthday + '\'' +
-                ", groupnumber=" + groupnumber +
-                ", user_code=" + user_code +
+                "groupname='" + groupname + '\'' +
                 '}';
     }
+
 }

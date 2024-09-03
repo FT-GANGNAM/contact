@@ -2,6 +2,8 @@ package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
 import com.ohgiraffers.section01.controller.ContactController_lee;
+import com.ohgiraffers.section02.Controller;
+import com.ohgiraffers.section02.controller.ContactController_YSJ;
 
 import java.util.Scanner;
 
@@ -10,8 +12,12 @@ public class App
     public static void main(String[] args)
     {
         Scanner sc = new Scanner(System.in);
+
         ContactController contactController = new ContactController();
         ContactController_lee contactController_lee = new ContactController_lee();
+        Controller controller = new Controller();
+        ContactController_YSJ contactController_YSJ = new ContactController_YSJ();
+
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -60,29 +66,27 @@ public class App
             switch (choice)
             {
                 case 1:
-                    System.out.println("할 거 고르셈");
-                    System.out.println("추가");
-                    System.out.println("수정");
-                    System.out.println("삭제");
+                    contactController_YSJ.manageContact(userCode);
                     break;
                 case 2:
-                    System.out.println("할 거 고르셈");
-                    System.out.println("추가");
-                    System.out.println("수정");
-                    System.out.println("그룹 내의 연락처 관리");
+                    contactController_YSJ.manageGroup(userCode);
                     break;
                 case 3:
                     contactController.searchContact(userCode);
                     break;
                 case 4:
+<<<<<<< HEAD
 
                     System.out.println("모든 연락처 목록 조회하께여");
+=======
+                    controller.findNumber(userCode);
+>>>>>>> e3aa82b6d73b0d6d82dd419f9793e3c040593332
                     break;
                 case 5:
                     contactController_lee.groupChoose(userCode);
                     break;
                 case 6:
-                    System.out.println("선호하는 정렬 순서를 설정해보세요");
+                    contactController.saveUserPrefer(userCode);
                     break;
                 case 9:
                     System.out.println("프로그램을 종료하겠긔");
