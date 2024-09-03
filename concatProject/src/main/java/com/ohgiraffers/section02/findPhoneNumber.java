@@ -131,6 +131,13 @@ public class findPhoneNumber {
             rset = pstmt.executeQuery();
             groupName = new ArrayList<>();
 
+            if(!rset.next()){
+              System.out.println();
+                System.out.println("해당 그룹을 찾을 수 없습니다.");
+                System.out.println();
+
+            }
+
             while (rset.next()) {
 
                 GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
@@ -143,7 +150,10 @@ public class findPhoneNumber {
 
 
         } catch (SQLException e) {
-            System.out.println(groupName1 + "의 입력값이 잘못 되었습니다.");
+            System.out.println();
+            System.out.println("해당 그룹을 찾을 수 없습니다.");
+            System.out.println();
+
         } finally {
             close(con);
             close(pstmt);
