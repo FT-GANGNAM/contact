@@ -118,9 +118,15 @@ public class GroupUpdateManager
     private void deleteContactsInGroup()
     {
         //그룹 내에서 연락처 삭제
-        // 선택한 그룹에 저장된 연락처들 다 출력해줌
+        // 그룹넘버와 유저코드 일치하는 연락처 전체 조회
+
         // 삭제할 연락처 선택 => 삭제
         // ex) 그룹넘버 1인 홍길동을 그룹에서 삭제하겟다고 하면 그룹넘버 null로 만들어주는 느낌~~  ^^
+        // 해당 그룹 넘버에 저장된 유저 없을 경우 없다고 출력
+
+        System.out.println("삭제하실 휴대폰 번호를 입력해주세요.");
+        String phoneNum = scr.nextLine();
+
 
 
     }
