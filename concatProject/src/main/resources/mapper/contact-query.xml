@@ -37,10 +37,12 @@
         contact_code,
         contact_name,
         phonenumber,
+        email,
+        address,
         birthday,
-        G.groupname
-        FROM tbl_contact C
-        JOIN tbl_group G ON C.groupnumber = G.groupnumber;
+        groupnumber
+        FROM tbl_contact
+        where user_code = ?
 
 
     </entry>
@@ -138,6 +140,23 @@
         WHERE user_code = ?;
     </entry>
 
+    <entry key = "findsort">
+
+        SELECT
+        contact_code,
+        contact_name,
+        phonenumber,
+        email,
+        address,
+        birthday,
+        groupnumber
+        FROM tbl_contact
+        where user_code = ?
+        ORDER BY
+
+
+    </entry>
+
     <entry key="printGroupList">
         SELECT * FROM tbl_group
         WHERE user_code = ?;
@@ -161,5 +180,6 @@
         WHERE b.groupname = ?;
 
     </entry>
+
 
 </properties>
