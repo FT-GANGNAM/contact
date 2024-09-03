@@ -25,5 +25,8 @@ public class ContactController
         searcher.search(userCode);
     }
 
-    public void saveUserPrefer(int userCode) {userPrefer.saveUserPrefer(userCode);}
+    public void saveUserPrefer(int userCode)
+    {
+        userPrefer.saveUserPrefer(userCode);
+    }
 }
