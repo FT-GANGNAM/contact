@@ -20,7 +20,7 @@ public class App
         ContactController_YSJ contactController_YSJ = new ContactController_YSJ();
 
 
-        UserDTO userDTO = new UserDTO();
+        UserDTO userDTO = null;
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -35,9 +35,12 @@ public class App
             if(choice == 1)
             {
                 userDTO = contactController.login();
-                userCode = userDTO.getUserCode();
+                if(userDTO != null)
+                {
+                    userCode = userDTO.getUserCode();
+                }
 
-                if(userCode < 0)
+                if(userCode <= 0)
                 {
                     System.out.println("아이디 또는 비밀번호가 맞지 않습니다( ༎ຶŎ༎ຶ )");
                     System.out.println("메인 화면으로 돌아갑니다.");

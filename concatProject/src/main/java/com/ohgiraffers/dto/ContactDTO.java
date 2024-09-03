@@ -116,7 +116,7 @@ public class ContactDTO {
                 ", 이메일 ='" + email + '\'' +
                 ", 주소 ='" + address + '\'' +
                 ", 생일 ='" + birthday + '\'' +
-                ", 그룹 ='" + groupNumber + '\''
+                ", 그룹 ='" + groupName + '\''
                 ;
     }
 }
