@@ -1,6 +1,7 @@
 package com.ohgiraffers.section02;
 
 import com.ohgiraffers.Prefer;
+import com.ohgiraffers.section01.dao.UserPreferDAO;
 import com.ohgiraffers.section01.dto.ContactDTO;
 import com.ohgiraffers.section01.dto.GroupContactDTO;
 
@@ -11,6 +12,7 @@ import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 public class Controller {
 
     private FindPhoneNumber findphoneNumber = new FindPhoneNumber("src/main/resources/mapper/contact-query.xml");
+    UserPreferDAO userPreferDAO = new UserPreferDAO("src/main/resources/mapper/contact-query.xml");
 
     public void findNumber(int userCode){
         Controller con = new Controller();
@@ -63,34 +65,16 @@ public class Controller {
     }
 
     public void test2(int userCode) {
-        List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode);
+        String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userCode);
+
+       List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode);
         Scanner scr = new Scanner(System.in);
 
         // 첫 번째 리스트 출력
         for (ContactDTO contactDTO : test1) {
             System.out.println(contactDTO);
         }
-            while (true) {
-                System.out.println("어느 기준으로 정렬 하시겠습니까?");
-                System.out.println("1.이메일 내림차순 2. 이메일 오름차순 3. 이름 내림차순 4.오름차순 5. 생일별 내림차순 6. 생일별 오름차순 0.뒤로가기");
-                try {
-                    int count = Integer.parseInt(scr.nextLine());
-                    if (count == 0) {
-                        break;
-                    }
-                    String a = Prefer.description(count);
-                    List<ContactDTO> test2 = findphoneNumber.findsort(getConnection(), userCode, a);
 
-                    for (ContactDTO b : test2) {
-                        System.out.println(b);
-
-
-                    }
-                } catch (NumberFormatException f) {
-                    System.out.println("문자나 특수기호 말고 숫자를 입력해주세요. ");
-                }
-                
-            }
 
     }
     public void findGroup(){

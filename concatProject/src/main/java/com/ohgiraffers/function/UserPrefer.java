@@ -29,20 +29,23 @@ public class UserPrefer
         preferValue += " " + sc.nextLine();
 
         //tbl_user에서 prefer 가져와서 나눠
+        
+
+        // 이메일 오름차순으로 입력받으면 상수 email desc 반환하는이넘
+        String change = Prefer.description(preferValue);
 
         //원하는 정렬방식으로 업데이트
-        userPreferDAO.saveUserPrefer(getConnection(),preferValue, userDTO.getUserCode());
+        userPreferDAO.saveUserPrefer(getConnection(),change, userDTO.getUserCode());
 
 
 
+        //해당 유저의 선호 정렬방식 가지고 오는 코드
        String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userDTO.getUserCode());
 
-        String sort = Prefer.description(prefer);
+
 
         int userCode = userDTO.getUserCode();
-
-
-        List<ContactDTO> test2 = findPhoneNumber.findsort(getConnection(), userCode, sort);
+        List<ContactDTO> test2 = findPhoneNumber.findsort(getConnection(), userCode, prefer);
         for (ContactDTO b : test2) {
             System.out.println(b);
         }
