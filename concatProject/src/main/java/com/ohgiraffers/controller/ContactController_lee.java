@@ -53,7 +53,7 @@ public class ContactController_lee {
     public void groupByPhoneNumber(int a) {
         List<Map<String, Integer>> result = contactDAO.groupByPhoneNumber(getConnection(), a);
         if (result.isEmpty()) {
-            System.out.println("회원님의 연락처에 아무도 없습니다 ㅠㅠ");
+            System.out.println("조회가 되는 그룹이 없습니다!");
         } else {
             for (Map<String, Integer> map : result) {
                 System.out.println(map);

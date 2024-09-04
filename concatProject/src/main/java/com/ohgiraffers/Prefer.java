@@ -13,7 +13,11 @@ public enum Prefer {
 
     BIRTHDAY_ASC("birthday ASC","생일 오름차순"),
 
-    BIRTHDAY_DESC("birthday DESC","생일 내림차순");
+    BIRTHDAY_DESC("birthday DESC","생일 내림차순"),
+
+    ADDRESS_ASC("address ASC","주소 오름차순"),
+
+    ADDRESS_DESC("address DESC","주소 내림차순");
 
 
 
