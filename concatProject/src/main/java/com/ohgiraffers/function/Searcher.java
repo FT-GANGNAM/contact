@@ -23,22 +23,35 @@ public class Searcher
         System.out.println("2. 전화번호로 검색");
         System.out.println("3. 이메일로 검색");
         System.out.println("4. 주소로 검색");
+        System.out.println("0. 메뉴로 돌아가기");
 
         String choice = sc.nextLine();
 
-        System.out.print("입력: ");
-        String searchValue = sc.nextLine();
-
-        List<ContactDTO> contacts = searchDAO.search(getConnection(), choice, searchValue, userCode);
-        if(contacts.isEmpty())
+        if (choice.equals("0"))
         {
-            System.out.println("일치하는 검색 결과가 없습니다.");
+            return;
         }
+        else if(!choice.equals("1") && !choice.equals("2") && !choice.equals("3") && !choice.equals("4") && !choice.equals("이름") && !choice.equals("전화번호") && !choice.equals("이메일") && !choice.equals("주소"))
+        {
+            System.out.println("올바른 값을 입력해주세요");
+        }
+
         else
         {
-            for(ContactDTO contact : contacts)
+            System.out.print("입력: ");
+            String searchValue = sc.nextLine();
+
+            List<ContactDTO> contacts = searchDAO.search(getConnection(), choice, searchValue, userCode);
+            if(contacts.isEmpty())
             {
-                System.out.println(contact);
+                System.out.println("일치하는 검색 결과가 없습니다.");
+            }
+            else
+            {
+                for(ContactDTO contact : contacts)
+                {
+                    System.out.println(contact);
+                }
             }
         }
     }

@@ -75,6 +75,7 @@ public class GroupUpdateManager
     public void updateGroup(int userCode)
     {
         // 해당 유저코드가 가지고 있는 그룹명 출력
+        boolean is
         groups = contactDAO.getAllGroups(getConnection(), userCode);
         System.out.println("*** 저장된 그룹 ***");
         for (GroupDTO groupDTO : groups)
