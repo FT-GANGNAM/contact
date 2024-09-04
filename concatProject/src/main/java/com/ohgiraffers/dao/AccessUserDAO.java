@@ -1,6 +1,6 @@
-package com.ohgiraffers.section01.dao;
+package com.ohgiraffers.dao;
 
-import com.ohgiraffers.section01.dto.UserDTO;
+import com.ohgiraffers.dto.UserDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;

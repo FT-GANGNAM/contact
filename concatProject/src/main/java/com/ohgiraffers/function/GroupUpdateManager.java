@@ -1,8 +1,9 @@
 package com.ohgiraffers.function;
 
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupDTO;
+import com.ohgiraffers.dao.ContactDAO_YSJ;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,7 +42,6 @@ public class GroupUpdateManager
 
         while(true)
         {
-            //그룹 내 연락처 삭제할래 아니면 그룹에 연락처 추가할래
             System.out.println("***** 서비스를 선택하세요 *****");
             System.out.println("- 추가\n- 삭제");
             String choice = scr.nextLine();
@@ -69,11 +69,13 @@ public class GroupUpdateManager
         //그룹에 연락처 추가
         // 그룹 출력해줬으니까 연락처 출력해서 연락처를 추가하고 싶은
 
-        List<ContactDTO_YSJ> contacts = contactDAO.getAllContacts(getConnection(), userCode); // 수정해라
-        // 애초에 contacts에서 가져올 때 join tbl_group 해서 그룹 이름도 가져와서 넣어야 함
-        for (ContactDTO_YSJ contactDTO_YSJ : contacts)
+        //TODO
+        List<ContactDTO> contacts = contactDAO.getAllContacts(getConnection(), userCode); // 수정해라
+        int result = 0;
+
+        for (ContactDTO contactDTO : contacts)
         {
-            System.out.println(contactDTO_YSJ.getContactName() + " " + contactDTO_YSJ.getPhonenumber());
+            System.out.println(contactDTO.getContactName() + " " + contactDTO.getPhoneNumber() + " " + contactDTO.getGroupName());
         }
 
         List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
@@ -90,7 +92,7 @@ public class GroupUpdateManager
                 phoneNumList.add(phoneNum);
                 continue;
             }
-            else if(answer.equals("no") || answer.equals("아니요") || answer.equals("아니"))
+            else if(answer.equals("no") || answer.equals("아니요") || answer.equals("아니") || answer.equals("아니오"))
             {
                 phoneNumList.add(phoneNum);
                 break;
@@ -106,29 +108,43 @@ public class GroupUpdateManager
         {
             for(int j = 0 ; j < phoneNumList.size() ; j++)
             {
-                if(contacts.get(i).getPhonenumber().equals(phoneNumList.get(j)))
+                if(contacts.get(i).getPhoneNumber().equals(phoneNumList.get(j)))
                 {
                     // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
-                    contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(j));
+                    result = contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(j));
                 }
             }
         }
+
+        System.out.println(result > 0 ? "* ੈ✩‧₊ 그룹 설정에 성공했습니다. * ੈ✩‧₊" : "");
     }
 
     private void deleteContactsInGroup(int groupNum, int userCode)
     {
-        //그룹 내에서 연락처 삭제
-        // 그룹넘버와 유저코드 일치하는 연락처 전체 조회
+        // 그룹 내에서 연락처 삭제하는 메소드
+        // 그룹넘버와 유저코드 일치하는 연락처 전체 조회 후 출력
+
+        List<ContactDTO> contacts = contactDAO.printContactsInGroup(getConnection(), groupNum, userCode);
 
         // 삭제할 연락처 선택 => 삭제
-        // ex) 그룹넘버 1인 홍길동을 그룹에서 삭제하겟다고 하면 그룹넘버 null로 만들어주는 느낌~~  ^^
         // 해당 그룹 넘버에 저장된 유저 없을 경우 없다고 출력
 
-        System.out.println("삭제하실 휴대폰 번호를 입력해주세요.");
-        String phoneNum = scr.nextLine();
+        if(!contacts.isEmpty())
+        {
+            for(ContactDTO contactDTO : contacts)
+            {
+                System.out.println(contactDTO.getContactName() + " " + contactDTO.getPhoneNumber());
+            }
+            System.out.println("삭제하실 휴대폰 번호를 입력해주세요.");
+            String phoneNum = scr.nextLine();
 
-        int result = contactDAO.deleteContactInGroup(getConnection(), groupNum, phoneNum, userCode);
+            int result = contactDAO.deleteContactInGroup(getConnection(), groupNum, phoneNum, userCode);
 
-        System.out.println(result < 1 ? phoneNum + "의 그룹 갱신에 실패했습니다." : "그룹에서 " + phoneNum + " 을 삭제했습니다.");
+            System.out.println(result < 1 ? phoneNum + "의 그룹 갱신에 실패했습니다." : "그룹에서 " + phoneNum + " 을 삭제했습니다.");
+        }
+        else
+        {
+            System.out.println("해당 그룹에 저장된 연락처가 없습니다.");
+        }
     }
 }

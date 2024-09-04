@@ -1,7 +1,8 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.testApp;
 
 
-import com.ohgiraffers.section01.controller.ContactController_lee;
+import com.ohgiraffers.controller.ContactController_lee;
+import com.ohgiraffers.controller.Controller;
 
 public class Application {
     public static void main (String[] args){

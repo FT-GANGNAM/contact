@@ -1,9 +1,12 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.controller;
 
 import com.ohgiraffers.Prefer;
 import com.ohgiraffers.section01.dao.UserPreferDAO;
 import com.ohgiraffers.section01.dto.ContactDTO;
 import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
+import com.ohgiraffers.function.FindPhoneNumber;
 
 import java.util.*;
 

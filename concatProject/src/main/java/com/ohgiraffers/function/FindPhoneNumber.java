@@ -1,8 +1,8 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.function;
 
 
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -52,8 +52,7 @@ public class FindPhoneNumber {
             System.out.println();
 
             while (rset.next()) {
-                ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
-                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                ContactDTO contactDTO = new ContactDTO(rset.getString("contact_name"), rset.getString("phonenumber"), rset.getString("email"),rset.getString("address"),rset.getString("birthday"), (rset.getString("groupname") == null ? " " : rset.getString("groupname")));
                 categoryList.add(contactDTO);
             }
 
@@ -86,7 +85,7 @@ public class FindPhoneNumber {
 
             while (rset.next()) {
                 ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
-                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupname"));
                 categoryList.add(contactDTO);
 
             }
