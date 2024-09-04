@@ -224,10 +224,15 @@
     <entry key="deleteContactInGroup">
         UPDATE tbl_contact a
         LEFT JOIN tbl_group b
-        ON a.groupnumber = b.groupnumber
+
+        ON
+        a.groupnumber = b.groupnumber
         SET a.groupnumber = null
         WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
     </entry>
 
+    <entry key="countphonenumber">
+        SELECT COUNT(*) FROM tbl_contact WHERE phonenumber = ?;
+    </entry>
 
 </properties>
