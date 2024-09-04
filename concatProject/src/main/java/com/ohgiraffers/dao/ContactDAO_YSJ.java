@@ -103,8 +103,20 @@ public class ContactDAO_YSJ {
     }
 
     public boolean isPhonenumberExists(Connection con, String phonenumber){
-        PreparedStatement pstmt = null;
+        String query = prop.getProperty("countphonenumber");
 
+        try {
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, phonenumber);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1) > 0; //핸드폰번호를 카운트해서 0보다 크면 updatecontact 메소드로 반환
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;  // rs값이 없을때 false 인데, 문법상 적어준것! (딱히 의미는 x) 어차피 위 if 문에서 다 해결됨!
 
     }
 

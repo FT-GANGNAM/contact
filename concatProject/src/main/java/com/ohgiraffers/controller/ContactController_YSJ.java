@@ -78,18 +78,13 @@ public void updatecontact(int userCode) {
 
     System.out.println("수정하고 싶은 연락처의 번호를 입력해주세요 ex)010-1234-5678 : ");
     String phone = scr.nextLine();
-    if (phone == null){
-        System.out.println("수정하고 싶은 번호가 연락처에 없습니다. 다시 확인해주세요");
+
+    if (!contactDAO.isPhonenumberExists(getConnection(), phone)){
+        System.out.println("입력하신 번호가 연락처에 존재하지 않습니다.");
         manageContact(userCode);
-        return;
+        return;   //true(전화번호가 존재) 일 경우에 false가 되게해서 다음걸로 넘어가게 하는 코드!
     }
-    else if (isValidPhoneNumber(phone)){
-        contactDTO.phonenumber(phone);
-    }else {
-        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
-        manageContact(userCode);
-        return;
-    }
+
     System.out.println("연락처의 이름을 어떻게 바꾸시겠습니까? : ");
 
     contactDTO.contact_name(scr.nextLine());
