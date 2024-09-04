@@ -62,11 +62,24 @@
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,address,birthday,groupnumber,user_code
-        FROM tbl_contact
-        where user_code =?
-        order by contact_code DESC
-        Limit 1
+        SELECT
+        a.contact_code,
+        a.contact_name,
+        a.phonenumber,
+        a.email,
+        a.address,
+        a.birthday,
+        b.groupname
+        FROM
+        tbl_contact a
+        LEFT JOIN
+        tbl_group b
+        ON a.groupnumber = b.groupnumber
+        WHERE
+        a.user_code = ?
+        ORDER BY
+        a.contact_code DESC
+        LIMIT 1;
     </entry>
 
 
