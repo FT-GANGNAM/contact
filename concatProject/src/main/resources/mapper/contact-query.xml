@@ -3,7 +3,7 @@
 <properties>
     <entry key="deletecontact">
         DELETE FROM tbl_contact
-        WHERE phonenumber = ?
+        WHERE phonenumber = ?, user_code = ?
     </entry>
 
     <entry key="insertcontact">
@@ -13,10 +13,8 @@
         email,
         address,
         birthday,
-        groupnumber,
-        usercode
+        user_code
         )VALUES(
-        ?,
         ?,
         ?,
         ?,
@@ -26,9 +24,9 @@
         )
     </entry>
 
-    <entry key="updateMenu">
+    <entry key="updatecontact">
         UPDATE tbl_contact
-        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, groupnumber = ?, usercode = ?
+        SET contact_name = ? , phonenumber = ? , email = ?, address = ?, birthday = ?, user_code = ?
         WHERE phonenumber = ?
     </entry>
 
@@ -39,11 +37,13 @@
         contact_code,
         contact_name,
         phonenumber,
+        email,
+        address,
         birthday,
-        G.groupname
-        FROM tbl_contact C
-        JOIN tbl_group G ON C.groupnumber = G.groupnumber;
-
+        b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        where a.user_code = ?
 
     </entry>
 
@@ -57,16 +57,29 @@
         SELECT groupname,count(*)
         From tbl_contact a JOIN tbl_group b
         on a.groupnumber = b.groupnumber
-        where user_code =?
+        where a.user_code =?
         group by groupname
     </entry>
 
     <entry key="selectLastContact">
-        SELECT contact_code,contact_name,phonenumber,email,adress,birthday,groupnumber,user_code
-        FROM tbl_contact
-        where user_code =?
-        order by contact_code DESC
-        Limit 1
+        SELECT
+        a.contact_code,
+        a.contact_name,
+        a.phonenumber,
+        a.email,
+        a.address,
+        a.birthday,
+        b.groupname
+        FROM
+        tbl_contact a
+        LEFT JOIN
+        tbl_group b
+        ON a.groupnumber = b.groupnumber
+        WHERE
+        a.user_code = ?
+        ORDER BY
+        a.contact_code DESC
+        LIMIT 1;
     </entry>
 
 
@@ -83,6 +96,143 @@
 
 
     </entry>
+    
+    <entry key="searchByName">
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.contact_name LIKE ? AND a.user_code = ?
+        ORDER BY a.contact_name;
+    </entry>
 
+    <entry key="searchByPhoneNumber">
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.phonenumber LIKE ? AND a.user_code = ?
+        ORDER BY a.phonenumber;
+    </entry>
+
+    <entry key="searchByAddress">
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.address LIKE ? AND a.user_code = ?
+        ORDER BY a.address;
+    </entry>
+
+    <entry key="searchByEmail">
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.email LIKE ? AND a.user_code = ?
+        ORDER BY a.email;
+    </entry>
+    
+    <entry key="getUserInfo">
+        SELECT * FROM tbl_user
+        WHERE id = ? AND pwd = ?;
+    </entry>
+
+    <entry key="setNewUser">
+        INSERT INTO tbl_user
+        (user_name, id, pwd)
+        VALUES(?, ?, ?);
+    </entry>
+
+    <entry key = "insertGroup">
+
+
+        INSERT INTO tbl_group VALUES (NULL, ?, ?);
+
+
+    </entry>
+
+    <entry key = "deleteGroup">
+
+        DELETE FROM tbl_group WHERE Groupname = ? AND user_code = ?;
+
+
+    </entry>
+
+    <entry key="savePrefer">
+       SELECT prefer FROM tbl_user
+        WHERE user_code = ?;
+    </entry>
+
+    <entry key="findsort">
+
+        SELECT
+        contact_code,
+        contact_name,
+        phonenumber,
+        email,
+        address,
+        birthday,
+        b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        where a.user_code = ?
+        ORDER BY
+
+
+    </entry>
+
+    <entry key="printGroupList">
+        SELECT * FROM tbl_group
+        WHERE user_code = ?;
+    </entry>
+
+    <entry key="printContactList">
+        SELECT a.contact_name, a.phonenumber, a.groupnumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.user_code = ?;
+    </entry>
+
+    <entry key="changeGroupNumber">
+        UPDATE tbl_contact SET groupnumber = ?
+        WHERE user_code = ? AND phonenumber = ?;
+    </entry>
+
+    <entry key="updatefordeletegroup">
+        UPDATE tbl_contact a
+        INNER JOIN tbl_group b
+        ON a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE b.groupname = ? AND a.user_code = ? ;
+
+    </entry>
+
+
+    <entry key = "orderUpdatePrefer">
+
+        update tbl_user
+        set prefer = ?
+        where user_code = ?;
+
+    </entry>
+
+
+    <entry key="getContactsInGroup">
+        SELECT a.contact_name, a.phonenumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.user_code = ? AND a.groupnumber = ?;
+    </entry>
+
+    <entry key="deleteContactInGroup">
+        UPDATE tbl_contact a
+        LEFT JOIN tbl_group b
+
+        ON
+        a.groupnumber = b.groupnumber
+        SET a.groupnumber = null
+        WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
+    </entry>
+
+    <entry key="countphonenumber">
+        SELECT COUNT(*) FROM tbl_contact WHERE phonenumber = ?;
+    </entry>
 
 </properties>

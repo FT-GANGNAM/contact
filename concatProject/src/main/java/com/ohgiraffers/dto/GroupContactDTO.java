@@ -1,4 +1,4 @@
-package com.ohgiraffers.section01.dto;
+package com.ohgiraffers.dto;
 
 public class GroupContactDTO {
 
@@ -51,7 +51,7 @@ public class GroupContactDTO {
 
     @Override
     public String toString() {
-        return "전화번호부 정보" +
+        return
                 "이름='" + contact_Name + '\'' +
                 ", 핸드폰 번호 : " + phonenumber +
                 ", 이메일 : '" + email + '\'' +
