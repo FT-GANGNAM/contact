@@ -92,7 +92,7 @@ public class ContactDAO_lee {
               rset = pstmt.executeQuery();
               if(rset.next()){
                   result.add(rset.getString(2)+" "+  rset.getString(3)+" "+  rset.getString(4)
-                  +" "+  rset.getString(5)+" "+  rset.getString(6)+" "+  rset.getString(7) + rset.getString(8));
+                  +" "+  rset.getString(5)+" "+  rset.getString(6)+" "+ rset.getString(7) );
               }
         } catch (SQLException e) {
             throw new RuntimeException(e);
