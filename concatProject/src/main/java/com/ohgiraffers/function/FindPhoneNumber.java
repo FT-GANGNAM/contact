@@ -105,17 +105,10 @@ public class FindPhoneNumber {
 
 
 
-    public List<GroupContactDTO> groupFindPhoneNumber1(Connection con) {
+    public List<GroupContactDTO> groupFindPhoneNumber1(Connection con, String groupName) {
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<GroupContactDTO> groupName = null;
-        Scanner scr = new Scanner(System.in);
-
-
-        System.out.println("* ੈ✩‧₊ 그룹명을 입력해주세요 * ੈ✩‧₊");
-        String groupName1 = scr.nextLine();
-
-
+        List<GroupContactDTO> contactInGroup = null;
 
 
 
@@ -123,26 +116,25 @@ public class FindPhoneNumber {
             String query = prop.getProperty("findGroup");
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, groupName1);
+            pstmt.setString(1, groupName);
             rset = pstmt.executeQuery();
-            groupName = new ArrayList<>();
-
-            if(!rset.next()){
-              System.out.println();
-                System.out.println("해당 그룹을 찾을 수 없습니다.");
-                System.out.println();
-
-            }
-
-            while (rset.next()) {
-
-                GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
-                        rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
-
-                groupName.add(groupContactDTO);
+            contactInGroup = new ArrayList<>();
 
 
-            }
+
+
+
+                while (rset.next()) {
+
+                    GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
+                            rset.getString("phonenumber"), rset.getString("birthday"), rset.getString("groupname"));
+
+                    contactInGroup.add(groupContactDTO);
+
+
+                }
+
+
 
 
         } catch (SQLException e) {
@@ -156,8 +148,9 @@ public class FindPhoneNumber {
             close(rset);
         }
 
-        return groupName;
+        return contactInGroup;
     }
+
 
 
 }
