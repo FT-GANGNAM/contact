@@ -1,6 +1,6 @@
-package com.ohgiraffers.section01.dao;
+package com.ohgiraffers.dao;
 
-import com.ohgiraffers.section01.dto.ContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -69,7 +69,13 @@ public class SearchDAO
 
             while(rs.next())
             {
-                ContactDTO contact = new ContactDTO(rs.getInt("contact_code"), rs.getString("contact_name"), rs.getString("phonenumber"), rs.getString("email"), rs.getString("address"), rs.getString("birthday"), rs.getString("groupnumber"));
+                ContactDTO contact = new ContactDTO();
+                contact.setContactName(rs.getString("contact_name"));
+                contact.setPhoneNumber(rs.getString("phonenumber"));
+                contact.setEmail(rs.getString("email"));
+                contact.setAddress(rs.getString("address"));
+                contact.setBirthday(rs.getString("birthday"));
+                contact.setGroupName(rs.getString("groupname") == null ? " " : rs.getString("groupname"));
                 contacts.add(contact);
             }
         }

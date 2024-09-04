@@ -1,6 +1,6 @@
-package com.ohgiraffers.section01.dao;
+package com.ohgiraffers.dao;
 
-import com.ohgiraffers.section01.dto.UserDTO;
+import com.ohgiraffers.dto.UserDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -47,8 +47,6 @@ public class AccessUserDAO
             while(rs.next())
             {
                 user = new UserDTO(rs.getInt("user_code"), rs.getString("user_name"), rs.getString("id"), rs.getString("pwd"), rs.getString("prefer"));
-                System.out.println("accessUserDAO.getUserInfo()");
-                System.out.println(user);
             }
         }
         catch (SQLException e)
@@ -84,6 +82,11 @@ public class AccessUserDAO
         catch (SQLException e)
         {
             System.out.println("가입에 실패했습니다. 제대로 입력하셨나요?");
+        }
+        finally
+        {
+            close(con);
+            close(ps);
         }
 
     }

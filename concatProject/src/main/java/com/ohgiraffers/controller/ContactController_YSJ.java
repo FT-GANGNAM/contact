@@ -1,12 +1,9 @@
-package com.ohgiraffers.section02.controller;
+package com.ohgiraffers.controller;
 
 import com.ohgiraffers.function.GroupUpdateManager;
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dao.ContactDAO_YSJ;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -97,24 +94,27 @@ public void updatecontact(int userCode) {
     contactDTO.address(scr.nextLine());
 
     System.out.println("연락처의 생일을 어떻게 바꾸시겠습니까? ex)00월 00일, 01월 23일 ");
-    contactDTO.birthday(scr.nextLine());
-
+    String birth = scr.nextLine();
+    if(isValidBirthday(birth)){
+        contactDTO.birthday(birth);
+    }else {
+        System.out.println("* ੈ✩‧₊ 입력하신 형식이 맞지 않습니다! * ੈ✩‧₊");
+        return;
+    }
     contactDTO.userCode(userCode);
-
-    scr.nextLine();
 
     int result = contactDAO.updatecontact(getConnection(), contactDTO, a);
 
     }
 
-    public void deletecontact(){
+    public void deletecontact(int userCode){
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("제거할 연락처번호를 입력 해주세요 : ");
+        System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
         contactDTO.phonenumber(scr.nextLine());
 
-        int result = contactDAO.deletecontact(getConnection(), contactDTO);
+        int result = contactDAO.deletecontact(getConnection(), contactDTO, userCode);
 
     }
 
@@ -122,7 +122,7 @@ public void updatecontact(int userCode) {
 
         Scanner scr = new Scanner(System.in);
 
-        System.out.println("추가하실 그룹명을 입력해주세요 : ");
+        System.out.println("* ੈ✩‧₊ 추가하실 그룹명을 입력해주세요 : * ੈ✩‧₊");
         String newGroup = scr.nextLine();
 
         int result = contactDAO.insertGroup(getConnection(), newGroup, userCode);
@@ -137,10 +137,10 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("삭제할 그룹명을 입력해주세요");
+        System.out.println("* ੈ✩‧₊ 삭제할 그룹명을 입력해주세요 * ੈ✩‧₊");
         contactDTO.groupname(scr.nextLine());
 
-        int result = contactDAO.deleteGroup(getConnection(), contactDTO);
+        int result = contactDAO.deleteGroup(getConnection(), contactDTO, userCode);
 
 
     }
@@ -151,15 +151,18 @@ public void updatecontact(int userCode) {
 
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
+        System.out.println("* ੈ✩‧₊ 제거하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
+
         System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+
         contactDTO.groupname(scr.nextLine());
-        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO);
+        int result = contactDAO.updateForDeleteGroup(getConnection(), contactDTO, userCode);
 
     }
 
     public void manageContact(int userCode)
     {
-        System.out.println("1. 추가 2. 수정 3. 삭제");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 수정 3. 삭제 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
         switch (choice)
@@ -174,18 +177,18 @@ public void updatecontact(int userCode) {
                 break;
             case "3":
             case "삭제":
-                deletecontact();
+                deletecontact(userCode);
                 break;
 
             default:
-                System.out.println("잘못된 입력입니다.");
+                System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;
         }
     }
 
     public void manageGroup(int userCode)
     {
-        System.out.println("1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
 
@@ -206,7 +209,7 @@ public void updatecontact(int userCode) {
                 break;
 
             default:
-                System.out.println("잘못된 입력입니다.");
+                System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;
         }
 

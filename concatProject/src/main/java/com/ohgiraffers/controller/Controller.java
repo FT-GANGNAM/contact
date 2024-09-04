@@ -1,18 +1,21 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.controller;
 
 import com.ohgiraffers.Prefer;
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dao.UserPreferDAO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
+import com.ohgiraffers.function.FindPhoneNumber;
 
-import java.sql.Connection;
 import java.util.*;
-import java.util.prefs.Preferences;
 
 import static com.ohgiraffers.common.JDBCTemplate.getConnection;
 
 public class Controller {
 
-    private findPhoneNumber findphoneNumber = new findPhoneNumber("src/main/resources/mapper/contact-query.xml");
+    private FindPhoneNumber findphoneNumber = new FindPhoneNumber("src/main/resources/mapper/contact-query.xml");
+    UserPreferDAO userPreferDAO = new UserPreferDAO("src/main/resources/mapper/contact-query.xml");
 
     public void findNumber(int userCode){
         Controller con = new Controller();
@@ -26,15 +29,27 @@ public class Controller {
             System.out.println("2. 그룹으로 조회");
             System.out.println("0. 초기화면으로 돌아가기");
             System.out.println("목록을 선택해주세요 : ");
-            int find = scr.nextInt();
+            try {
+                int find = Integer.parseInt(scr.nextLine());
 
 
-            switch (find) {
+                switch (find) {
 
-                case 1 : con.test2(userCode); break;
-                case 2 : con.test();
-                    break;
-                    case 0 : return;
+                    case 1:
+                        con.test2(userCode);
+                        break;
+                    case 2:
+                        con.test();
+                        break;
+                    case 0:
+                        return;
+                        default :
+                        System.out.println("잘못된 숫자를 입력하셨습니다."); break;
+                }
+            } catch(NumberFormatException f){
+                System.out.println();
+                System.out.println("문자나 특수기호 말고 숫자로 입력하시오");
+                System.out.println();
             }
 
         }
@@ -49,34 +64,21 @@ public class Controller {
         List<GroupContactDTO> test = findphoneNumber.groupFindPhoneNumber1(getConnection());
         for (GroupContactDTO groupContactDTO : test) {
             System.out.println(groupContactDTO);
+
         }
     }
 
     public void test2(int userCode) {
-        List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode);
+        String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userCode);
+
+       List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode,prefer);
         Scanner scr = new Scanner(System.in);
 
         // 첫 번째 리스트 출력
         for (ContactDTO contactDTO : test1) {
             System.out.println(contactDTO);
         }
-            while (true) {
-                System.out.println("어느 기준으로 정렬 하시겠습니까?");
-                System.out.println("1.이메일 내림차순 2. 이메일 오름차순 3. 이름 내림차순 4.오름차순 5. 생일별 내림차순 6. 생일별 오름차순 0.뒤로가기");
-                int count = scr.nextInt();
-                if (count == 0) {
-                    break;
-                }
-               String a= Prefer.description(count);
-              List<ContactDTO> test2 = findphoneNumber.findsort(getConnection(),userCode,a);
 
-                for (ContactDTO b : test2) {
-                    System.out.println(b);
-
-
-                }
-                
-            }
 
     }
     public void findGroup(){

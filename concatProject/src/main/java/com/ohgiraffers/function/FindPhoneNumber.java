@@ -1,8 +1,8 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.function;
 
 
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import java.util.*;
 import static com.ohgiraffers.common.JDBCTemplate.close;
 
 
-public class findPhoneNumber {
+public class FindPhoneNumber {
 
     /*      - **연락처 목록 조회**
             - 저장된 모든 연락처를 목록 형태로 조회할 수 있어야 한다. //리스트
@@ -25,7 +25,7 @@ public class findPhoneNumber {
 
     private Properties prop = new Properties();
 
-    public findPhoneNumber(String url) {
+    public FindPhoneNumber(String url) {
 
         try {
             prop.loadFromXML(new FileInputStream(url));
@@ -36,24 +36,23 @@ public class findPhoneNumber {
 
     }
 
-    public List<ContactDTO> findPhoneNumbers1(Connection con, int userCode) {
+    public List<ContactDTO> findPhoneNumbers1(Connection con, int userCode, String prefer) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         List<ContactDTO> categoryList = new ArrayList<>();
         try {
-            String query = prop.getProperty("findPhoneNumber");
+            String query = prop.getProperty("findsort")+prefer;
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, userCode);
 
             rset = pstmt.executeQuery();
 
-            System.out.println("전화번호부");
+            System.out.println("* ੈ✩‧₊ 전화번호부 * ੈ✩‧₊");
             System.out.println();
 
             while (rset.next()) {
-                ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
-                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                ContactDTO contactDTO = new ContactDTO(rset.getString("contact_name"), rset.getString("phonenumber"), rset.getString("email"),rset.getString("address"),rset.getString("birthday"), (rset.getString("groupname") == null ? " " : rset.getString("groupname")));
                 categoryList.add(contactDTO);
             }
 
@@ -74,26 +73,23 @@ public class findPhoneNumber {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
-        List<ContactDTO> categoryList = null;
+        List<ContactDTO> categoryList =  new ArrayList<>();
         try {
             String query = prop.getProperty("findsort");
-
-            pstmt = con.prepareStatement(query + sort );
+            pstmt = con.prepareStatement(query + sort);
             pstmt.setInt(1, userCode);
-
             rset = pstmt.executeQuery();
 
-            categoryList = new ArrayList<>();
 
-            System.out.println("전화번호부");
-
+            System.out.println("* ੈ✩‧₊ 전화번호부 * ੈ✩‧₊");
 
             while (rset.next()) {
                 ContactDTO contactDTO = new ContactDTO(rset.getInt("contact_code"),rset.getString("contact_name"), rset.getString("phonenumber"),
-                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupnumber"));
+                        rset.getString("email"),rset.getString("address"),rset.getString("birthday"), rset.getString("groupname"));
                 categoryList.add(contactDTO);
 
             }
+
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -116,7 +112,7 @@ public class findPhoneNumber {
         Scanner scr = new Scanner(System.in);
 
 
-        System.out.println("그룹명을 입력해주세요");
+        System.out.println("* ੈ✩‧₊ 그룹명을 입력해주세요 * ੈ✩‧₊");
         String groupName1 = scr.nextLine();
 
 
@@ -131,6 +127,13 @@ public class findPhoneNumber {
             rset = pstmt.executeQuery();
             groupName = new ArrayList<>();
 
+            if(!rset.next()){
+              System.out.println();
+                System.out.println("해당 그룹을 찾을 수 없습니다.");
+                System.out.println();
+
+            }
+
             while (rset.next()) {
 
                 GroupContactDTO groupContactDTO = new GroupContactDTO(rset.getString("contact_name"),
@@ -143,7 +146,10 @@ public class findPhoneNumber {
 
 
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            System.out.println();
+            System.out.println("해당 그룹을 찾을 수 없습니다.");
+            System.out.println();
+
         } finally {
             close(con);
             close(pstmt);

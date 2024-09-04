@@ -3,6 +3,7 @@ package com.ohgiraffers.controller;
 import com.ohgiraffers.function.Searcher;
 import com.ohgiraffers.function.UserAccountManager;
 import com.ohgiraffers.function.UserPrefer;
+import com.ohgiraffers.dto.UserDTO;
 
 public class ContactController
 {
@@ -10,12 +11,12 @@ public class ContactController
     Searcher searcher = new Searcher();
     UserPrefer userPrefer = new UserPrefer();
 
-    public int login()
+    public UserDTO login()
     {
         return userAccountManager.login();
     }
 
-    public int signup()
+    public UserDTO signup()
     {
         return userAccountManager.signup();
     }
@@ -25,8 +26,8 @@ public class ContactController
         searcher.search(userCode);
     }
 
-    public void saveUserPrefer(int userCode)
+    public void saveUserPrefer(UserDTO userDTO)
     {
-        userPrefer.saveUserPrefer(userCode);
+        userPrefer.saveUserPrefer(userDTO);
     }
 }
