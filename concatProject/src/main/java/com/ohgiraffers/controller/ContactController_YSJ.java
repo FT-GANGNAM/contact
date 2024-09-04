@@ -29,15 +29,17 @@ public void insertcontact(int userCode){  //contact_name,phonenumber, email, add
     if (isValidPhoneNumber(phone)){
         contactDTO.phonenumber(phone);
     }else {
-        System.out.println("입력하신 형식이 맞지 않습니다! ");
-        return ;
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
+        return;
     }
     System.out.println("연락처에 추가할 이메일을 입력 해주세요 ex)gangnam@gamil.com : ");
     String email = scr.nextLine();
     if (isValidEmail(email)){
         contactDTO.email(email);
     }else {
-        System.out.println("입력하신 이메일 형식이 맞지 않습니다");
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
         return;
     }
     System.out.println("연락처에 추가할 주소를 입력 해주세요 : ");
@@ -47,7 +49,8 @@ public void insertcontact(int userCode){  //contact_name,phonenumber, email, add
     if(isValidBirthday(birth)){
         contactDTO.birthday(birth);
     }else {
-        System.out.println("입력하신 형식이 맞지 않습니다!");
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
         return;
     }
 
@@ -55,6 +58,15 @@ public void insertcontact(int userCode){  //contact_name,phonenumber, email, add
 
 
     int result = contactDAO.insertcontact(getConnection(), contactDTO);
+    
+    if(result == 1)
+    {
+        // insert 성공했을때
+    }
+    else
+    {
+        // insert 실패했을 때
+    }
 
 
 }
@@ -64,20 +76,31 @@ public void updatecontact(int userCode) {
 
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-
     System.out.println("수정하고 싶은 연락처의 번호를 입력해주세요 ex)010-1234-5678 : ");
-    String a = scr.nextLine();
-
+    String phone = scr.nextLine();
+    if (phone == null){
+        System.out.println("수정하고 싶은 번호가 연락처에 없습니다. 다시 확인해주세요");
+        manageContact(userCode);
+        return;
+    }
+    else if (isValidPhoneNumber(phone)){
+        contactDTO.phonenumber(phone);
+    }else {
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
+        return;
+    }
     System.out.println("연락처의 이름을 어떻게 바꾸시겠습니까? : ");
 
     contactDTO.contact_name(scr.nextLine());
 
     System.out.println("연락처의 번호를 어떻게 바꾸시겠습니까? ex)010-1234-5678 :  ");
-        String phone = scr.nextLine();
-    if (isValidPhoneNumber(phone)){
-        contactDTO.phonenumber(phone);
+        String updatephone = scr.nextLine();
+    if (isValidPhoneNumber(updatephone)){
+        contactDTO.phonenumber(updatephone);
     }else {
-        System.out.println("입력하신 형식이 맞지 않습니다! ");
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊");
+        manageContact(userCode);
         return ;
     }
 
@@ -86,7 +109,8 @@ public void updatecontact(int userCode) {
     if (isValidEmail(email)){
         contactDTO.email(email);
     }else {
-        System.out.println("입력하신 이메일 형식이 맞지 않습니다");
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
         return;
     }
 
@@ -98,12 +122,13 @@ public void updatecontact(int userCode) {
     if(isValidBirthday(birth)){
         contactDTO.birthday(birth);
     }else {
-        System.out.println("* ੈ✩‧₊ 입력하신 형식이 맞지 않습니다! * ੈ✩‧₊");
+        System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+        manageContact(userCode);
         return;
     }
     contactDTO.userCode(userCode);
 
-    int result = contactDAO.updatecontact(getConnection(), contactDTO, a);
+    int result = contactDAO.updatecontact(getConnection(), contactDTO, phone);
 
     }
 
@@ -112,7 +137,14 @@ public void updatecontact(int userCode) {
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
         System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
-        contactDTO.phonenumber(scr.nextLine());
+        String phone = scr.nextLine();
+        if (isValidPhoneNumber(phone)){
+            contactDTO.phonenumber(phone);
+        }else {
+            System.out.println("* ੈ✩‧₊입력하신 형식이 맞지 않습니다! 되돌아갑니다 * ੈ✩‧₊ ");
+            manageContact(userCode);
+            return;
+        }
 
         int result = contactDAO.deletecontact(getConnection(), contactDTO, userCode);
 
@@ -162,7 +194,7 @@ public void updatecontact(int userCode) {
 
     public void manageContact(int userCode)
     {
-        System.out.println("* ੈ✩‧₊ 1. 추가 2. 수정 3. 삭제 * ੈ✩‧₊");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 수정 3. 삭제 4. 이전으로 돌아가기 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
         switch (choice)
@@ -179,7 +211,7 @@ public void updatecontact(int userCode) {
             case "삭제":
                 deletecontact(userCode);
                 break;
-
+            case "4" : break;
             default:
                 System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;
@@ -188,7 +220,7 @@ public void updatecontact(int userCode) {
 
     public void manageGroup(int userCode)
     {
-        System.out.println("* ੈ✩‧₊ 1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제 * ੈ✩‧₊");
+        System.out.println("* ੈ✩‧₊ 1. 추가 2. 삭제 3. 그룹 내에서 연락처 추가, 삭제 4. 이전으로 되돌아가기 * ੈ✩‧₊");
         Scanner scr = new Scanner(System.in);
         String choice = scr.nextLine();
 
@@ -207,7 +239,7 @@ public void updatecontact(int userCode) {
             case "그룹 내 연락처 수정":
                 groupUpdateManager.updateGroup(userCode);
                 break;
-
+            case "4": break;
             default:
                 System.out.println("* ੈ✩‧₊ 잘못된 입력입니다. * ੈ✩‧₊");
                 break;

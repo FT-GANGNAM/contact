@@ -60,7 +60,7 @@ public class ContactDAO_YSJ {
         return result;
     }
 
-    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String a){
+    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String phone){
 
         PreparedStatement pstmt = null;
 
@@ -74,7 +74,7 @@ public class ContactDAO_YSJ {
 
 
             pstmt.setString(1,contactDTO.getContactName());
-            pstmt.setString(7, a);
+            pstmt.setString(7, phone);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
@@ -86,7 +86,7 @@ public class ContactDAO_YSJ {
             if (result == 1){
                 System.out.println("* ੈ✩‧₊ 연락처 변경 성공 * ੈ✩‧₊");
             } else {
-                System.out.println("* ੈ✩‧₊ 연락처 변경 실패 * ੈ✩‧₊");
+                System.out.println("* ੈ✩‧₊ 연락처 변경에 실패하셨습니다. 수정할 번호를 제대로 입력하셨는지 확인해주세요! * ੈ✩‧₊");
             }
 
         } catch (IOException e) {
