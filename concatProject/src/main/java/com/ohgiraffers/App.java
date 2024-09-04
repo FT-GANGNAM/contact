@@ -32,6 +32,7 @@ public class App
 
             try {
                 int choice = Integer.parseInt(sc.nextLine());
+
             if(choice == 1)
             {
                 userDTO = contactController.login();
