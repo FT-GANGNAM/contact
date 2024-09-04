@@ -1,12 +1,9 @@
-package com.ohgiraffers.section02.controller;
+package com.ohgiraffers.controller;
 
 import com.ohgiraffers.function.GroupUpdateManager;
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dao.ContactDAO_YSJ;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dao.ContactDAO_YSJ;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -159,7 +156,7 @@ public void updatecontact(int userCode) {
         System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
 
         contactDTO.groupname(scr.nextLine());
-        int result = contactDAO.updatefordeletegroup(getConnection(), contactDTO, userCode);
+        int result = contactDAO.updateForDeleteGroup(getConnection(), contactDTO, userCode);
 
     }
 

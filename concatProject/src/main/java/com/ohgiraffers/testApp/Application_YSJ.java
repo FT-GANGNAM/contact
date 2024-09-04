@@ -1,6 +1,6 @@
-package com.ohgiraffers.section02;
+package com.ohgiraffers.testApp;
 
-import com.ohgiraffers.section02.controller.ContactController_YSJ;
+import com.ohgiraffers.controller.ContactController_YSJ;
 
 import java.util.Scanner;
 

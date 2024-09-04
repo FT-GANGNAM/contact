@@ -1,10 +1,10 @@
 package com.ohgiraffers;
 
 import com.ohgiraffers.controller.ContactController;
-import com.ohgiraffers.section01.controller.ContactController_lee;
-import com.ohgiraffers.section01.dto.UserDTO;
-import com.ohgiraffers.section02.Controller;
-import com.ohgiraffers.section02.controller.ContactController_YSJ;
+import com.ohgiraffers.controller.ContactController_lee;
+import com.ohgiraffers.dto.UserDTO;
+import com.ohgiraffers.controller.Controller;
+import com.ohgiraffers.controller.ContactController_YSJ;
 
 import java.util.Scanner;
 
@@ -20,7 +20,7 @@ public class App
         ContactController_YSJ contactController_YSJ = new ContactController_YSJ();
 
 
-        UserDTO userDTO = new UserDTO();
+        UserDTO userDTO = null;
         int userCode = 0; // 이걸로 로그인 후에 setUserCode 해서 넘겨주기
 
         while(true)
@@ -35,9 +35,12 @@ public class App
             if(choice == 1)
             {
                 userDTO = contactController.login();
-                userCode = userDTO.getUserCode();
+                if(userDTO != null)
+                {
+                    userCode = userDTO.getUserCode();
+                }
 
-                if(userCode < 0)
+                if(userCode <= 0)
                 {
                     System.out.println("아이디 또는 비밀번호가 맞지 않습니다( ༎ຶŎ༎ຶ )");
                     System.out.println("메인 화면으로 돌아갑니다.");
@@ -84,11 +87,7 @@ public class App
                         contactController.searchContact(userCode);
                         break;
                     case 4:
-
-                        System.out.println("모든 연락처 목록 조회하께여");
-
                         controller.findNumber(userCode);
-
                         break;
                     case 5:
                         contactController_lee.groupChoose(userCode);
@@ -97,7 +96,7 @@ public class App
                         contactController.saveUserPrefer(userDTO);
                         break;
                     case 9:
-                        System.out.println("프로그램을 종료하겠긔");
+                        System.out.println("프로그램을 종료합니다.");
                         return;
                     default:
                         System.out.println("잘못된 값을 입력하셨습니다. 서비스 선택 창으로 돌아갑니다.");

@@ -40,9 +40,10 @@
         email,
         address,
         birthday,
-        groupnumber
-        FROM tbl_contact
-        where user_code = ?
+        b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        where a.user_code = ?
 
     </entry>
 
@@ -84,27 +85,35 @@
     </entry>
     
     <entry key="searchByName">
-        SELECT * FROM tbl_contact
-        WHERE contact_name LIKE ? AND user_code = ?
-        ORDER BY contact_name;
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.contact_name LIKE ? AND a.user_code = ?
+        ORDER BY a.contact_name;
     </entry>
 
     <entry key="searchByPhoneNumber">
-        SELECT * FROM tbl_contact
-        WHERE phonenumber LIKE ? AND user_code = ?
-        ORDER BY phonenumber;
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.phonenumber LIKE ? AND a.user_code = ?
+        ORDER BY a.phonenumber;
     </entry>
 
     <entry key="searchByAddress">
-        SELECT * FROM tbl_contact
-        WHERE address LIKE ? AND user_code = ?
-        ORDER BY address;
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.address LIKE ? AND a.user_code = ?
+        ORDER BY a.address;
     </entry>
 
     <entry key="searchByEmail">
-        SELECT * FROM tbl_contact
-        WHERE email LIKE ? AND user_code = ?
-        ORDER BY email;
+        SELECT a.contact_name, a.phonenumber, a.email, a.address, a.birthday, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.email LIKE ? AND a.user_code = ?
+        ORDER BY a.email;
     </entry>
     
     <entry key="getUserInfo">
@@ -147,9 +156,10 @@
         email,
         address,
         birthday,
-        groupnumber
-        FROM tbl_contact
-        where user_code = ?
+        b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        where a.user_code = ?
         ORDER BY
 
 
@@ -161,8 +171,10 @@
     </entry>
 
     <entry key="printContactList">
-        SELECT * FROM tbl_contact
-        WHERE user_code = ?;
+        SELECT a.contact_name, a.phonenumber, a.groupnumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.user_code = ?;
     </entry>
 
     <entry key="changeGroupNumber">
@@ -186,18 +198,19 @@
         set prefer = ?
         where user_code = ?;
 
-
     </entry>
 
 
     <entry key="getContactsInGroup">
-        SELECT * FROM tbl_contact
-        WHERE user_code = ? AND groupnumber = ?;
+        SELECT a.contact_name, a.phonenumber, b.groupname
+        FROM tbl_contact a
+        LEFT JOIN tbl_group b ON a.groupnumber = b.groupnumber
+        WHERE a.user_code = ? AND a.groupnumber = ?;
     </entry>
 
     <entry key="deleteContactInGroup">
         UPDATE tbl_contact a
-        JOIN tbl_group b
+        LEFT JOIN tbl_group b
         ON a.groupnumber = b.groupnumber
         SET a.groupnumber = null
         WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;

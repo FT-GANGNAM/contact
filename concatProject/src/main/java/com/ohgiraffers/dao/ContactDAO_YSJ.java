@@ -1,17 +1,16 @@
-package com.ohgiraffers.section02.dao;
+package com.ohgiraffers.dao;
 
-import com.ohgiraffers.section01.dto.GroupDTO;
-import com.ohgiraffers.section02.dto.ContactDTO_YSJ;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupDTO;
+import com.ohgiraffers.dto.ContactDTO_YSJ;
 
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.InvalidPropertiesFormatException;
 import java.util.List;
 import java.util.Properties;
 
@@ -162,6 +161,11 @@ public class ContactDAO_YSJ {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        finally
+        {
+            close(con);
+            close(pstmt);
+        }
         return result;
 
     }
@@ -198,9 +202,9 @@ public class ContactDAO_YSJ {
 
     }
 
-    public List<ContactDTO_YSJ> getAllContacts(Connection con, int userCode)
+    public List<ContactDTO> getAllContacts(Connection con, int userCode)
     {
-        List<ContactDTO_YSJ> userContacts = new ArrayList<ContactDTO_YSJ>();
+        List<ContactDTO> userContacts = new ArrayList<ContactDTO>();
 
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -215,13 +219,17 @@ public class ContactDAO_YSJ {
             rs = pstmt.executeQuery();
             while(rs.next())
             {
-                ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
-                contactDTO.contact_name(rs.getString("contact_name"));
-                contactDTO.phonenumber(rs.getString("phonenumber"));
-                contactDTO.email(rs.getString("email"));
-                contactDTO.address(rs.getString("address"));
-                contactDTO.birthday(rs.getString("birthday"));
-                contactDTO.userCode(userCode);
+                ContactDTO contactDTO = new ContactDTO();
+                contactDTO.setContactName(rs.getString("contact_name"));
+                contactDTO.setPhoneNumber(rs.getString("phonenumber"));
+                if(rs.getString("groupname") != null)
+                {
+                    contactDTO.setGroupName(rs.getString("groupname"));
+                }
+                else
+                {
+                    contactDTO.setGroupName("그룹없음");
+                }
 
                 userContacts.add(contactDTO);
             }
@@ -229,6 +237,12 @@ public class ContactDAO_YSJ {
         catch (SQLException e)
         {
             System.out.println("* ੈ✩‧₊ 연락처를 찾을 수 없습니다. * ੈ✩‧₊");
+        }
+        finally
+        {
+            close(con);
+            close(pstmt);
+            close(rs);
         }
 
 
@@ -258,11 +272,17 @@ public class ContactDAO_YSJ {
         {
             throw new RuntimeException(e);
         }
+        finally
+        {
+            close(con);
+            close(pstmt);
+            close(rs);
+        }
 
         return groups;
     }
 
-    public void changeGroupNumberOfContact(Connection con, int groupNum, int userCode, String phoneNum)
+    public int changeGroupNumberOfContact(Connection con, int groupNum, int userCode, String phoneNum)
     {
         PreparedStatement pstmt = null;
         int result = 0;
@@ -275,20 +295,21 @@ public class ContactDAO_YSJ {
             pstmt.setInt(2, userCode);
             pstmt.setString(3, phoneNum);
             result = pstmt.executeUpdate();
-
-            System.out.println("* ੈ✩‧₊ 그룹 설정에 성공했습니다. * ੈ✩‧₊");
         }
         catch (SQLException e)
         {
             System.out.println("* ੈ✩‧₊" + phoneNum + " 의 그룹 설정에 실패했습니다. * ੈ✩‧₊");
+            return -1;
+
         }finally{
             close(con);
             close(pstmt);
         }
+        return result;
     }
 
 
-    public int updatefordeletegroup(Connection con, ContactDTO_YSJ contactDTO,int userCode){
+    public int updateForDeleteGroup(Connection con, ContactDTO_YSJ contactDTO, int userCode){
 
         // 그룹 삭제를 하기 위해 연락처의 그룹 정보를 null로 설정
 
@@ -323,6 +344,46 @@ public class ContactDAO_YSJ {
 
     return result;
 
+    }
+
+    public List<ContactDTO> printContactsInGroup(Connection con, int groupNum, int userCode)
+    {
+        //그룹
+        List<ContactDTO> contacts = new ArrayList<>();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        String query = prop.getProperty("getContactsInGroup");
+
+        try
+        {
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, userCode);
+            pstmt.setInt(2, groupNum);
+
+            rs = pstmt.executeQuery();
+
+            while(rs.next())
+            {
+                ContactDTO contact = new ContactDTO();
+                contact.setContactName(rs.getString("contact_name"));
+                contact.setPhoneNumber(rs.getString("phonenumber"));
+                contact.setGroupName(rs.getString("groupname"));
+                contacts.add(contact);
+            }
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            close(con);
+            close(pstmt);
+            close(rs);
+        }
+
+        return contacts;
     }
 
     public int deleteContactInGroup(Connection con, int groupNum, String phoneNum, int userCode)
