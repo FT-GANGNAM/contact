@@ -35,4 +35,11 @@ public class GroupDTO
     {
         this.groupName = groupName;
     }
+
+    @Override
+    public String toString() {
+        return "저장되어 있는 그룹 : " +
+
+                "  groupName='" + groupName + '\''                 ;
+    }
 }
