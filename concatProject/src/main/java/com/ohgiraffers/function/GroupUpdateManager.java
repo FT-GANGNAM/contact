@@ -71,6 +71,11 @@ public class GroupUpdateManager
 
         //TODO
         List<ContactDTO> contacts = contactDAO.getAllContacts(getConnection(), userCode); // 수정해라
+        List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
+        List<String> notInContacts = new ArrayList<>();
+
+        boolean isInContacts = false;
+
         int result = 0;
 
         for (ContactDTO contactDTO : contacts)
@@ -78,7 +83,6 @@ public class GroupUpdateManager
             System.out.println(contactDTO.getContactName() + " " + contactDTO.getPhoneNumber() + " " + contactDTO.getGroupName());
         }
 
-        List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
         while(true)
         {
             System.out.println("그룹에 추가할 휴대폰 번호를 입력해주세요: ");
@@ -104,15 +108,35 @@ public class GroupUpdateManager
             }
         }
 
-        for(int i = 0 ; i < contacts.size() ; i++)
+        //contacts 조회해서 phoneNumList에 내 연락처에 없는 전화번호가 있을 경우에
+        //"연락처 내에서 번호 " + phoneNumList.get(j) + " 를 찾을 수 없어 그룹에 추가하지 못했습니다."
+
+        for(int i = 0 ; i < phoneNumList.size() ; i++)
         {
-            for(int j = 0 ; j < phoneNumList.size() ; j++)
+            isInContacts = false;
+
+            for(int j = 0 ; j < contacts.size() ; j++)
             {
-                if(contacts.get(i).getPhoneNumber().equals(phoneNumList.get(j)))
+                if(contacts.get(j).getPhoneNumber().equals(phoneNumList.get(i)))
                 {
                     // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
+                    isInContacts = true;
                     result = contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(j));
                 }
+            }
+
+            if(!isInContacts)
+            {
+                notInContacts.add(phoneNumList.get(i));
+            }
+
+        }
+
+        if(!notInContacts.isEmpty())
+        {
+            for(String phoneNum : notInContacts)
+            {
+                System.out.println("연락처 내에서 번호 " + phoneNum + " 를 찾을 수 없어 그룹에 추가하지 못했습니다.");
             }
         }
 
