@@ -1,9 +1,9 @@
 package com.ohgiraffers.controller;
 
 import com.ohgiraffers.Prefer;
-import com.ohgiraffers.section01.dao.UserPreferDAO;
-import com.ohgiraffers.section01.dto.ContactDTO;
-import com.ohgiraffers.section01.dto.GroupContactDTO;
+import com.ohgiraffers.dao.UserPreferDAO;
+import com.ohgiraffers.dto.ContactDTO;
+import com.ohgiraffers.dto.GroupContactDTO;
 import com.ohgiraffers.dto.ContactDTO;
 import com.ohgiraffers.dto.GroupContactDTO;
 import com.ohgiraffers.function.FindPhoneNumber;
@@ -64,13 +64,14 @@ public class Controller {
         List<GroupContactDTO> test = findphoneNumber.groupFindPhoneNumber1(getConnection());
         for (GroupContactDTO groupContactDTO : test) {
             System.out.println(groupContactDTO);
+
         }
     }
 
     public void test2(int userCode) {
         String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userCode);
 
-       List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode);
+       List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode,prefer);
         Scanner scr = new Scanner(System.in);
 
         // 첫 번째 리스트 출력

@@ -36,13 +36,13 @@ public class FindPhoneNumber {
 
     }
 
-    public List<ContactDTO> findPhoneNumbers1(Connection con, int userCode) {
+    public List<ContactDTO> findPhoneNumbers1(Connection con, int userCode, String prefer) {
 
         PreparedStatement pstmt = null;
         ResultSet rset = null;
         List<ContactDTO> categoryList = new ArrayList<>();
         try {
-            String query = prop.getProperty("findPhoneNumber");
+            String query = prop.getProperty("findsort")+prefer;
             pstmt = con.prepareStatement(query);
             pstmt.setInt(1, userCode);
 
