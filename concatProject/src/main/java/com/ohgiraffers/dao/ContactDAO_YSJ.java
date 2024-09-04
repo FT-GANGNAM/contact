@@ -169,7 +169,7 @@ public class ContactDAO_YSJ {
         return result;
 
     }
-    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO, int userCode){
+    public int deleteGroup(Connection con, String groupName, int userCode){
         PreparedStatement pstmt = null;
         int result = 0;
 
@@ -178,19 +178,10 @@ public class ContactDAO_YSJ {
         try {
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setString(1, groupName);
             pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
-
-            if(result == 1){
-
-                System.out.println("* ੈ✩‧₊ 그룹이 제거되었습니다. * ੈ✩‧₊");
-            }else{
-                System.out.println("* ੈ✩‧₊ 그룹 제거에 실패하였습니다. * ੈ✩‧₊");
-            }
-
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -326,12 +317,6 @@ public class ContactDAO_YSJ {
             pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
-
-            if (result == 1){
-                System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 초기화 성공 * ੈ✩‧₊");
-            }else {
-                System.out.println("* ੈ✩‧₊ 초기화 실패하셨습니다. 다시 시도해주세요. * ੈ✩‧₊");
-            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);
