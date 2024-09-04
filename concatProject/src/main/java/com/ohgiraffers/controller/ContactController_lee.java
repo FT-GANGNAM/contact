@@ -51,18 +51,26 @@ public class ContactController_lee {
     }
 
     public void groupByPhoneNumber(int a) {
-        List<Map<String, Integer>> result = contactDAO.groupByPhoneNumber(getConnection(),a);
-        for (Map<String, Integer> map : result) {
-            System.out.println(map);
-        }
+        List<Map<String, Integer>> result = contactDAO.groupByPhoneNumber(getConnection(), a);
+        if (result.isEmpty()) {
+            System.out.println("회원님의 연락처에 아무도 없습니다 ㅠㅠ");
+        } else {
+            for (Map<String, Integer> map : result) {
+                System.out.println(map);
+            }
 
+        }
     }
 
     public void selectLastContact(int a) {
         List result = contactDAO.selectLastContact(getConnection(),a);
 
-        for (Object list : result) {
-            System.out.println(list);
+        if (result.isEmpty()) {
+            System.out.println("회원님의 연락처에 아무도 없습니다 ㅠㅠ");
+        } else {
+            for (Object list : result) {
+                System.out.println(list);
+            }
         }
     }
 
