@@ -102,6 +102,13 @@ public class ContactDAO_YSJ {
         return result;
     }
 
+    public boolean isPhonenumberExists(Connection con, String phonenumber){
+        PreparedStatement pstmt = null;
+
+
+    }
+
+
     public int deletecontact(Connection con, ContactDTO_YSJ contactDTO, int userCode){
 
         PreparedStatement pstmt = null;
