@@ -27,18 +27,6 @@ public enum Prefer {
     private final String count;
 
 
-    /*public static  String description(int a) {
-            String des = null;
-        for(Prefer p : Prefer.values()) {
-            if(p.count== a){
-                des = p.getDescription();
-
-
-            }
-
-        }
-        return des;
-    }*/
 
     public static  String description(String prefer) {
         String des = null;
