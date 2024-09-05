@@ -19,8 +19,65 @@ public class GroupUpdateManager
 
     private int groupNum = 0;
 
+    public void deleteGroup(int userCode){
+
+        Scanner scr = new Scanner(System.in);
+        ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+
+        List<GroupDTO> groupsInUser = contactDAO.getAllGroups(getConnection(), userCode);
+        System.out.println(groupsInUser);
+        if(groupsInUser.isEmpty())
+        {
+            System.out.println("저장된 그룹이 없습니다.");
+        }
+        else
+        {
+            System.out.println("* ੈ✩‧₊ 제거하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
+
+            System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+            String groupName = scr.nextLine();
+            contactDTO.groupname(groupName);
+
+            // userCode 가지고 있는 그룹 가져와서
+            // groupName이랑 비교 => 다르면 초기화 할 필요가 없고 해당 그룹을 찾을 수 없다고 표시
+
+            boolean isInUserContact = false;
+            for(GroupDTO group : groupsInUser)
+            {
+                isInUserContact = group.getGroupName().equals(groupName);
+                if(isInUserContact) break;
+            }
+
+            if(isInUserContact)
+            {
+                int initResult = contactDAO.updateForDeleteGroup(getConnection(), contactDTO, userCode);
+
+                if (initResult > 0){
+                    System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 초기화 성공 * ੈ✩‧₊");
+                    System.out.println();
+
+                    int groupResult = contactDAO.deleteGroup(getConnection(), groupName, userCode);
+                    System.out.println(groupResult > 0 ? "[ " + groupName + " ] 그룹 삭제에 성공했습니다." : "[ " + groupName + " ] 그룹 삭제에 실패했습니다.");
+                    System.out.println();
+                }
+                else
+                {
+                    System.out.println("* ੈ✩‧₊ 초기화 실패하셨습니다. 다시 시도해주세요. * ੈ✩‧₊");
+                }
+            }
+            else
+            {
+                System.out.println("해당 그룹을 찾을 수 없습니다.");
+            }
+
+        }
+    }
+
+
     public void updateGroup(int userCode)
     {
+        boolean isTrue = false;
+
         // 해당 유저코드가 가지고 있는 그룹명 출력
         groups = contactDAO.getAllGroups(getConnection(), userCode);
         System.out.println("*** 저장된 그룹 ***");
@@ -29,39 +86,52 @@ public class GroupUpdateManager
             System.out.println("- " + groupDTO.getGroupName());
         }
 
-        System.out.println("편집하고 싶은 그룹을 입력해주세요: ");
+        System.out.println("편집하고 싶은 그룹을 입력해주세요:  ");
         String selectedGroup = scr.nextLine();
         for (GroupDTO groupDTO : groups)
         {
             if(groupDTO.getGroupName().equals(selectedGroup))
             {
                 groupNum = groupDTO.getGroupIndex();
+                isTrue = true;
                 break;
             }
         }
 
-        while(true)
+        if(isTrue)
         {
-            System.out.println("***** 서비스를 선택하세요 *****");
-            System.out.println("- 추가\n- 삭제");
-            String choice = scr.nextLine();
+            while(true)
+            {
+                System.out.println("***** 서비스를 선택하세요 *****");
+                System.out.println("- 추가\n- 삭제\n- 해당 메뉴 나가기(0번)");
+                String choice = scr.nextLine();
 
-            if(choice.equals("추가"))
-            {
-                addContactInGroup(userCode);
-                break;
-            }
-            else if(choice.equals("삭제"))
-            {
-                deleteContactsInGroup(groupNum, userCode);
-                break;
-            }
-            else
-            {
-                System.out.println("잘못된 입력입니다.");
-            }
+                if(choice.equals("추가"))
+                {
+                    addContactInGroup(userCode);
+                    break;
+                }
+                else if(choice.equals("삭제"))
+                {
+                    deleteContactsInGroup(groupNum, userCode);
+                    break;
+                }
+                else if(choice.equals("0"))
+                {
+                    return;
+                }
+                else
+                {
+                    System.out.println("잘못된 입력입니다.");
+                }
 
+            }
         }
+        else
+        {
+            System.out.println("해당 그룹을 찾을 수 없습니다.");
+        }
+
     }
 
     private void addContactInGroup(int userCode)
@@ -71,6 +141,11 @@ public class GroupUpdateManager
 
         //TODO
         List<ContactDTO> contacts = contactDAO.getAllContacts(getConnection(), userCode); // 수정해라
+        List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
+        List<String> notInContacts = new ArrayList<>();
+
+        boolean isInContacts = false;
+
         int result = 0;
 
         for (ContactDTO contactDTO : contacts)
@@ -78,13 +153,12 @@ public class GroupUpdateManager
             System.out.println(contactDTO.getContactName() + " " + contactDTO.getPhoneNumber() + " " + contactDTO.getGroupName());
         }
 
-        List<String> phoneNumList = new ArrayList<>(); // 내가 입력 받을 휴대폰 번호
         while(true)
         {
             System.out.println("그룹에 추가할 휴대폰 번호를 입력해주세요: ");
             String phoneNum = scr.nextLine();
 
-            System.out.println("더 추가하시겠습니까?");
+            System.out.println("더 추가하시겠습니까? (네/아니오)");
             String answer = scr.nextLine();
 
             if(answer.equals("yes") || answer.equals("네") || answer.equals("예"))
@@ -104,15 +178,35 @@ public class GroupUpdateManager
             }
         }
 
-        for(int i = 0 ; i < contacts.size() ; i++)
+        //contacts 조회해서 phoneNumList에 내 연락처에 없는 전화번호가 있을 경우에
+        //"연락처 내에서 번호 " + phoneNumList.get(j) + " 를 찾을 수 없어 그룹에 추가하지 못했습니다."
+
+        for(int i = 0 ; i < phoneNumList.size() ; i++)
         {
-            for(int j = 0 ; j < phoneNumList.size() ; j++)
+            isInContacts = false;
+
+            for(int j = 0 ; j < contacts.size() ; j++)
             {
-                if(contacts.get(i).getPhoneNumber().equals(phoneNumList.get(j)))
+                if(contacts.get(j).getPhoneNumber().equals(phoneNumList.get(i)))
                 {
                     // contacts[i]의 groupnumber를 내가 선택한 그룹 이름의 넘버로 바꿔줄거예요
-                    result = contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(j));
+                    isInContacts = true;
+                    result = contactDAO.changeGroupNumberOfContact(getConnection(), groupNum, userCode, phoneNumList.get(i));
                 }
+            }
+
+            if(!isInContacts)
+            {
+                notInContacts.add(phoneNumList.get(i));
+            }
+
+        }
+
+        if(!notInContacts.isEmpty())
+        {
+            for(String phoneNum : notInContacts)
+            {
+                System.out.println("연락처 내에서 번호 " + phoneNum + " 를 찾을 수 없어 그룹에 추가하지 못했습니다.");
             }
         }
 

@@ -60,7 +60,7 @@ public class ContactDAO_YSJ {
         return result;
     }
 
-    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String a){
+    public int updatecontact(Connection con, ContactDTO_YSJ contactDTO, String phone){
 
         PreparedStatement pstmt = null;
 
@@ -74,7 +74,7 @@ public class ContactDAO_YSJ {
 
 
             pstmt.setString(1,contactDTO.getContactName());
-            pstmt.setString(7, a);
+            pstmt.setString(7, phone);
             pstmt.setString(2, contactDTO.getPhonenumber());
             pstmt.setString(3, contactDTO.getEmail());
             pstmt.setString(4, contactDTO.getAddress());
@@ -86,7 +86,7 @@ public class ContactDAO_YSJ {
             if (result == 1){
                 System.out.println("* ੈ✩‧₊ 연락처 변경 성공 * ੈ✩‧₊");
             } else {
-                System.out.println("* ੈ✩‧₊ 연락처 변경 실패 * ੈ✩‧₊");
+                System.out.println("* ੈ✩‧₊ 연락처 변경에 실패하셨습니다. 수정할 번호를 제대로 입력하셨는지 확인해주세요! * ੈ✩‧₊");
             }
 
         } catch (IOException e) {
@@ -101,6 +101,25 @@ public class ContactDAO_YSJ {
         }
         return result;
     }
+
+    public boolean isPhonenumberExists(Connection con, String phonenumber){
+        String query = prop.getProperty("countphonenumber");
+
+        try {
+            PreparedStatement pstmt = con.prepareStatement(query);
+            pstmt.setString(1, phonenumber);
+            ResultSet rs = pstmt.executeQuery();
+            if(rs.next()){
+                return rs.getInt(1) > 0; //핸드폰번호를 카운트해서 0보다 크면 updatecontact 메소드로 반환
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return false;  // rs값이 없을때 false 인데, 문법상 적어준것! (딱히 의미는 x) 어차피 위 if 문에서 다 해결됨!
+
+    }
+
 
     public int deletecontact(Connection con, ContactDTO_YSJ contactDTO, int userCode){
 
@@ -169,7 +188,7 @@ public class ContactDAO_YSJ {
         return result;
 
     }
-    public int deleteGroup(Connection con, ContactDTO_YSJ contactDTO, int userCode){
+    public int deleteGroup(Connection con, String groupName, int userCode){
         PreparedStatement pstmt = null;
         int result = 0;
 
@@ -178,19 +197,10 @@ public class ContactDAO_YSJ {
         try {
             pstmt = con.prepareStatement(query);
 
-            pstmt.setString(1, contactDTO.getGroupname());
+            pstmt.setString(1, groupName);
             pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
-
-            if(result == 1){
-
-                System.out.println("* ੈ✩‧₊ 그룹이 제거되었습니다. * ੈ✩‧₊");
-            }else{
-                System.out.println("* ੈ✩‧₊ 그룹 제거에 실패하였습니다. * ੈ✩‧₊");
-            }
-
-
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -326,12 +336,6 @@ public class ContactDAO_YSJ {
             pstmt.setInt(2, userCode);
 
             result = pstmt.executeUpdate();
-
-            if (result == 1){
-                System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 초기화 성공 * ੈ✩‧₊");
-            }else {
-                System.out.println("* ੈ✩‧₊ 초기화 실패하셨습니다. 다시 시도해주세요. * ੈ✩‧₊");
-            }
 
         } catch (IOException e) {
             throw new RuntimeException(e);

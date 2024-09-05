@@ -3,7 +3,7 @@
 <properties>
     <entry key="deletecontact">
         DELETE FROM tbl_contact
-        WHERE phonenumber = ?, user_code = ?
+        WHERE phonenumber = ? AND user_code = ?
     </entry>
 
     <entry key="insertcontact">
@@ -224,9 +224,25 @@
     <entry key="deleteContactInGroup">
         UPDATE tbl_contact a
         LEFT JOIN tbl_group b
-        ON a.groupnumber = b.groupnumber
+
+        ON
+        a.groupnumber = b.groupnumber
         SET a.groupnumber = null
         WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
+    </entry>
+
+
+    <entry key ="dupSign">
+        select
+        id
+        from tbl_user
+        where id = ?
+
+
+    </entry>
+
+    <entry key="countphonenumber">
+        SELECT COUNT(*) FROM tbl_contact WHERE phonenumber = ?;
     </entry>
 
 
