@@ -120,6 +120,8 @@ public class Controller {
     public void test2(int userCode) {
         String prefer= userPreferDAO.saveUserPrefer1(getConnection(), userCode);
 
+           prefer = Prefer.description(prefer);
+
 
 
        List<ContactDTO> test1 = findphoneNumber.findPhoneNumbers1(getConnection(), userCode,prefer);
