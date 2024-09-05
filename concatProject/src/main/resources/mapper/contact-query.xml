@@ -3,7 +3,7 @@
 <properties>
     <entry key="deletecontact">
         DELETE FROM tbl_contact
-        WHERE phonenumber = ?, user_code = ?
+        WHERE phonenumber = ? AND user_code = ?
     </entry>
 
     <entry key="insertcontact">
