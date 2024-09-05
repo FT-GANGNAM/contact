@@ -229,5 +229,14 @@
         WHERE a.groupnumber = ? AND a.phonenumber = ? AND a.user_code = ?;
     </entry>
 
+    <entry key ="dupSign">
+        select
+        id
+        from tbl_user
+        where id = ?
+
+
+    </entry>
+
 
 </properties>
