@@ -131,7 +131,7 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
+        System.out.println("* ੈ✩‧₊ 삭제할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
         String phone = scr.nextLine();
         if (isValidPhoneNumber(phone)){
             contactDTO.phonenumber(phone);
