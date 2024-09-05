@@ -31,9 +31,9 @@ public class GroupUpdateManager
         }
         else
         {
-            System.out.println("* ੈ✩‧₊ 제거하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
+            System.out.println("* ੈ✩‧₊ 삭제하고 싶은 그룹의 이름을 입력해주세요 : * ੈ✩‧₊");
 
-            System.out.println("제거하고 싶은 그룹의 이름을 입력해주세요 : ");
+            System.out.println("삭제하고 싶은 그룹의 이름을 입력해주세요 : ");
             String groupName = scr.nextLine();
             contactDTO.groupname(groupName);
 
