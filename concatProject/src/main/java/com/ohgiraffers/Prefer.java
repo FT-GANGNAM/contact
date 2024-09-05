@@ -35,7 +35,7 @@ public enum Prefer {
     public static  String description(String prefer) {
         String des = null;
         for(Prefer p : Prefer.values()) {
-            if(p.getCount().equals(prefer)){
+            if(p.getCount().equals(prefer) || p.getDescription().equals(prefer)){
                 des = p.getDescription();
 
 

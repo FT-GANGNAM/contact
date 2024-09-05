@@ -8,6 +8,7 @@ import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+
 import static com.ohgiraffers.common.JDBCTemplate.*;
 
 
@@ -15,6 +16,7 @@ import static com.ohgiraffers.common.JDBCTemplate.*;
 public class ContactController_YSJ {
 
     GroupUpdateManager groupUpdateManager = new GroupUpdateManager();
+    Controller controller = new Controller();
     private ContactDAO_YSJ contactDAO = new ContactDAO_YSJ("src/main/resources/mapper/contact-query.xml");
 
 public void insertcontact(int userCode){  //contact_name,phonenumber, email, address, birthday, groupnumber
@@ -75,6 +77,7 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);    // 바꿀 연락처 (b) 변수만 쓰면된다. 나중에 여유되면 나머지 필요없는 변수 삭제
 
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
+    controller.test2(userCode);
 
     System.out.println("수정하고 싶은 연락처의 번호를 입력해주세요 ex)010-1234-5678 : ");
     String phone = scr.nextLine();
@@ -131,7 +134,7 @@ public void updatecontact(int userCode) {
     Scanner scr = new Scanner(System.in);
     ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
-        System.out.println("* ੈ✩‧₊ 제거할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
+        System.out.println("* ੈ✩‧₊ 삭제할 연락처번호를 입력 해주세요 : * ੈ✩‧₊");
         String phone = scr.nextLine();
         if (isValidPhoneNumber(phone)){
             contactDTO.phonenumber(phone);
