@@ -25,7 +25,7 @@ public class GroupUpdateManager
         ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
         List<GroupDTO> groupsInUser = contactDAO.getAllGroups(getConnection(), userCode);
-        System.out.println(groupsInUser);
+
         if(groupsInUser.isEmpty())
         {
             System.out.println("저장된 그룹이 없습니다.");
@@ -53,17 +53,13 @@ public class GroupUpdateManager
                 int initResult = contactDAO.updateForDeleteGroup(getConnection(), contactDTO, userCode);
 
                 if (initResult > 0){
-                    System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 초기화 성공 * ੈ✩‧₊");
+                    System.out.println("* ੈ✩‧₊ 그룹 삭제를 위한 연락처 초기화 성공 * ੈ✩‧₊");
                     System.out.println();
+                }
 
-                    int groupResult = contactDAO.deleteGroup(getConnection(), groupName, userCode);
-                    System.out.println(groupResult > 0 ? "[ " + groupName + " ] 그룹 삭제에 성공했습니다." : "[ " + groupName + " ] 그룹 삭제에 실패했습니다.");
-                    System.out.println();
-                }
-                else
-                {
-                    System.out.println("* ੈ✩‧₊ 초기화 실패하셨습니다. 다시 시도해주세요. * ੈ✩‧₊");
-                }
+                int groupResult = contactDAO.deleteGroup(getConnection(), groupName, userCode);
+                System.out.println(groupResult > 0 ? "[ " + groupName + " ] 그룹 삭제에 성공했습니다." : "[ " + groupName + " ] 그룹 삭제에 실패했습니다.");
+                System.out.println();
             }
             else
             {
