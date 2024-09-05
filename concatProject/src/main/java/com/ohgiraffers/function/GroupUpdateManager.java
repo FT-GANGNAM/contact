@@ -25,6 +25,7 @@ public class GroupUpdateManager
         ContactDTO_YSJ contactDTO = new ContactDTO_YSJ();
 
         List<GroupDTO> groupsInUser = contactDAO.getAllGroups(getConnection(), userCode);
+        System.out.println(groupsInUser);
         if(groupsInUser.isEmpty())
         {
             System.out.println("저장된 그룹이 없습니다.");
@@ -44,6 +45,7 @@ public class GroupUpdateManager
             for(GroupDTO group : groupsInUser)
             {
                 isInUserContact = group.getGroupName().equals(groupName);
+                if(isInUserContact) break;
             }
 
             if(isInUserContact)
