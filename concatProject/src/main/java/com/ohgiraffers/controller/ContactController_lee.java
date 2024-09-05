@@ -58,7 +58,6 @@ public class ContactController_lee {
             for (Map<String, Integer> map : result) {
                 System.out.println(map);
             }
-
         }
     }
 
