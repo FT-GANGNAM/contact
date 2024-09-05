@@ -8,6 +8,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import static com.ohgiraffers.common.JDBCTemplate.*;
@@ -88,6 +90,35 @@ public class AccessUserDAO
             close(con);
             close(ps);
         }
+
+    }
+    public String dupSign(Connection con, String id){
+        PreparedStatement ps = null;
+        ResultSet rset = null;
+        String query = prop.getProperty("dupSign");
+
+        String a = null;
+
+        try {
+            ps = con.prepareStatement(query);
+            ps.setString(1, id);
+
+            rset = ps.executeQuery();
+
+            while(rset.next()){
+
+                a = rset.getString("id");
+
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }finally{
+            close(con);
+            close(ps);
+            close(rset);
+        }return a;
+
 
     }
 }
